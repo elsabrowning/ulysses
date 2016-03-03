@@ -4,9 +4,15 @@
 
 class MainController {
 
-  constructor($http, papa) {
+  constructor($http, $scope, papa) {
     this.$http = $http;
     this.awesomeThings = [];
+
+    $scope.foodForPapa = null;
+
+    $scope.$watch('foodForPapa', function(data) {
+      console.log($scope.foodForPapa);
+    });
 
     $http.get('/api/things').then(response => {
       this.awesomeThings = response.data;
