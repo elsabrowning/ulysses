@@ -16,4 +16,6 @@ angular.module('ulyssesApp', [
       .otherwise('/');
 
     $locationProvider.html5Mode(true);
-  });
+  })
+
+  .value('papa', Papa);
