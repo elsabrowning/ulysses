@@ -4,7 +4,32 @@
  */
 
 'use strict';
+import Schedule from '../api/schedule/schedule.model';
 import User from '../api/user/user.model';
+
+Schedule.find({}).removeAsync()
+  .then(() => {
+    Schedule.createAsync({
+      name: 'Some Cool Odyssey Thing',
+      date: new Date('April 1, 2016'),
+      info: 'It\'s gonna be totally wicked.',
+      slots: [{
+        type: 'Food service',
+        volunteers: 4,
+        start: {
+          hour: 10,
+          minute: 30
+        },
+        end: {
+          hour: 11,
+          minute: 45
+        }
+      }]
+    })
+    .then(() => {
+      console.log('finished populating schedules');
+    });
+  });
 
 User.find({}).removeAsync()
   .then(() => {

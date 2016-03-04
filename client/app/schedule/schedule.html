@@ -1,1 +1,6 @@
 <div>This is the schedule view.</div>
+
+<div ng-repeat="schedule in schedules">
+  <a ui-sref="schedule.input({ id: schedule._id })">{{schedule.name}}</a><br/>
+  {{schedule.info}}
+</div>
