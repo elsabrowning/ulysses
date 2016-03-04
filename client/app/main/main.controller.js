@@ -9,10 +9,19 @@ class MainController {
     this.awesomeThings = [];
 
     $scope.foodForPapa = null;
+    $scope.crap = [];
 
-    $scope.$watch('foodForPapa', function(data) {
-      console.log($scope.foodForPapa);
-    });
+    $scope.eat = function(data) {
+      if ($scope.foodForPapa) {
+        papa.parse($scope.foodForPapa, {
+          header: true,
+          complete: function(results) {
+            $scope.crap = results.data;
+            $scope.$apply();
+          }
+        });
+      }
+    };
 
     $http.get('/api/things').then(response => {
       this.awesomeThings = response.data;
