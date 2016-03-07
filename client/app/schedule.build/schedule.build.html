@@ -1,0 +1,17 @@
+<div>This is the schedule.build view for {{ schedule.name }}.</div>
+
+<form ng-submit="save()">
+  <div ng-repeat="thing in schedule.slots track by $index">
+    <input type="text" ng-model="thing.type" />
+    Start:
+    <input type="number" ng-model="thing.start.hour" />
+    <input type="number" ng-model="thing.start.minute" />
+    End:
+    <input type="number" ng-model="thing.end.hour" />
+    <input type="number" ng-model="thing.end.minute" />
+    <button type="button" ng-click="schedule.slots.splice($index, 1)">Remove</button>
+  </div>
+
+  <button type="button" ng-click="schedule.slots.push({})">Add another slot</button>
+  <button type="submit">Save and continue</button>
+</form>

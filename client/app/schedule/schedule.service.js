@@ -2,5 +2,26 @@
 
 angular.module('ulyssesApp')
   .factory('Schedule', function($resource) {
-    return new $resource('/api/schedules/:id');
+    var Schedule = new $resource('/api/schedules/:id', null, {
+      create: {
+        method: 'POST'
+      },
+      update: {
+        method: 'PUT',
+        params: {
+          id: '@_id'
+        }
+      }
+    });
+
+    Schedule.prototype.$save = function() {
+      if (!this._id) {
+        return this.$create();
+      }
+      else {
+        return this.$update();
+      }
+    };
+
+    return Schedule;
   });

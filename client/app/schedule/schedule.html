@@ -1,6 +1,29 @@
-<div>This is the schedule view.</div>
+<div class="container">
+  <div ng-repeat="schedule in schedules">
+    <h2>
+      <a ui-sref="schedule.input({ id: schedule._id })">{{schedule.name}}</a>
+    </h2>
 
-<div ng-repeat="schedule in schedules">
-  <a ui-sref="schedule.input({ id: schedule._id })">{{schedule.name}}</a><br/>
-  {{schedule.info}}
+    {{schedule.info}}
+
+    <ul>
+      <li ui-sref-active="active">
+        <a ui-sref="schedule.build({ id: schedule._id })">Build</a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="schedule.input({ id: schedule._id })">Input</a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="schedule.edit({ id: schedule._id })">Edit</a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="schedule.finalize({ id: schedule._id })">Finalize</a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="schedule.view({ id: schedule._id })">View</a>
+      </li>
+    </ul>
+  </div>
+
+  <div ui-view></div>
 </div>

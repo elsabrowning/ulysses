@@ -10,22 +10,6 @@
       <a href="/" class="navbar-brand">Scheduler of the Mind</a>
     </div>
     <div collapse="nav.isCollapsed" class="navbar-collapse collapse" id="navbar-main">
-      <ul class="nav navbar-nav">
-        <li ng-show="nav.hasRole('organizer')" ui-sref-active="active">
-          <a ui-sref="schedule.input">Input</a>
-        </li>
-        <li ng-show="nav.hasRole('organizer')" ui-sref-active="active">
-          <a ui-sref="schedule.edit">Edit</a>
-        </li>
-        <li ng-show="nav.hasRole('organizer')" ui-sref-active="active">
-          <a ui-sref="schedule.finalize">Finalize</a>
-        </li>
-        <li ng-show="nav.hasRole('volunteer')" ui-sref-active="active">
-          <a ui-sref="schedule.view">View</a>
-        </li>
-        <li ng-show="nav.isAdmin()" ui-sref-active="active"><a ui-sref="admin">Admin</a></li>
-      </ul>
-
       <ul class="nav navbar-nav navbar-right">
         <li ng-hide="nav.isLoggedIn()" ui-sref-active="active"><a ui-sref="signup">Sign up</a></li>
         <li ng-hide="nav.isLoggedIn()" ui-sref-active="active"><a ui-sref="login">Login</a></li>
