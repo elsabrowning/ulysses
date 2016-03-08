@@ -1,14 +1,14 @@
 <div>This is the schedule.build view for {{ schedule.name }}.</div>
 
 <form ng-submit="save()">
-  <div ng-repeat="thing in schedule.slots track by $index">
-    <input type="text" ng-model="thing.type" />
+  <div ng-repeat="slot in schedule.slots track by $index">
+    <input type="text" ng-model="slot.category" />
     Start:
-    <input type="number" ng-model="thing.start.hour" />
-    <input type="number" ng-model="thing.start.minute" />
+    <input type="number" ng-model="slot.start.hour" />
+    <input type="number" ng-model="slot.start.minute" />
     End:
-    <input type="number" ng-model="thing.end.hour" />
-    <input type="number" ng-model="thing.end.minute" />
+    <input type="number" ng-model="slot.end.hour" />
+    <input type="number" ng-model="slot.end.minute" />
     <button type="button" ng-click="schedule.slots.splice($index, 1)">Remove</button>
   </div>
 

@@ -23,9 +23,16 @@ function respondWithResult(res, statusCode) {
 
 function saveUpdates(updates) {
   return function(entity) {
-    var updated = _.merge(entity, updates);
+    var updated = _.mergeWith(entity, updates, function(destination, source) {
+      if (_.isArray(destination)) {
+        return source;
+      }
+    });
+
+    console.log(updated);
     return updated.saveAsync()
-      .spread(updated => {
+      .spread((updated, affected) => {
+        console.log(affected);
         return updated;
       });
   };

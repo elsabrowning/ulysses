@@ -6,7 +6,21 @@ var ScheduleSchema = new mongoose.Schema({
   name: String,
   date: Date,
   info: String,
-  slots: Array,
+  slots: [new mongoose.Schema({
+    category: String,
+    volunteers: Number,
+    start: {
+      hour: Number,
+      minute: Number
+    },
+    end: {
+      hour: Number,
+      minute: Number
+    }
+  },
+  {
+    _id: false
+  })],
   volunteers: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Volunteer'

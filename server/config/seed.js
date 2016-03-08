@@ -14,7 +14,7 @@ Schedule.find({}).removeAsync()
       date: new Date('April 1, 2016'),
       info: 'It\'s gonna be totally wicked.',
       slots: [{
-        type: 'Food service',
+        category: 'Food service',
         volunteers: 4,
         start: {
           hour: 10,
