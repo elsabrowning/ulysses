@@ -10,6 +10,9 @@
       <a href="/" class="navbar-brand">Scheduler of the Mind</a>
     </div>
     <div collapse="nav.isCollapsed" class="navbar-collapse collapse" id="navbar-main">
+      <ul class="nav navbar-nav">
+        <li ng-show="nav.hasRole('organizer')" ui-sref-active="active"><a href="/schedule">Schedule</a></li>
+      </ul>
       <ul class="nav navbar-nav navbar-right">
         <li ng-hide="nav.isLoggedIn()" ui-sref-active="active"><a ui-sref="signup">Sign up</a></li>
         <li ng-hide="nav.isLoggedIn()" ui-sref-active="active"><a ui-sref="login">Login</a></li>
