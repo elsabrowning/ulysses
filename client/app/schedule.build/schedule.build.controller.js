@@ -9,7 +9,7 @@ angular.module('ulyssesApp')
         .then(function() {
           $state.go('^.input');
         }, function() {
-          console.log('An error happened / You write terrible software / This is meaningless');
+          console.log('An error happened / You write terrible software / Life is meaningless');
         });
     };
   });
