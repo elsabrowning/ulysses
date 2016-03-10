@@ -1,1 +1,19 @@
-<div>Upload the volunteers into your schedule here!</div>
+<div class="form-group">
+  <label for="csv">List of volunteers</label>
+  <input type="file" id="csv" file-read="volunteerCSV" />
+  <p class="help-block">Select a CSV file of volunteer information.</p>
+</div>
+
+<div class="form-group">
+  <button class="btn btn-primary" ng-click="process()">
+    Display volunteer information
+  </button>
+</div>
+
+<div ng-if="volunteers.length">
+  <h2>Volunteer names</h2>
+
+  <div ng-repeat="volunteer in volunteers">
+    {{ volunteer['First name'] }} {{ volunteer['Last name'] }}
+  </div>
+</div>
