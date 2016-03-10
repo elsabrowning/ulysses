@@ -4,25 +4,13 @@
       <a ui-sref="schedule.input({ id: schedule._id })">{{schedule.name}}</a>
     </h2>
 
-    {{schedule.info}}
-
-    <ul>
-      <li ui-sref-active="active">
-        <a ui-sref="schedule.build({ id: schedule._id })">Build Schedule</a>
-      </li>
-      <li ui-sref-active="active">
-        <a ui-sref="schedule.input({ id: schedule._id })">Upload Volunteers</a>
-      </li>
-      <li ui-sref-active="active">
-        <a ui-sref="schedule.edit({ id: schedule._id })">Assign Volunteers</a>
-      </li>
-      <li ui-sref-active="active">
-        <a ui-sref="schedule.finalize({ id: schedule._id })">Finalize Schedule</a>
-      </li>
-      <li ui-sref-active="active">
-        <a ui-sref="schedule.view({ id: schedule._id })">View Schedule</a>
-      </li>
-    </ul>
+    <div class="btn-group">
+      <a class="btn btn-default" ui-sref="schedule.build({ id: schedule._id })" ui-sref-active="btn-primary">Build Schedule</a>
+      <a class="btn btn-default" ui-sref="schedule.input({ id: schedule._id })" ui-sref-active="btn-primary">Upload Volunteers</a>
+      <a class="btn btn-default" ui-sref="schedule.edit({ id: schedule._id })" ui-sref-active="btn-primary">Assign Volunteers</a>
+      <a class="btn btn-default" ui-sref="schedule.finalize({ id: schedule._id })" ui-sref-active="btn-primary">Finalize Schedule</a>
+      <a class="btn btn-default" ui-sref="schedule.view({ id: schedule._id })" ui-sref-active="btn-primary">View Schedule</a>
+    </div>
   </div>
 
   <div ui-view></div>

@@ -11,8 +11,20 @@
     </div>
     <div collapse="nav.isCollapsed" class="navbar-collapse collapse" id="navbar-main">
       <ul class="nav navbar-nav">
-        <li ng-show="nav.hasRole('organizer')" ui-sref-active="active"><a href="/schedule">Schedule</a></li>
+        <li ng-show="nav.hasRole('organizer')" ui-sref-active="active" uib-dropdown>
+          <a class="dropdown-toggle" uib-dropdown-toggle>
+            Schedule
+            <span class="caret"></span>
+          </a>
+
+          <ul class="dropdown-menu" uib-dropdown-menu>
+            <li ng-repeat="schedule in schedules">
+              <a ui-sref="schedule({ id: schedule._id })">{{ schedule.name }}</a>
+            </li>
+          </ul>
+        </li>
       </ul>
+
       <ul class="nav navbar-nav navbar-right">
         <li ng-hide="nav.isLoggedIn()" ui-sref-active="active"><a ui-sref="signup">Sign up</a></li>
         <li ng-hide="nav.isLoggedIn()" ui-sref-active="active"><a ui-sref="login">Login</a></li>
