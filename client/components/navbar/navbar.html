@@ -23,6 +23,9 @@
             </li>
           </ul>
         </li>
+        <li ng-show="nav.hasRole('admin')" ui-sref-active="active">
+          <a href="/admin">Admin</a>
+        </li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
