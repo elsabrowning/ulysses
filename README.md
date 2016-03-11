@@ -1,5 +1,7 @@
 # ulysses
 
+[Our Burndown Chart](https://docs.google.com/a/morris.umn.edu/spreadsheets/d/10u8tFtsQE0KksfWKahfd_ZO1DlBqNFiJhLP7YAq7DVM/edit?usp=sharing)
+
 This project was generated with the [Angular Full-Stack Generator](https://github.com/DaftMonk/generator-angular-fullstack) version 3.3.0.
 
 ## Getting Started
