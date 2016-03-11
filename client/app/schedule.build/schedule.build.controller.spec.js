@@ -7,15 +7,31 @@ describe('Controller: ScheduleBuildCtrl', function () {
 
   var ScheduleBuildCtrl, scope;
 
+  // Make a thing that pretends to be the schedule:
+  var FakeSchedule = {
+    get: function() {
+      return {
+        name: '',
+        date: '',
+        slots: new Array(12)
+      }
+    }
+  };
+
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
+  beforeEach(inject(function ($controller, $rootScope, $state) {
     scope = $rootScope.$new();
     ScheduleBuildCtrl = $controller('ScheduleBuildCtrl', {
-      $scope: scope
+      $scope: scope,
+      $state: $state,
+      $stateParams: {
+        id: 'testinglol'
+      },
+      Schedule: FakeSchedule
     });
   }));
 
-  it('should ...', function () {
-    expect(1).toEqual(1);
+  it('should correctly populate the slot table', function () {
+    expect(scope.schedule.slots.length).toBe(12);
   });
 });
