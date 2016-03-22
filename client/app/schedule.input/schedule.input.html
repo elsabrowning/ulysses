@@ -13,7 +13,7 @@
 <div ng-if="volunteers.length">
   <h2>Volunteer names</h2>
 
-  <div ng-repeat="volunteer in volunteers">
-    {{ volunteer['First name'] }} {{ volunteer['Last name'] }}
+  <div ng-repeat="volunteer in schedule.volunteers">
+    {{ volunteer.name}} {{ volunteer.email}}
   </div>
 </div>
