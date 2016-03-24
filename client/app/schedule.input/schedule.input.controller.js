@@ -10,10 +10,12 @@ angular.module('ulyssesApp')
         papa.parse($scope.volunteerCSV, {
           header: true,
           step: function(result) {
-            $scope.schedule.volunteers.push(birthVolunteer(result.data));
+            $scope.schedule.volunteers.push(birthVolunteer(result.data[0]));
+
           },
           complete: function() {
             $scope.$apply();
+            console.log($scope.schedule.volunteers);
           }
         });
       }
@@ -24,6 +26,7 @@ angular.module('ulyssesApp')
     };
 
     var birthVolunteer = function(row){
+      console.log(row);
       return {
         name: fullName(row["First name"], row["Last name"]),
         email: row["E-mail"],

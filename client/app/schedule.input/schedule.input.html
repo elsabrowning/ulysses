@@ -10,10 +10,10 @@
   </button>
 </div>
 
-<div ng-if="volunteers.length">
+<div ng-if="schedule.volunteers.length">
   <h2>Volunteer names</h2>
 
   <div ng-repeat="volunteer in schedule.volunteers">
-    {{ volunteer.name}} {{ volunteer.email}}
+    Name: {{ volunteer.name}} email: {{ volunteer.email}}
   </div>
 </div>
