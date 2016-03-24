@@ -8,11 +8,11 @@ var VolunteerSchema = new mongoose.Schema({
   phone: String,
   username: String,
   password: String,
-  constraints: Array,
+  // constraints: Array,
   comments: String,
   shirt: String,
-  positions: Array,
-  preferences: Array
+  // positions: Array,
+  // preferences: Array
 });
 
 export default mongoose.model('Volunteer', VolunteerSchema);

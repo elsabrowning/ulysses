@@ -15,7 +15,6 @@ angular.module('ulyssesApp')
           },
           complete: function() {
             $scope.$apply();
-            console.log($scope.schedule.volunteers);
           }
         });
       }
@@ -25,8 +24,7 @@ angular.module('ulyssesApp')
       return [first, last].join(" ");
     };
 
-    var birthVolunteer = function(row){
-      console.log(row);
+    var birthVolunteer = function(row) {
       return {
         name: fullName(row["First name"], row["Last name"]),
         email: row["E-mail"],
@@ -39,6 +37,15 @@ angular.module('ulyssesApp')
         positions: [],
         preferences: []
       };
+    };
+
+    $scope.save = function() {
+      $scope.schedule.$save()
+        .then(function() {
+          $state.go('^.edit');
+        }, function() {
+          console.log('An error happened / You write terrible software / Life is meaningless');
+        });
     };
 
   });

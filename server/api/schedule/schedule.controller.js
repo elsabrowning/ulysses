@@ -29,10 +29,8 @@ function saveUpdates(updates) {
       }
     });
 
-    console.log(updated);
     return updated.saveAsync()
       .spread((updated, affected) => {
-        console.log(affected);
         return updated;
       });
   };

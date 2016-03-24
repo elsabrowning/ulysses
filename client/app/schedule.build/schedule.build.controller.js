@@ -7,7 +7,7 @@ angular.module('ulyssesApp')
     $scope.save = function() {
       $scope.schedule.$save()
         .then(function() {
-          $state.go('^.input');
+          $state.go('^.input', { id: $scope.schedule._id });
         }, function() {
           console.log('An error happened / You write terrible software / Life is meaningless');
         });
