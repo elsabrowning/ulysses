@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ulyssesApp')
-  .controller('ScheduleInputCtrl', function ($scope, $stateParams, papa, Schedule) {
+  .controller('ScheduleInputCtrl', function ($scope, $stateParams, papa, Schedule, $state) {
     $scope.schedule = Schedule.get($stateParams);
     $scope.volunteerCSV = null;
 
@@ -40,7 +40,7 @@ angular.module('ulyssesApp')
     };
 
     $scope.save = function() {
-      $scope.schedule.$save()
+      $scope.schedule.$save() //We need to fix this save. I don't know why it isn't saving data, but maybe we are never putting it into the $scope.schedule I am not sure
         .then(function() {
           $state.go('^.edit');
         }, function() {

@@ -4,10 +4,10 @@
   <p class="help-block">Select a CSV file of volunteer information.</p>
 </div>
 
-<form class="form-group" ng-submit="save()">
-  <button type="button" class="btn btn-primary" ng-click="process()">
+<button type="button" class="btn btn-primary" ng-click="process()">
     Display volunteer information
-  </button>
+</button>
+<form class="form-group" ng-submit="save()">
   <button type="submit" class="btn btn-success">Save and continue</button>
 </form>
 <div ng-if="schedule.volunteers.length">
