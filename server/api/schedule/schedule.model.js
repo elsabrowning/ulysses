@@ -1,6 +1,7 @@
 'use strict';
 
 var mongoose = require('bluebird').promisifyAll(require('mongoose'));
+var VolunteerSchema = require('../volunteer/volunteer.model');
 
 var ScheduleSchema = new mongoose.Schema({
   name: String,
@@ -21,10 +22,7 @@ var ScheduleSchema = new mongoose.Schema({
   {
     _id: false
   })],
-  volunteers: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Volunteer'
-  }]
+  volunteers: [{volunteer: [VolunteerSchema]}]
 });
 
 export default mongoose.model('Schedule', ScheduleSchema);
