@@ -30,6 +30,7 @@ var SlotSchema = new mongoose.Schema({
 
 var JobSchema = new mongoose.Schema({
   name: String,
+  training: Number,
   slots: [SlotSchema]
 });
 

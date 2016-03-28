@@ -15,6 +15,7 @@ Schedule.find({}).removeAsync()
       info: 'It will be totally wicked.',
       jobs: [{
         name: 'Food service',
+        training: 15,
         slots: [{
           assigned: [],
           positions: 4,
