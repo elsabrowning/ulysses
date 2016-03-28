@@ -10,8 +10,7 @@ angular.module('ulyssesApp')
         papa.parse($scope.volunteerCSV, {
           header: true,
           step: function(result) {
-            $scope.schedule.volunteers.push(birthVolunteer(result.data[0]));
-
+            $scope.schedule.unassigned.push(birthVolunteer(result.data[0]));
           },
           complete: function() {
             $scope.$apply();
@@ -40,7 +39,7 @@ angular.module('ulyssesApp')
     };
 
     $scope.save = function() {
-      $scope.schedule.$save() //We need to fix this save. I don't know why it isn't saving data, but maybe we are never putting it into the $scope.schedule I am not sure
+      $scope.schedule.$save()
         .then(function() {
           $state.go('^.edit');
         }, function() {

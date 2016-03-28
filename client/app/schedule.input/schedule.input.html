@@ -10,10 +10,10 @@
 <form class="form-group" ng-submit="save()">
   <button type="submit" class="btn btn-success">Save and continue</button>
 </form>
-<div ng-if="schedule.volunteers.length">
+<div ng-if="schedule.unassigned.length">
   <h2>Volunteer names</h2>
 
-  <div ng-repeat="volunteer in schedule.volunteers">
+  <div ng-repeat="volunteer in schedule.unassigned">
     Name: {{ volunteer.name}} email: {{ volunteer.email}} phone: {{ volunteer.phone }}
     username: {{ volunteer.username }} password: {{ volunteer.password }}
     constraints: {{volunteer.constraints}} (Should be empty array)
