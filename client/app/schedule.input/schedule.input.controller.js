@@ -5,6 +5,10 @@ angular.module('ulyssesApp')
     $scope.schedule = Schedule.get($stateParams);
     $scope.volunteerCSV = null;
 
+    $scope.add = function() {
+      $scope.schedule.unassigned.push({});
+    };
+
     $scope.process = function(data) {
       if ($scope.volunteerCSV) {
         papa.parse($scope.volunteerCSV, {
