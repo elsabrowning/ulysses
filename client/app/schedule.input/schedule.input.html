@@ -1,22 +1,34 @@
 <div class="row">
   <div class="col-md-8">
-    <form class="form-group" ng-submit="save()">
-      <button type="button" class="btn btn-default" ng-click="add()">Add a new volunteer</button>
-      <button type="submit" class="btn btn-success">Save and continue</button>
-    </form>
-    <div ng-if="schedule.unassigned.length">
-      <h2>Volunteer names</h2>
-
-      <div ng-repeat="volunteer in schedule.unassigned">
-        Name: {{ volunteer.name}} email: {{ volunteer.email}} phone: {{ volunteer.phone }}
-        username: {{ volunteer.username }} password: {{ volunteer.password }}
-        constraints: {{volunteer.constraints}} (Should be empty array)
-        comments: {{ volunteer.comments }} shirt: {{ volunteer.T-shirt }}
-        positions: {{ volunteer.positions }} (should be empty array)
-        preferences: {{volunteer.preferences}} (Should be empty array)
-        <br /><br />
+    <form ng-submit="save()">
+      <div class="form-group">
+        <button type="button" class="btn btn-default" ng-click="add()">Add a new volunteer</button>
+        <button type="submit" class="btn btn-success">Save and continue</button>
       </div>
-    </div>
+
+      <div class="list-group">
+        <div class="list-group-item" ng-repeat="volunteer in schedule.unassigned">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" ng-model="volunteer.name" />
+          </div>
+
+          <div class="form-group">
+            <label>Email address</label>
+            <input type="email" class="form-control" ng-model="volunteer.email" />
+          </div>
+
+          <div class="form-group">
+            <label>Phone number</label>
+            <input type="text" class="form-control" ng-model="volunteer.phone" />
+          </div>
+
+          <div class="form-group">
+            <button class="btn btn-danger" ng-click="remove($index)">Remove</button>
+          </div>
+        </div>
+      </div>
+    </form>
   </div>
 
   <div class="col-md-4">
