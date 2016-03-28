@@ -6,7 +6,11 @@ angular.module('ulyssesApp')
     $scope.volunteerCSV = null;
 
     $scope.add = function() {
-      $scope.schedule.unassigned.push({});
+      $scope.schedule.unassigned.unshift({});
+    };
+
+    $scope.remove = function(index) {
+      $scope.schedule.unassigned.splice(index, 1);
     };
 
     $scope.process = function(data) {
