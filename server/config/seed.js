@@ -12,19 +12,23 @@ Schedule.find({}).removeAsync()
     Schedule.createAsync({
       name: 'Some Cool Odyssey Thing',
       date: new Date('April 1, 2016'),
-      info: 'It\'s gonna be totally wicked.',
-      slots: [{
-        category: 'Food service',
-        volunteers: 4,
-        start: {
-          hour: 10,
-          minute: 30
-        },
-        end: {
-          hour: 11,
-          minute: 45
-        }
-      }]
+      info: 'It will be totally wicked.',
+      jobs: [{
+        name: 'Food service',
+        slots: [{
+          assigned: [],
+          positions: 4,
+          start: {
+            hour: 10,
+            minute: 30
+          },
+          end: {
+            hour: 11,
+            minute: 45
+          }
+        }]
+      }],
+      unassigned: []
     })
     .then(() => {
       console.log('finished populating schedules');
