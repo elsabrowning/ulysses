@@ -2,50 +2,43 @@
 
 <form class="form-group" ng-submit="save()">
   <div class="list-group">
-    <div class="list-group-item" ng-repeat="slot in schedule.slots track by $index">
+    <div class="list-group-item" ng-repeat="job in schedule.jobs track by $index">
       <div class="row">
         <div class="col-md-4">
           <label>Position Name</label>
-          <input type="text" class="form-control" ng-model="slot.category" />
-        </div>
-
-        <div class="col-md-3">
-          <label>Start Time</label>
-
-          <div class="form-inline">
-            <div class="form-group">
-              <input type="number" min="0" max="23" class="form-control form-control-narrow" ng-model="slot.start.hour" />
-              :
-              <input type="number" min="0" max="59" class="form-control form-control-narrow" ng-model="slot.start.minute" />
-            </div>
+          <input type="text" class="form-control" ng-model="job.name" />
+       </div>
+       <div ng-repeat="slot in job.slots">
+         <!-- <div class="col-md-1">
+           <label>Assigned</label>
+           <input type="text" class="form-control" ng-model="slot.assigned"/>
+         </div> -->
+         <div class="col-md-1">
+            <label>Positions</label>
+            <input type="text" class="form-control" ng-model="slot.positions"/>
           </div>
-        </div>
-
-        <div class="col-md-3">
-          <label>End Time</label>
-
-          <div class="form-inline">
-            <div class="form-group">
-              <input type="number" min="0" max="23" class="form-control form-control-narrow" ng-model="slot.end.hour" />
-              :
-              <input type="number" min="0" max="59" class="form-control form-control-narrow" ng-model="slot.end.minute" />
+          <div class="col-sm-1">
+             <label>Start</label>
+             <input type="number" class="form-control" ng-model="slot.start.hour"/>
+           </div>
+           <div class="col-sm-1" style="margin-left: -25px">
+             <label class="crouching-tiger-hidden-label">RAWR</label>
+              <input type="number" class="form-control" ng-model="slot.start.minute"/>
             </div>
+            <div class="col-sm-1">
+               <label>End</label>
+               <input type="number" class="form-control" ng-model="slot.end.hour"/>
+             </div>
+             <div class="col-sm-1" style="margin-left: -25px">
+               <label class="crouching-tiger-hidden-label">RAWR</label>
+                <input type="number" class="form-control" ng-model="slot.end.minute"/>
+              </div>
           </div>
-        </div>
-
-        <div class="col-md-2">
-          <label class="crouching-tiger-hidden-label">Actions</label>
-
-          <div class="form-inline">
-            <div class="form-group">
-              <button type="button" class="btn btn-danger" ng-click="schedule.slots.splice($index, 1)">Remove</button>
-            </div>
-          </div>
+          <button type="button" class="btn btn-default ; crouching-tiger-hidden-label" ng-click="schedule.jobs.push({slots:[]})">Add another slot</button>
         </div>
       </div>
     </div>
   </div>
 
-  <button type="button" class="btn btn-default" ng-click="schedule.slots.push({})">Add another slot</button>
   <button type="submit" class="btn btn-success">Save and continue</button>
 </form>
