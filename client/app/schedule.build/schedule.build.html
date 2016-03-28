@@ -7,38 +7,44 @@
         <div class="col-md-4">
           <label>Position Name</label>
           <input type="text" class="form-control" ng-model="job.name" />
-       </div>
-       <div ng-repeat="slot in job.slots">
-         <!-- <div class="col-md-1">
-           <label>Assigned</label>
-           <input type="text" class="form-control" ng-model="slot.assigned"/>
-         </div> -->
-         <div class="col-md-1">
-            <label>Positions</label>
-            <input type="text" class="form-control" ng-model="slot.positions"/>
-          </div>
-          <div class="col-sm-1">
-             <label>Start</label>
-             <input type="number" class="form-control" ng-model="slot.start.hour"/>
-           </div>
-           <div class="col-sm-1" style="margin-left: -25px">
-             <label class="crouching-tiger-hidden-label">RAWR</label>
+        </div>
+          <!-- <div class="col-md-1">
+          <label>Assigned</label>
+          <input type="text" class="form-control" ng-model="slot.assigned"/>
+        </div> -->
+        <div class="col-md-6">
+          <div class="row" ng-repeat="slot in job.slots">
+            <div class="col-md-4">
+              <label>Volunteers</label>
+              <input type="text" class="form-control" ng-model="slot.positions"/>
+            </div>
+            <div class="col-sm-2">
+              <label>Start</label>
+              <input type="number" class="form-control" ng-model="slot.start.hour"/>
+            </div>
+            <div class="col-sm-2" style="margin-left: -25px">
+              <label class="crouching-tiger-hidden-label">RAWR</label>
               <input type="number" class="form-control" ng-model="slot.start.minute"/>
             </div>
-            <div class="col-sm-1">
-               <label>End</label>
-               <input type="number" class="form-control" ng-model="slot.end.hour"/>
-             </div>
-             <div class="col-sm-1" style="margin-left: -25px">
-               <label class="crouching-tiger-hidden-label">RAWR</label>
-                <input type="number" class="form-control" ng-model="slot.end.minute"/>
-              </div>
+            <div class="col-sm-2">
+              <label>End</label>
+              <input type="number" class="form-control" ng-model="slot.end.hour"/>
+            </div>
+            <div class="col-sm-2" style="margin-left: -25px">
+              <label class="crouching-tiger-hidden-label">RAWR</label>
+              <input type="number" class="form-control" ng-model="slot.end.minute"/>
+            </div>
           </div>
-          <button type="button" class="btn btn-default ; crouching-tiger-hidden-label" ng-click="schedule.jobs.push({slots:[]})">Add another slot</button>
+        </div>
+        <div class="col-md-2">
+          <label class="crouching-tiger-hidden-label">RAWR</label>
+          <button type="button" class="btn btn-default" ng-click="job.slots.push({});">Add another time slot</button>
         </div>
       </div>
     </div>
   </div>
-
-  <button type="submit" class="btn btn-success">Save and continue</button>
+</div>
+</div>
+<button type="button" class="btn btn-default" ng-click="schedule.jobs.push({ slots: [] })">Add another Job</button>
+<button type="submit" class="btn btn-success">Save and continue</button>
 </form>
