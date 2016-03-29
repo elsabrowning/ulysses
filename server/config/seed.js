@@ -27,6 +27,17 @@ Schedule.find({}).removeAsync()
             hour: 11,
             minute: 45
           }
+        }, {
+          assigned: [],
+          positions: 3,
+          start:{
+            hour:12,
+            minute: 0
+          },
+          end: {
+            hour:1,
+            minute: 0
+          }
         }]
       }],
       unassigned: []

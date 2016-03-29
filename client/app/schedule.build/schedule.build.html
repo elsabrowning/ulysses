@@ -2,7 +2,7 @@
 
 <form class="form-group" ng-submit="save()">
   <div class="list-group">
-    <div class="list-group-item" ng-repeat="job in schedule.jobs track by $index">
+    <div class="list-group-item" ng-repeat="job in schedule.jobs" ng-init="jobIndex = $index">
       <div class="row">
         <div class="col-md-4">
           <label>Position Name</label>
@@ -15,7 +15,7 @@
           <input type="text" class="form-control" ng-model="slot.assigned"/>
         </div> -->
         <div class="col-md-6">
-          <div class="row" ng-repeat="slot in job.slots">
+          <div class="row" ng-repeat="slot in job.slots" ng-init="slotIndex = $index">
             <div class="col-md-4">
               <label>Volunteers</label>
               <input type="text" class="form-control" ng-model="slot.positions"/>
@@ -36,17 +36,21 @@
               <label class="crouching-tiger-hidden-label">RAWR</label>
               <input type="number" class="form-control" ng-model="slot.end.minute"/>
             </div>
+            <button class="btn btn-danger" type="button" ng-click="remove(jobIndex, slotIndex)">Remove Slot</button>
           </div>
         </div>
         <div class="col-md-2">
           <label class="crouching-tiger-hidden-label">RAWR</label>
           <button type="button" class="btn btn-default" ng-click="job.slots.push({});">Add another time slot</button>
         </div>
+        <!-- <div class="form-group">
+          <button class="btn btn-danger" ng-click="remove($index)">Remove</button>
+        </div> -->
       </div>
     </div>
   </div>
 </div>
 </div>
 <button type="button" class="btn btn-default" ng-click="schedule.jobs.push({ slots: [] })">Add another Job</button>
-<button type="submit" class="btn btn-success">Save and continue</button>
+<button type="submit" class="btn btn-success" ng-click="schedule.jobs.save({ slots: [] })"> Save and continue</button>
 </form>
