@@ -1,1 +1,14 @@
-<div>This is where the final schedule can be viewed!</div>
+<div class="panel panel-default viewer-container">
+  <div class="panel-heading">Schedule for {{ schedule.name }}</div>
+  <div class="list-group" ng-repeat="job in schedule.jobs">
+    <div class="list-group-item">
+      {{ job.name }}
+      <div class="list-group" ng-repeat="slot in job.slots">
+        <div class="list-group-item">
+          Your start time is at {{ slot.start.hour }}:{{ slot.start.minute }} please arrive {{ job.training }} minutes before for training.
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
