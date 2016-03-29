@@ -22,19 +22,19 @@
             </div>
             <div class="col-sm-2">
               <label>Start</label>
-              <input type="number" class="form-control" ng-model="slot.start.hour"/>
+              <input type="number" min="0" max="23" class="form-control" ng-model="slot.start.hour"/>
             </div>
             <div class="col-sm-2" style="margin-left: -25px">
               <label class="crouching-tiger-hidden-label">RAWR</label>
-              <input type="number" class="form-control" ng-model="slot.start.minute"/>
+              <input type="number" min="0" max="59" class="form-control" ng-model="slot.start.minute"/>
             </div>
             <div class="col-sm-2">
               <label>End</label>
-              <input type="number" class="form-control" ng-model="slot.end.hour"/>
+              <input type="number" min="0" max="23" class="form-control" ng-model="slot.end.hour"/>
             </div>
             <div class="col-sm-2" style="margin-left: -25px">
               <label class="crouching-tiger-hidden-label">RAWR</label>
-              <input type="number" class="form-control" ng-model="slot.end.minute"/>
+              <input type="number" min="0" max="59" class="form-control" ng-model="slot.end.minute"/>
             </div class="col-md-2">
             <label class="crouching-tiger-hidden-label">RAWR</label>
             <button class="btn btn-danger" type="button" ng-click="remove($parent.$index, $index)">Remove Slot</button>
