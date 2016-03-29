@@ -2,7 +2,7 @@
 
 <form class="form-group" ng-submit="save()">
   <div class="list-group">
-    <div class="list-group-item" ng-repeat="job in schedule.jobs track by $index">
+    <div class="list-group-item" ng-repeat="job in schedule.jobs">
       <div class="row">
         <div class="col-md-4">
           <label>Position Name</label>
@@ -16,7 +16,7 @@
         </div> -->
         <div class="col-md-6">
           <div class="row" ng-repeat="slot in job.slots">
-            <div class="col-md-4">
+            <div class="col-md-2">
               <label>Volunteers</label>
               <input type="text" class="form-control" ng-model="slot.positions"/>
             </div>
@@ -35,18 +35,22 @@
             <div class="col-sm-2" style="margin-left: -25px">
               <label class="crouching-tiger-hidden-label">RAWR</label>
               <input type="number" class="form-control" ng-model="slot.end.minute"/>
-            </div>
+            </div class="col-md-2">
+            <label class="crouching-tiger-hidden-label">RAWR</label>
+            <button class="btn btn-danger" type="button" ng-click="remove($parent.$index, $index)">Remove Slot</button>
           </div>
         </div>
         <div class="col-md-2">
           <label class="crouching-tiger-hidden-label">RAWR</label>
           <button type="button" class="btn btn-default" ng-click="job.slots.push({});">Add another time slot</button>
+          <br><br>
+          <button class="btn btn-danger" type="button" ng-click="removeJob($index)">Remove Job</button>
         </div>
       </div>
     </div>
   </div>
 </div>
 </div>
-<button type="button" class="btn btn-default" ng-click="schedule.jobs.push({ slots: [] })">Add another Job</button>
-<button type="submit" class="btn btn-success">Save and continue</button>
+<button type="button" class="btn btn-default" ng-click="schedule.jobs.push({ slots: [{}] })">Add another Job</button>
+<button type="submit" class="btn btn-success" ng-click="schedule.jobs.save({ slots: [] })"> Save and continue</button>
 </form>
