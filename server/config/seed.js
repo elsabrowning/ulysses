@@ -41,7 +41,28 @@ Schedule.find({}).removeAsync()
         }]
       }],
       unassigned: []
-    })
+    }, {
+      name: 'Another Not Quite as Cool Odyssey Thing',
+      date: new Date('June 4, 2016'),
+      info: 'It should work out okay',
+      jobs: [{
+        name: 'Food service',
+        training: 15,
+        slots: [{
+          assigned: [],
+          positions: 9,
+          start: {
+            hour: 12,
+            minute: 30
+          },
+          end: {
+            hour: 14,
+            minute: 45
+          }
+        }]
+    }],
+    unassigned: []
+  })
     .then(() => {
       console.log('finished populating schedules');
     });
