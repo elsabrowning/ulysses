@@ -18,7 +18,7 @@
           </a>
           <ul class="dropdown-menu" uib-dropdown-menu>
             <li ng-repeat="schedule in schedules">
-              <a ui-sref="schedule({ id: schedule._id })">{{ schedule.name }}</a>
+              <a ui-sref="schedule.build({ id: schedule._id })">{{ schedule.name }}</a>
             </li>
           </ul>
         </li>
