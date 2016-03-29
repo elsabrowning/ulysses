@@ -1,1 +1,6 @@
-<div>Customize your schedule here!</div>
+<div>
+  <select ng-model="job">
+    <option ng-model="$index" ng-repeat="job in schedule.jobs">{{ job.name }}</option>
+  </select>
+{{ job }}
+</div>
