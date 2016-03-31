@@ -18,14 +18,8 @@ var VolunteerSchema = new mongoose.Schema({
 var SlotSchema = new mongoose.Schema({
   assigned: [VolunteerSchema],
   positions: Number,
-  start: {
-    hour: Number,
-    minute: Number
-  },
-  end: {
-    hour: Number,
-    minute: Number
-  }
+  start: Date,
+  end: Date
 });
 
 var JobSchema = new mongoose.Schema({

@@ -3,6 +3,7 @@
 angular.module('ulyssesApp')
   .controller('ScheduleBuildCtrl', function ($scope, $state, $stateParams, Schedule) {
     $scope.schedule = Schedule.get($stateParams);
+    $scope.mytime = new Date();
 
     $scope.save = function() {
       $scope.schedule.$save()
@@ -20,4 +21,6 @@ angular.module('ulyssesApp')
     $scope.removeJob = function(index) {
       $scope.schedule.jobs.splice(index, 1);
     };
-  });
+
+
+});
