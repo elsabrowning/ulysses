@@ -15,12 +15,10 @@ angular.module('ulyssesApp')
     };
 
     $scope.remove = function(jobIndex, slotIndex) {
-      console.log("this is the jobIndex: " + jobIndex + " this is the slotIndex: " + slotIndex);
       $scope.schedule.jobs[jobIndex].slots.splice(slotIndex, 1);
     };
 
     $scope.removeJob = function(index) {
-      console.log("this is the jobIndex: " + index);
       $scope.schedule.jobs.splice(index, 1);
     };
 

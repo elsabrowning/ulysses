@@ -1,7 +1,15 @@
-<div>
-  Job Title:
-  <select ng-model="job">
-    <option value="{{ $index }}" ng-repeat="job in schedule.jobs">{{ job.name }}</option>
-  </select>
-<br>(Job Index: {{ job }})
+<div class="row">
+  <div class="col-sm-6">
+    <label for="job-selection">Job:</label>
+    <select class="form-control" id="job-selection" ng-model="job" ng-options="job.name for job in schedule.jobs">
+      <option value=""></option>
+    </select>
+  </div>
+
+  <div class="col-sm-6" ng-if="job">
+    <label for="slot-selection">Time slot:</label>
+    <select class="form-control" id="slot-selection" ng-model="slot" ng-options="slot.start.hour for slot in job.slots">
+      <option value="">{{ slot.start.hour }}:{{slot.start.minute}}</option>
+    </select>
+  </div>
 </div>
