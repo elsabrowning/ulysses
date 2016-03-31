@@ -19,13 +19,13 @@ Schedule.find({}).removeAsync()
         slots: [{
           assigned: [],
           positions: 4,
-          start: new Date("December 12, 1995, 12:00:00"),
-          end:new Date("December 12, 1995, 01:00:00")
+          start: new Date('April 1, 2016, 12:00:00'),
+          end:new Date('April 1, 2016, 12:00:00')
         }, {
           assigned: [],
           positions: 3,
-          start:new Date("December 12, 1995, 2:00:00"),
-          end: new Date("December 12, 1995, 3:00:00")
+          start:new Date('April 1, 2016, 12:00:00'),
+          end: new Date('April 1, 2016, 12:00:00')
         }]
       }],
       unassigned: []
@@ -39,8 +39,8 @@ Schedule.find({}).removeAsync()
         slots: [{
           assigned: [],
           positions: 9,
-          start: new Date("December 12, 1995, 12:00:00"),
-          end: new Date("December 12, 1995, 01:00:00")
+          start: new Date('April 1, 2016, 12:00:00'),
+          end: new Date('April 1, 2016, 12:00:00')
         }]
     }],
     unassigned: []

@@ -24,5 +24,5 @@ angular.module('ulyssesApp')
       $scope.schedule.jobs.splice(index, 1);
     };
 
-    $scope.leadingZero = function()
-  });
+
+});
