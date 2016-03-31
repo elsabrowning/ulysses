@@ -1,5 +1,4 @@
 <div>
-  <h1 style="transform: rotate(10deg); padding: 20px; margin: 10px; color:lime; background: red; border: dashed yellow 10px"><b><i>(This page must be reloaded to refresh the list of jobs in the dropdown.)</i></b></h1>
   Job Title:
   <select ng-model="job">
     <option value="{{ $index }}" ng-repeat="job in schedule.jobs">{{ job.name }}</option>
