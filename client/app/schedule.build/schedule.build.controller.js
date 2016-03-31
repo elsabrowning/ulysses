@@ -3,6 +3,7 @@
 angular.module('ulyssesApp')
   .controller('ScheduleBuildCtrl', function ($scope, $state, $stateParams, Schedule) {
     $scope.schedule = Schedule.get($stateParams);
+    $scope.mytime = new Date();
 
     $scope.save = function() {
       $scope.schedule.$save()
@@ -22,4 +23,6 @@ angular.module('ulyssesApp')
       console.log("this is the jobIndex: " + index);
       $scope.schedule.jobs.splice(index, 1);
     };
+
+    $scope.leadingZero = function()
   });
