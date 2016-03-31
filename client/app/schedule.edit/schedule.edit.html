@@ -1,6 +1,7 @@
 <div>
+  Job Title:
   <select ng-model="job">
-    <option ng-model="$index" ng-repeat="job in schedule.jobs">{{ job.name }}</option>
+    <option value="{{ $index }}" ng-repeat="job in schedule.jobs">{{ job.name }}</option>
   </select>
-{{ job }}
+<br>(Job Index: {{ job }})
 </div>
