@@ -4,38 +4,37 @@
   <div class="list-group">
     <div class="list-group-item" ng-repeat="job in schedule.jobs">
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
           <label>Position Name</label>
           <input type="text" class="form-control" ng-model="job.name" />
           <label>Training (minutes)</label>
           <input type="Number" class="form-control" ng-model="job.training" />
+          <br><br>
+          <button type="button" class="btn btn-default" ng-click="job.slots.push({});">Add another time slot</button>
+          <br><br>
+          <button class="btn btn-danger" type="button" ng-click="removeJob($index)">Remove Job</button>
         </div>
         <!-- <div class="col-md-1">
         <label>Assigned</label>
         <input type="text" class="form-control" ng-model="slot.assigned"/>
       </div> -->
-      <div class="col-md-6">
+      <div class="col-md-9">
         <div class="row" ng-repeat="slot in job.slots">
           <div class="col-md-2">
             <label>Volunteers</label>
             <input type="text" class="form-control" ng-model="slot.positions"/>
           </div>
-          <div class="col-sm-4">
+          <div class="col-sm-3">
             <label>Start</label>
-            <uib-timepicker ng-model="slot.start" hour-step="1" minute-step="1"></uib-timepicker>          </div>
-          <div class="col-sm-4">
+            <uib-timepicker ng-model="slot.start" hour-step="1" minute-step="1"></uib-timepicker>
+          </div>
+          <div class="col-sm-3">
             <label>End</label>
             <uib-timepicker ng-model="slot.end" hour-step="1" minute-step="1"></uib-timepicker>
           </div>
-          <div>
+          <div class="col-sm-1">
             <label class="crouching-tiger-hidden-label">RAWR</label>
             <button class="btn btn-danger" type="button" ng-click="remove($parent.$index, $index)">Remove Slot</button>
-          </div>
-          <div class="col-md-2">
-            <label class="crouching-tiger-hidden-label">RAWR</label>
-            <button type="button" class="btn btn-default" ng-click="job.slots.push({});">Add another time slot</button>
-            <br><br>
-            <button class="btn btn-danger" type="button" ng-click="removeJob($index)">Remove Job</button>
           </div>
         </div>
       </div>
