@@ -8,8 +8,8 @@
 
   <div class="col-sm-6" ng-if="job">
     <label for="slot-selection">Time slot:</label>
-    <select class="form-control" id="slot-selection" ng-model="slot" ng-options="slot.start.hour for slot in job.slots">
-      <option value="">{{ slot.start.hour }}:{{slot.start.minute}}</option>
+    <select class="form-control" id="slot-selection" ng-model="slot" ng-options="slot.start for slot in job.slots">
+      <option value=""></option>
     </select>
   </div>
 </div>
