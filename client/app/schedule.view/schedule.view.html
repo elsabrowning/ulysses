@@ -1,12 +1,22 @@
 <div class="panel panel-default viewer-container">
-  <div class="panel-heading">Schedule for {{ schedule.name }}</div>
+  <h3 class="panel-heading">Schedule for {{ schedule.name }} on {{ schedule.date | date : 'MMM d, y' }} <br>
+    <input ng-model="searchText"></label>
+  </h3>
+  <div class="list-group">
+    &nbsp; {{ schedule.info }} <br>
+    <div ng-if="nav.hasRole('organizer')">&nbsp; There are still {{ schedule.unassigned.length }} unassigned volunteers</div>
+  </div>
   <div class="list-group" ng-repeat="job in schedule.jobs">
     <div class="list-group-item">
       {{ job.name }}
-      <div class="list-group" ng-repeat="slot in job.slots">
+      <div class="list-group" ng-repeat="slot in job.slots | filter : searchText">
         <div class="list-group-item">
-          Your start time is at {{ slot.start.hour }}:{{ slot.start.minute }} please arrive {{ job.training }} minutes before for training.
 
+          Partners: {{ slot.assigned | json }} <br><!-- this will need to change, but since we don't have seed data this is what should work as a general purpose try -->
+          <div ng-if="nav.hasRole('organizer')"> This slot still needs {{ slot.positions - slot.assigned.length }} volunteers</div>
+          Please arrive {{ job.training }} minutes before for training. <br>
+          &nbsp; Start time: {{ slot.start | date : 'h:mm a' }}<br>
+          &nbsp; End time: {{ slot.end | date : 'h:mm a' }}
         </div>
       </div>
     </div>
