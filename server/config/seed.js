@@ -19,8 +19,8 @@ Schedule.find({}).removeAsync()
         slots: [{
           assigned: [],
           positions: 4,
-          start: new Date('April 1, 2016, 10:00:00'),
-          end: new Date('April 1, 2016, 01:00:00')
+          start: new Date('April 1, 2016, 12:00:00'),
+          end: new Date('April 1, 2016, 12:00:00')
         }, {
           assigned: [],
           positions: 3,
