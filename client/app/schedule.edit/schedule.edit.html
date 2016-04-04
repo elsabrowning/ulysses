@@ -8,8 +8,18 @@
 
   <div class="col-sm-6" ng-if="job">
     <label for="slot-selection">Time slot:</label>
-    <select class="form-control" id="slot-selection" ng-model="slot" ng-options="slot.start for slot in job.slots">
+    <select class="form-control" id="slot-selection" ng-model="slot" ng-options="range(slot) for slot in job.slots" ng-select="console.log(slot)">
       <option value=""></option>
     </select>
+  </div>
+</div>
+
+<div class="row" ng-if="slot">
+  <div class="col-sm-6">
+    <h3>{{ slot.positions }} unassigned slots</h3>
+  </div>
+
+  <div class="col-sm-6">
+    <h3>Unassigned volunteers</h3>
   </div>
 </div>

@@ -17,5 +17,5 @@ angular.module('ulyssesApp', [
 
     $locationProvider.html5Mode(true);
   })
-
+  .value('moment', moment)
   .value('papa', Papa);
