@@ -26,6 +26,33 @@ angular.module('ulyssesApp')
         });
       }
     };
+    // 
+    // $scope.processTeams = function(data) {
+    //   console.log("got to processTeams");
+    //
+    //   var numbers = [];
+    //
+    //   if ($scope.teamCSV) {
+    //     papa.parse($scope.teamCSV, {
+    //       header: true,
+    //       step: function(result) {
+    //         var row = result.data[0];
+    //
+    //         if (numbers.indexOf(row["Number"]) == -1) {
+    //           // do team birthing shit
+    //           numbers.push(row["Number"]);
+    //         }
+    //
+    //         // populate problems
+    //         addProblem()
+    //           $scope.schedule.teams.push(birthTeam(result.data[0]));
+    //       },
+    //       complete: function() {
+    //         $scope.$apply();
+    //       }
+    //     });
+    //   }
+    // };
 
     var fullName = function(first, last){
       return [first, last].join(" ");
@@ -44,6 +71,24 @@ angular.module('ulyssesApp')
         shirt: row["T-shirt"],
         positions: [],
         preferences: []
+      };
+    };
+
+    var birthTeam = function(row) {
+      if(row["Number"])
+      return {
+        number: row["Number"],
+        problems: [birthTeamInfo(row)]
+      };
+    };
+
+    var birthTeamInfo = function(row) { //sorry Kyle :(
+      console.log("This is the birth team");
+      return {
+        problem: row["Problem"],
+        division: row["Division"],
+        longterm: row["Longt Time"],
+        spontaneous: row["Spont Time"]
       };
     };
 
