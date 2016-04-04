@@ -29,11 +29,24 @@ var JobSchema = new mongoose.Schema({
   slots: [SlotSchema]
 });
 
+var ProblemSchema = new mongoose.Schema({
+  problem: String,
+  division: String,
+  longterm: String,
+  spontaneous: String
+});
+
+var TeamSchema = new mongoose.Schema({
+  number: String,
+  problems: [ProblemSchema]
+});
+
 var ScheduleSchema = new mongoose.Schema({
   name: String,
   date: Date,
   info: String,
   jobs: [JobSchema],
+  teams: [TeamSchema],
   unassigned: [VolunteerSchema]
 });
 
