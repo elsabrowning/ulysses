@@ -8,6 +8,7 @@ var VolunteerSchema = new mongoose.Schema({
   phone: String,
   username: String,
   password: String,
+  childTeam: String,
   constraints: Array,
   comments: String,
   shirt: String,

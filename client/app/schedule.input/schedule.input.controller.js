@@ -38,6 +38,7 @@ angular.module('ulyssesApp')
         phone: row["phone"],
         username: row["username"],
         password: row["password"],
+        childTeam: row["child_team"],
         constraints: [],
         comments: row["comment"],
         shirt: row["T-shirt"],
