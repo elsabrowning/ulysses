@@ -1,3 +1,9 @@
+<form ng-submit="save()">
+  <div class="form-group">
+    <button type="submit" class="btn btn-success">Save and continue</button>
+  </div>
+</form>
+
 <div class="row">
   <div class="col-sm-6">
     <label for="job-selection">Job:</label>
@@ -8,7 +14,7 @@
 
   <div class="col-sm-6" ng-if="job">
     <label for="slot-selection">Time slot:</label>
-    <select class="form-control" id="slot-selection" ng-model="slot" ng-options="range(slot) for slot in job.slots" ng-select="console.log(slot)">
+    <select class="form-control" id="slot-selection" ng-model="$parent.slot" ng-options="timeRange(slot) for slot in job.slots">
       <option value=""></option>
     </select>
   </div>
@@ -16,10 +22,24 @@
 
 <div class="row" ng-if="slot">
   <div class="col-sm-6">
-    <h3>{{ slot.positions }} unassigned slots</h3>
+    <h3>Assignments</h3>
+    <div class="list-group">
+      <a class="list-group-item" ng-click="unassign(volunteer, slot)" ng-repeat="volunteer in slot.assigned">
+        {{ volunteer.name }}
+      </a>
+
+      <a class="list-group-item disabled" ng-repeat="n in remainingPositions(slot) track by $index">
+        Unassigned
+      </a>
+    </div>
   </div>
 
   <div class="col-sm-6">
     <h3>Unassigned volunteers</h3>
+    <div class="list-group">
+      <a class="list-group-item" ng-click="assign(volunteer, slot)" ng-repeat="volunteer in schedule.unassigned">
+        {{ volunteer.name }}
+      </a>
+    </div>
   </div>
 </div>
