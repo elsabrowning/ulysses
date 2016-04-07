@@ -5,41 +5,19 @@
 </form>
 
 <div class="row">
-  <div class="col-sm-6">
-    <label for="job-selection">Job:</label>
-    <select class="form-control" id="job-selection" ng-model="job" ng-options="job.name for job in schedule.jobs">
-      <option value=""></option>
-    </select>
-  </div>
+  <div class="col-sm-4">
+    <div ng-repeat="job in schedule.jobs">
+      <h4>{{ job.name }}</h4>
 
-  <div class="col-sm-6" ng-if="job">
-    <label for="slot-selection">Time slot:</label>
-    <select class="form-control" id="slot-selection" ng-model="$parent.slot" ng-options="timeRange(slot) for slot in job.slots">
-      <option value=""></option>
-    </select>
-  </div>
-</div>
-
-<div class="row" ng-if="slot">
-  <div class="col-sm-6">
-    <h3>Assignments</h3>
-    <div class="list-group">
-      <a class="list-group-item" ng-click="unassign(volunteer, slot)" ng-repeat="volunteer in slot.assigned">
-        {{ volunteer.name }}
-      </a>
-
-      <a class="list-group-item disabled" ng-repeat="n in remainingPositions(slot) track by $index">
-        Unassigned
-      </a>
+      <div class="list-group">
+        <a class="list-group-item" ng-repeat="slot in job.slots" ui-sref="schedule.edit.assign({ job: job._id, slot: slot._id })" ui-sref-active="active">
+          {{ timeRange(slot) }}
+        </a>
+      </div>
     </div>
   </div>
 
-  <div class="col-sm-6">
-    <h3>Unassigned volunteers</h3>
-    <div class="list-group">
-      <a class="list-group-item" ng-click="assign(volunteer, slot)" ng-repeat="volunteer in schedule.unassigned">
-        {{ volunteer.name }}
-      </a>
-    </div>
+  <div class="col-sm-8">
+    <div ui-view></div>
   </div>
 </div>
