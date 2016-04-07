@@ -39,7 +39,7 @@
   <div class="col-md-4">
     <div class="panel panel-default">
       <div class="panel-heading">
-        Import volunteers from CSV
+        Import volunteers
       </div>
 
       <div class="panel-body">
@@ -56,15 +56,16 @@
         </form>
       </div>
     </div>
-    <!-- <div class="panel panel-default">
+
+    <div class="panel panel-default">
       <div class="panel-heading">
-        Import teams from CSV
+        Avoid team conflicts
       </div>
 
       <div class="panel-body">
         <form ng-submit="processTeams()">
           <div class="form-group">
-            <label for="csv">Import Team Data</label>
+            <label for="csv">Master schedule file</label>
             <input type="file" id="csv" file-read="teamCSV" />
             <p class="help-block">Select a CSV file of team information.</p>
           </div>
@@ -75,45 +76,5 @@
         </form>
       </div>
     </div>
-    <div class="col-md-8">
-      <form ng-submit="save()">
-        <div class="form-group">
-          <button type="button" class="btn btn-default" ng-click="add()">Add a new volunteer</button>
-          <button type="submit" class="btn btn-success">Save and continue</button>
-        </div>
-
-        <div class="list-group">
-          <div class="list-group-item" ng-repeat="team in schedule.teams">
-            <div class="form-group">
-              <label>Number</label>
-              <input type="text" class="form-control" ng-model="team.number" />
-            </div>
-
-            <div class="form-group">
-              <label>Problems</label>
-              <input type="email" class="form-control" ng-model="team.problems.problem" />
-            </div>
-
-            <div class="form-group">
-              <label>Division</label>
-              <input type="text" class="form-control" ng-model="team.problems.division" />
-            </div>
-
-            <div class="form-group">
-              <label>Longt</label>
-              <input type="text" class="form-control" ng-model="team.problems.longterm" />
-            </div>
-            <div class="form-group">
-              <label>Spont</label>
-              <input type="text" class="form-control" ng-model="team.problems.spontaneous" />
-            </div>
-
-            <div class="form-group">
-              <button class="btn btn-danger" ng-click="remove($index)">Remove</button>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div> -->
   </div>
 </div>
