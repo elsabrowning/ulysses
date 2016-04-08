@@ -8,7 +8,7 @@
   </div>
   <div class="list-group" ng-repeat="job in schedule.jobs">
     <div class="list-group-item">
-      {{ job.name }}
+{{job.name}}
       <div class="list-group" ng-repeat="slot in job.slots | filter : searchText">
         <div class="list-group-item">
 
@@ -22,3 +22,51 @@
     </div>
   </div>
 </div>
+<table style="width:100%">
+  <tr>
+<th> {{ schedule.job.name }}</th>
+
+  </tr>
+</table>
+
+<!-- <head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2>Schedule</h2>
+  <p>This is the full schedule:</p>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Jobs</th>
+        <th>Volunteers Assigned</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat ="job in schedule.jobs">
+        <td ></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Mary</td>
+        <td>Moe</td>
+
+      </tr>
+      <tr>
+        <td>July</td>
+        <td>Dooley</td>
+
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html> -->
