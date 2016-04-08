@@ -45,12 +45,11 @@ angular.module('ulyssesApp')
           header: true,
           step: function(result) {
             var row = result.data[0];
-            console.log(row['Longt time']);
-
             conflicts['#' + row['Number'] + ' ' + row['Problem'] + '/' + divisions[row['Division']]] = {
               start: moment(row['Longt Time'], 'h:mm A').subtract(15, 'minutes'),
-              end: moment(row['Longt Time'], 'h:mm A').add(1, 'hour')
+              end: moment(row['Longt Time'], 'h:mm A').add(45, 'minutes')
             };
+            console.log(conflicts.start);
           },
           complete: function() {
             $scope.$apply();
