@@ -1,8 +1,12 @@
 'use strict';
 
 angular.module('ulyssesApp')
-  .controller('ScheduleEditCtrl', function ($scope, $state, $stateParams, moment, Schedule) {
-    $scope.schedule = Schedule.get($stateParams);
+  .controller('ScheduleEditCtrl', function ($scope, $state, moment) {
+    $scope.schedule = null;
+
+    $scope.$parent.schedule.$promise.then(function(schedule) {
+      $scope.schedule = schedule;
+    });
 
     $scope.save = function() {
       $scope.schedule.$save()
