@@ -6,7 +6,7 @@ angular.module('ulyssesApp')
     $scope.job = null;
     $scope.slot = null;
 
-    $scope.$parent.schedule.$promise.then(function(schedule) {
+    $scope.$parent.$parent.schedule.$promise.then(function(schedule) {
       $scope.schedule = schedule;
 
       $scope.schedule.jobs.forEach(function(job) {

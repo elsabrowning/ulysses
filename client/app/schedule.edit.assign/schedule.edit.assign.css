@@ -1,0 +1,11 @@
+a.list-group-item {
+  cursor: pointer;
+}
+
+.hover-badge {
+  display: none;
+}
+
+.list-group-item:hover .hover-badge {
+  display: block;
+}
