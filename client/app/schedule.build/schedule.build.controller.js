@@ -1,27 +1,26 @@
 'use strict';
 
 angular.module('ulyssesApp')
-  .controller('ScheduleBuildCtrl', function ($scope, $state, $stateParams, Schedule) {
-    $scope.schedule = Schedule.get($stateParams);
-    $scope.mytime = new Date();
+  .controller('ScheduleBuildCtrl', function($scope) {
+    $scope.schedule = null;
 
-    $scope.save = function() {
-      $scope.schedule.$save()
-        .then(function() {
-          $state.go('^.input', { id: $scope.schedule._id });
-        }, function() {
-          console.log('An error happened / You write terrible software / Life is meaningless');
-        });
+    $scope.$parent.schedule.$promise.then(function(schedule) {
+      $scope.schedule = schedule;
+    });
+
+    $scope.addJob = function() {
+      $scope.schedule.jobs.push({ slots: [{}] });
     };
 
-    $scope.remove = function(jobIndex, slotIndex) {
-      $scope.schedule.jobs[jobIndex].slots.splice(slotIndex, 1);
+    $scope.addSlot = function(job) {
+      job.slots.push({});
     };
 
     $scope.removeJob = function(index) {
       $scope.schedule.jobs.splice(index, 1);
     };
 
-
-
-});
+    $scope.removeSlot = function(job, index) {
+      job.slots.splice(index, 1);
+    };
+  });

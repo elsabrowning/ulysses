@@ -1,6 +1,8 @@
-<div>Build the schedule for {{ schedule.name }} here!</div>
+<form ng-submit="$parent.continue('schedule.input')">
+  <div class="form-group">
+    <button type="submit" class="btn btn-success" ng-click="schedule.jobs.save({ slots: [] })"> Save and continue</button>
+  </div>
 
-<form class="form-group" ng-submit="save()">
   <div class="list-group">
     <div class="list-group-item" ng-repeat="job in schedule.jobs">
       <div class="row">
@@ -10,37 +12,34 @@
           <label>Training (minutes)</label>
           <input type="Number" class="form-control" ng-model="job.training" />
           <br><br>
-          <button type="button" class="btn btn-default" ng-click="job.slots.push({});">Add another time slot</button>
+          <button type="button" class="btn btn-default" ng-click="addSlot(job)">Add another time slot</button>
           <br><br>
           <button class="btn btn-danger" type="button" ng-click="removeJob($index)">Remove Job</button>
         </div>
-        <!-- <div class="col-md-1">
-        <label>Assigned</label>
-        <input type="text" class="form-control" ng-model="slot.assigned"/>
-      </div> -->
-      <div class="col-md-9">
-        <div class="row" ng-repeat="slot in job.slots">
-          <div class="col-md-2">
-            <label>Volunteers</label>
-            <input type="text" class="form-control" ng-model="slot.positions"/>
-          </div>
-          <div class="col-sm-3">
-            <label>Start</label>
-            <uib-timepicker ng-model="slot.start" hour-step="1" minute-step="1"></uib-timepicker>
-          </div>
-          <div class="col-sm-3">
-            <label>End</label>
-            <uib-timepicker ng-model="slot.end" hour-step="1" minute-step="1"></uib-timepicker>
-          </div>
-          <div class="col-sm-1">
-            <label class="crouching-tiger-hidden-label">RAWR</label>
-            <button class="btn btn-danger" type="button" ng-click="remove($parent.$index, $index)">Remove Slot</button>
+
+        <div class="col-md-9">
+          <div class="row" ng-repeat="slot in job.slots">
+            <div class="col-md-2">
+              <label>Volunteers</label>
+              <input type="text" class="form-control" ng-model="slot.positions"/>
+            </div>
+            <div class="col-sm-3">
+              <label>Start</label>
+              <uib-timepicker ng-model="slot.start" hour-step="1" minute-step="1"></uib-timepicker>
+            </div>
+            <div class="col-sm-3">
+              <label>End</label>
+              <uib-timepicker ng-model="slot.end" hour-step="1" minute-step="1"></uib-timepicker>
+            </div>
+            <div class="col-sm-1">
+              <label class="crouching-tiger-hidden-label">RAWR</label>
+              <button class="btn btn-danger" type="button" ng-click="removeSlot(job, $index)">Remove Slot</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-<button type="button" class="btn btn-default" ng-click="schedule.jobs.push({ slots: [{}] })">Add another Job</button>
-<button type="submit" class="btn btn-success" ng-click="schedule.jobs.save({ slots: [] })"> Save and continue</button>
+
+  <button type="button" class="btn btn-default" ng-click="addJob()">Add another Job</button>
 </form>
