@@ -2,13 +2,18 @@
 
 angular.module('ulyssesApp')
   .controller('ScheduleInputCtrl', function ($scope, $stateParams, papa, Schedule, $state) {
-    $scope.schedule = Schedule.get($stateParams);
+    $scope.conflicts = {};
+    $scope.schedule = null;
     $scope.teamCSV = null;
     $scope.volunteerCSV = null;
 
     $scope.add = function() {
       $scope.schedule.unassigned.unshift({});
     };
+
+    $scope.$parent.schedule.$promise.then(function(schedule) {
+      $scope.schedule = schedule;
+    });
 
     $scope.remove = function(index) {
       $scope.schedule.unassigned.splice(index, 1);
@@ -29,9 +34,6 @@ angular.module('ulyssesApp')
     };
 
     $scope.processTeams = function(data) {
-      console.log("got to processTeams");
-
-      var conflicts = {};
       var divisions = {
         Primary: 0,
         I: 1,
@@ -45,16 +47,14 @@ angular.module('ulyssesApp')
           header: true,
           step: function(result) {
             var row = result.data[0];
-            console.log(row['Longt time']);
 
-            conflicts['#' + row['Number'] + ' ' + row['Problem'] + '/' + divisions[row['Division']]] = {
+            $scope.conflicts['#' + row['Number'] + ' ' + row['Problem'] + '/' + divisions[row['Division']]] = {
               start: moment(row['Longt Time'], 'h:mm A').subtract(15, 'minutes'),
               end: moment(row['Longt Time'], 'h:mm A').add(1, 'hour')
             };
           },
           complete: function() {
             $scope.$apply();
-            console.log(conflicts);
           }
         });
       }
@@ -78,15 +78,6 @@ angular.module('ulyssesApp')
         positions: [],
         preferences: []
       };
-    };
-
-    $scope.save = function() {
-      $scope.schedule.$save()
-        .then(function() {
-          $state.go('^.edit');
-        }, function() {
-          console.log('An error happened / You write terrible software / Life is meaningless');
-        });
     };
 
   });
