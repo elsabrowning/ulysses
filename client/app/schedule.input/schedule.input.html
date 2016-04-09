@@ -29,6 +29,14 @@
           </div>
 
           <div class="form-group">
+            <h2>CONSTRAINTS DAMMIT</h2>
+              {{ volunteer }}
+            <div ng-repeat="constraint in volunteer.constraints">
+              {{ constraint.start }}
+            </div>
+          </div>
+
+          <div class="form-group">
             <button class="btn btn-danger" ng-click="remove($index)">Remove</button>
           </div>
         </div>
@@ -72,6 +80,9 @@
 
           <button type="submit" class="btn btn-primary">
             Import teams
+          </button>
+          <button type="button" ng-click="addConstraints()" class="btn btn-primary">
+            TESTING
           </button>
         </form>
       </div>

@@ -1,19 +1,19 @@
 'use strict';
 
 angular.module('ulyssesApp')
-  .controller('ScheduleInputCtrl', function ($scope, $stateParams, papa, Schedule, $state) {
-    $scope.conflicts = {};
+  .controller('ScheduleInputCtrl', function ($scope, papa, $state) {
     $scope.schedule = null;
     $scope.teamCSV = null;
     $scope.volunteerCSV = null;
-
-    $scope.add = function() {
-      $scope.schedule.unassigned.unshift({});
-    };
+    $scope.conflicts = {};
 
     $scope.$parent.schedule.$promise.then(function(schedule) {
       $scope.schedule = schedule;
     });
+
+    $scope.add = function() {
+      $scope.schedule.unassigned.unshift({});
+    };
 
     $scope.remove = function(index) {
       $scope.schedule.unassigned.splice(index, 1);
@@ -34,6 +34,9 @@ angular.module('ulyssesApp')
     };
 
     $scope.processTeams = function(data) {
+      console.log("got to processTeams");
+
+      var conflicts = {};
       var divisions = {
         Primary: 0,
         I: 1,
@@ -47,15 +50,31 @@ angular.module('ulyssesApp')
           header: true,
           step: function(result) {
             var row = result.data[0];
-            conflicts['#' + row['Number'] + ' ' + row['Problem'] + '/' + divisions[row['Division']]] = {
+            $scope.conflicts['#' + row['Number'] + ' ' + row['Problem'] + '/' + divisions[row['Division']]] = {
               start: moment(row['Longt Time'], 'h:mm A').subtract(15, 'minutes'),
-              end: moment(row['Longt Time'], 'h:mm A').add(1, 'hour')
+              end: moment(row['Longt Time'], 'h:mm A').add(45, 'minutes')
             };
+
           },
           complete: function() {
             $scope.$apply();
           }
         });
+      }
+    };
+
+    $scope.addConstraints = function() {
+      for(var index in $scope.schedule.unassigned){
+        var volunteer = $scope.schedule.unassigned[index];
+        if (volunteer.childTeam) {
+          var teams = volunteer.childTeam.split(", ");
+          teams.forEach(function(team){
+            if(team in $scope.conflicts){
+              volunteer.constraints.push($scope.conflicts[team]);
+            }
+            console.log($scope.schedule.unassigned[index].constraints);
+          });
+        }
       }
     };
 
@@ -77,6 +96,15 @@ angular.module('ulyssesApp')
         positions: [],
         preferences: []
       };
+    };
+
+    $scope.save = function() {
+      $scope.schedule.$save()
+        .then(function() {
+          $state.go('^.edit');
+        }, function() {
+          console.log('An error happened / You write terrible software / Life is meaningless');
+        });
     };
 
   });
