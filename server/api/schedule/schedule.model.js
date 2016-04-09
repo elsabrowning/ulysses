@@ -2,6 +2,11 @@
 
 var mongoose = require('bluebird').promisifyAll(require('mongoose'));
 
+var ConstraintSchema = new mongoose.Schema({
+  start: Date,
+  end: Date
+});
+
 var VolunteerSchema = new mongoose.Schema({
   name: String,
   email: String,
@@ -9,11 +14,11 @@ var VolunteerSchema = new mongoose.Schema({
   username: String,
   password: String,
   childTeam: String,
-  constraints: Array,
   comments: String,
   shirt: String,
   positions: Array,
-  preferences: Array
+  preferences: Array,
+  constraints: [ConstraintSchema]
 });
 
 var SlotSchema = new mongoose.Schema({

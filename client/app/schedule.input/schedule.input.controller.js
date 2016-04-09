@@ -59,6 +59,10 @@ angular.module('ulyssesApp')
       }
     };
 
+    $scope.addConstraints = function() {
+
+    }
+
     var fullName = function(first, last){
       return [first, last].join(" ");
     };
