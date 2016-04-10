@@ -9,6 +9,8 @@ angular.module('ulyssesApp')
     $scope.$parent.$parent.schedule.$promise.then(function(schedule) {
       $scope.schedule = schedule;
 
+      // This is horrible, but whatever:
+
       $scope.schedule.jobs.forEach(function(job) {
         if (job._id == $stateParams.job) {
           $scope.job = job;

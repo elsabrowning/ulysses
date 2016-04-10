@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-8">
-    <form ng-submit="save()">
+    <form ng-submit="$parent.continue('schedule.edit')">
       <div class="form-group">
         <button type="button" class="btn btn-default" ng-click="add()">Add a new volunteer</button>
         <button type="submit" class="btn btn-success">Save and continue</button>
@@ -26,6 +26,14 @@
           <div class="form-group">
             <label>Child Team(s)</label>
             <input type="text" class="form-control" ng-model="volunteer.childTeam" />
+          </div>
+
+          <div class="form-group">
+            <h2>CONSTRAINTS DAMMIT</h2>
+              {{ volunteer }}
+            <div ng-repeat="constraint in volunteer.constraints">
+              {{ constraint.start }}
+            </div>
           </div>
 
           <div class="form-group">
@@ -72,6 +80,9 @@
 
           <button type="submit" class="btn btn-primary">
             Import teams
+          </button>
+          <button type="button" ng-click="addConstraints()" class="btn btn-primary">
+            TESTING
           </button>
         </form>
       </div>

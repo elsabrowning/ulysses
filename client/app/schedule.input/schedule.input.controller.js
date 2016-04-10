@@ -1,10 +1,15 @@
 'use strict';
 
 angular.module('ulyssesApp')
-  .controller('ScheduleInputCtrl', function ($scope, $stateParams, papa, Schedule, $state) {
-    $scope.schedule = Schedule.get($stateParams);
+  .controller('ScheduleInputCtrl', function ($scope, papa, $state) {
+    $scope.schedule = null;
     $scope.teamCSV = null;
     $scope.volunteerCSV = null;
+    $scope.conflicts = {};
+
+    $scope.$parent.schedule.$promise.then(function(schedule) {
+      $scope.schedule = schedule;
+    });
 
     $scope.add = function() {
       $scope.schedule.unassigned.unshift({});
@@ -45,18 +50,31 @@ angular.module('ulyssesApp')
           header: true,
           step: function(result) {
             var row = result.data[0];
-            console.log(row['Longt time']);
-
-            conflicts['#' + row['Number'] + ' ' + row['Problem'] + '/' + divisions[row['Division']]] = {
+            $scope.conflicts['#' + row['Number'] + ' ' + row['Problem'] + '/' + divisions[row['Division']]] = {
               start: moment(row['Longt Time'], 'h:mm A').subtract(15, 'minutes'),
-              end: moment(row['Longt Time'], 'h:mm A').add(1, 'hour')
+              end: moment(row['Longt Time'], 'h:mm A').add(45, 'minutes')
             };
+
           },
           complete: function() {
             $scope.$apply();
-            console.log(conflicts);
           }
         });
+      }
+    };
+
+    $scope.addConstraints = function() {
+      for(var index in $scope.schedule.unassigned){
+        var volunteer = $scope.schedule.unassigned[index];
+        if (volunteer.childTeam) {
+          var teams = volunteer.childTeam.split(", ");
+          teams.forEach(function(team){
+            if(team in $scope.conflicts){
+              volunteer.constraints.push($scope.conflicts[team]);
+            }
+            console.log($scope.schedule.unassigned[index].constraints);
+          });
+        }
       }
     };
 

@@ -22,12 +22,26 @@
     </div>
   </div>
 </div>
-<table style="width:100%">
-  <tr>
-<th> {{ schedule.job.name }}</th>
+<ul class="list-group" ng-repeat= "job in schedule.jobs">
+  <li class = "list-group-item">
+    {{job.name}}<br>
+  </li>
+</ul>
+<ul class = "list-group" ng-repeat = "slot in jobs.slots">
+  <li class = "list-group-item">
+    Start time: {{slot.start | date : 'h:mm a'}}<br>
+  </li>
+</ul>
 
-  </tr>
-</table>
+<table class = "table">
+  <thread>
+    <tr>
+      <th>jobs</th>
+
+      <th>volunteers</th>
+    </tr>
+  </table> <!-- tried to make a table -->
+
 
 <!-- <head>
   <title>Bootstrap Example</title>
