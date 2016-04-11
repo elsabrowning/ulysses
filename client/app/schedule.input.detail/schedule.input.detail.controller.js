@@ -17,11 +17,13 @@ angular.module('ulyssesApp')
 
     $scope.close = function() {
       console.log('WHYYYY');
-      console.log($state.go('schedule.input', $stateParams));
-      $scope.schedule.$save(function() {
-        console.log('AARGH');
-        $state.go('schedule.input', $stateParams);
-      }, console.log);
+      $state.go('schedule.input', $stateParams);
+      $scope.schedule.$save();
+      //If we have this inside of save function, it works still... Idk WHYYYY
+      //   function() {
+      //   console.log('AARGH');
+      //   $state.go('schedule.input', $stateParams);
+      // }, console.log);
     };
 
     $scope.remove = function(index) {
