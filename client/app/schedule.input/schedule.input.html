@@ -1,6 +1,7 @@
 <form ng-submit="$parent.continue('schedule.edit')">
   <div class="form-group">
     <button type="submit" class="btn btn-success">Save and continue</button>
+    <button type="button"class="btn btn-default" ng-click="add()">Add Volunteer</button>
   </div>
 </form>
 
@@ -67,7 +68,7 @@
   <div class="col-md-4">
     <div class="list-group">
       <a class="list-group-item" ng-repeat="volunteer in schedule.unassigned" ng-click="open(volunteer)" ng-class="{ active: detail == volunteer }">
-        {{ volunteer.name }}
+        {{ volunteer.name }}<span ng-if="!volunteer.name">New Volunteer</span>
       </a>
     </div>
   </div>
