@@ -1,49 +1,10 @@
-<div class="row">
-  <div class="col-md-8">
-    <form ng-submit="$parent.continue('schedule.edit')">
-      <div class="form-group">
-        <button type="button" class="btn btn-default" ng-click="add()">Add a new volunteer</button>
-        <button type="submit" class="btn btn-success">Save and continue</button>
-      </div>
-
-      <div class="list-group">
-        <div class="list-group-item" ng-repeat="volunteer in schedule.unassigned">
-          <div class="form-group">
-            <label>Name</label>
-            <input type="text" class="form-control" ng-model="volunteer.name" />
-          </div>
-
-          <div class="form-group">
-            <label>Email address</label>
-            <input type="email" class="form-control" ng-model="volunteer.email" />
-          </div>
-
-          <div class="form-group">
-            <label>Phone number</label>
-            <input type="text" class="form-control" ng-model="volunteer.phone" />
-          </div>
-
-          <div class="form-group">
-            <label>Child Team(s)</label>
-            <input type="text" class="form-control" ng-model="volunteer.childTeam" />
-          </div>
-
-          <div class="form-group">
-            <h2>CONSTRAINTS DAMMIT</h2>
-              {{ volunteer }}
-            <div ng-repeat="constraint in volunteer.constraints">
-              {{ constraint.start }}
-            </div>
-          </div>
-
-          <div class="form-group">
-            <button class="btn btn-danger" ng-click="remove($index)">Remove</button>
-          </div>
-        </div>
-      </div>
-    </form>
+<form ng-submit="$parent.continue('schedule.edit')">
+  <div class="form-group">
+    <button type="submit" class="btn btn-success">Save and continue</button>
   </div>
+</form>
 
+<div class="row">
   <div class="col-md-4">
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -78,14 +39,40 @@
             <p class="help-block">Select a CSV file of team information.</p>
           </div>
 
-          <button type="submit" class="btn btn-primary">
-            Import teams
-          </button>
-          <button type="button" ng-click="addConstraints()" class="btn btn-primary">
-            TESTING
-          </button>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary">
+              Import teams
+            </button>
+          </div>
+
+          <div class="alert alert-success" ng-if="count(conflicts)">
+            <strong>{{ count(conflicts) }} teams</strong> found.
+          </div>
+
+          <div class="form-group" ng-if="count(conflicts)">
+            <button type="button" ng-click="addConstraints()" class="btn btn-primary">
+              Add team constraints
+            </button>
+          </div>
+
+          <div class="alert alert-danger" ng-if="unresolvables">
+            <strong>FYI</strong>, {{ unresolvables }} child teams couldn't be
+            found in the master schedule file.
+          </div>
         </form>
       </div>
     </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="list-group">
+      <a class="list-group-item" ng-repeat="volunteer in schedule.unassigned" ui-sref="schedule.input.detail({ volunteer: volunteer._id })" ui-sref-active="active">
+        {{ volunteer.name }}
+      </a>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div ui-view></div>
   </div>
 </div>

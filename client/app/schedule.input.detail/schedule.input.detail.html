@@ -1,0 +1,21 @@
+<form ng-submit="close()">
+  <div class="form-group">
+    <label>Name</label>
+    <input type="text" class="form-control" ng-model="volunteer.name" />
+  </div>
+
+  <div class="form-group">
+    <label>Email address</label>
+    <input type="email" class="form-control" ng-model="volunteer.email" />
+  </div>
+
+  <div class="form-group">
+    <label>Phone number</label>
+    <input type="text" class="form-control" ng-model="volunteer.phone" />
+  </div>
+
+  <div class="form-group">
+    <button type="submit" class="btn btn-success">Save</button>
+    <button type="button" class="btn btn-danger" ng-click="remove($index)">Remove</button>
+  </div>
+</form>

@@ -1,234 +1,233 @@
 /**
- * Populate DB with sample data on server start
- * to disable, edit config/environment/index.js, and set `seedDB: false`
- */
+* Populate DB with sample data on server start
+* to disable, edit config/environment/index.js, and set `seedDB: false`
+*/
 
 'use strict';
 import Schedule from '../api/schedule/schedule.model';
 import User from '../api/user/user.model';
 
-Schedule.find({}).removeAsync()
-  .then(() => {
-    Schedule.createAsync({
-      name: 'Some Cool Odyssey Thing',
-      date: new Date('April 1, 2016'),
-      info: 'It will be totally wicked.',
-      jobs: [{
-        name: 'Food service',
-        training: 15,
-        slots: [{
-          assigned: [],
-          positions: 4,
-          start: new Date('April 1, 2016, 10:00:00'),
-          end: new Date('April 1, 2016, 11:00:00')
-        }, {
-          assigned: [],
-          positions: 4,
-          start:new Date('April 1, 2016, 11:00:00'),
-          end: new Date('April 1, 2016, 12:00:00')
-        }, {
-          assigned: [],
-          positions: 4,
-          start:new Date('April 1, 2016, 12:00:00'),
-          end: new Date('April 1, 2016, 13:00:00')
-        }, {
-          assigned: [],
-          positions: 4,
-          start:new Date('April 1, 2016, 13:00:00'),
-          end: new Date('April 1, 2016, 14:00:00')
-        }, {
-          assigned: [],
-          positions: 4,
-          start:new Date('April 1, 2016, 14:00:00'),
-          end: new Date('April 1, 2016, 15:00:00')
-        }, {
-          assigned: [],
-          positions: 4,
-          start:new Date('April 1, 2016, 15:00:00'),
-          end: new Date('April 1, 2016, 16:00:00')
-        }, {
-          assigned: [],
-          positions: 4,
-          start:new Date('April 1, 2016, 16:00:00'),
-          end: new Date('April 1, 2016, 17:00:00')
-        }]
+Schedule.find({}).removeAsync().then(() => {
+  Schedule.createAsync({
+    name: 'Some Cool Odyssey Thing',
+    date: new Date('April 1, 2016'),
+    info: 'It will be totally wicked.',
+    jobs: [{
+      name: 'Food service',
+      training: 15,
+      slots: [{
+        assigned: [],
+        positions: 4,
+        start: new Date('April 1, 2016, 10:00:00'),
+        end: new Date('April 1, 2016, 11:00:00')
       }, {
-        name: 'Blue House Doorkeeper',
-        training: 15,
-        slots: [{
-          assigned: [],
-          positions: 1,
-          start: new Date('April 1, 2016, 10:00:00'),
-          end: new Date('April 1, 2016, 11:00:00')
-        }, {
-          assigned: [],
-          positions: 1,
-          start:new Date('April 1, 2016, 11:00:00'),
-          end: new Date('April 1, 2016, 12:00:00')
-        }, {
-          assigned: [],
-          positions: 1,
-          start:new Date('April 1, 2016, 12:00:00'),
-          end: new Date('April 1, 2016, 13:00:00')
-        }, {
-          assigned: [],
-          positions: 1,
-          start:new Date('April 1, 2016, 13:00:00'),
-          end: new Date('April 1, 2016, 14:00:00')
-        }, {
-          assigned: [],
-          positions: 1,
-          start:new Date('April 1, 2016, 14:00:00'),
-          end: new Date('April 1, 2016, 15:00:00')
-        }, {
-          assigned: [],
-          positions: 1,
-          start:new Date('April 1, 2016, 15:00:00'),
-          end: new Date('April 1, 2016, 16:00:00')
-        }, {
-          assigned: [],
-          positions: 1,
-          start:new Date('April 1, 2016, 16:00:00'),
-          end: new Date('April 1, 2016, 17:00:00')
-        }]
+        assigned: [],
+        positions: 4,
+        start:new Date('April 1, 2016, 11:00:00'),
+        end: new Date('April 1, 2016, 12:00:00')
       }, {
-          name: 'Gym Doorkeeper',
-          training: 15,
-          slots: [{
-            assigned: [],
-            positions: 1,
-            start: new Date('April 1, 2016, 10:00:00'),
-            end: new Date('April 1, 2016, 11:00:00')
-          }, {
-            assigned: [],
-            positions: 1,
-            start:new Date('April 1, 2016, 11:00:00'),
-            end: new Date('April 1, 2016, 12:00:00')
-          }, {
-            assigned: [],
-            positions: 1,
-            start:new Date('April 1, 2016, 12:00:00'),
-            end: new Date('April 1, 2016, 13:00:00')
-          }, {
-            assigned: [],
-            positions: 1,
-            start:new Date('April 1, 2016, 13:00:00'),
-            end: new Date('April 1, 2016, 14:00:00')
-          }, {
-            assigned: [],
-            positions: 1,
-            start:new Date('April 1, 2016, 14:00:00'),
-            end: new Date('April 1, 2016, 15:00:00')
-          }, {
-            assigned: [],
-            positions: 1,
-            start:new Date('April 1, 2016, 15:00:00'),
-            end: new Date('April 1, 2016, 16:00:00')
-          }, {
-            assigned: [],
-            positions: 1,
-            start:new Date('April 1, 2016, 16:00:00'),
-            end: new Date('April 1, 2016, 17:00:00')
-          }]
-        }, {
-            name: 'Spontaneous check-in',
-            training: 15,
-            slots: [{
-              assigned: [],
-              positions: 2,
-              start: new Date('April 1, 2016, 10:00:00'),
-              end: new Date('April 1, 2016, 12:00:00')
-            }, {
-              assigned: [],
-              positions: 2,
-              start:new Date('April 1, 2016, 12:00:00'),
-              end: new Date('April 1, 2016, 14:00:00')
-            }, {
-              assigned: [],
-              positions: 2,
-              start:new Date('April 1, 2016, 14:00:00'),
-              end: new Date('April 1, 2016, 16:00:00')
-            }, {
-              assigned: [],
-              positions: 1,
-              start:new Date('April 1, 2016, 16:00:00'),
-              end: new Date('April 1, 2016, 17:00:00')
-            }]
-          }],
+        assigned: [],
+        positions: 4,
+        start:new Date('April 1, 2016, 12:00:00'),
+        end: new Date('April 1, 2016, 13:00:00')
+      }, {
+        assigned: [],
+        positions: 4,
+        start:new Date('April 1, 2016, 13:00:00'),
+        end: new Date('April 1, 2016, 14:00:00')
+      }, {
+        assigned: [],
+        positions: 4,
+        start:new Date('April 1, 2016, 14:00:00'),
+        end: new Date('April 1, 2016, 15:00:00')
+      }, {
+        assigned: [],
+        positions: 4,
+        start:new Date('April 1, 2016, 15:00:00'),
+        end: new Date('April 1, 2016, 16:00:00')
+      }, {
+        assigned: [],
+        positions: 4,
+        start:new Date('April 1, 2016, 16:00:00'),
+        end: new Date('April 1, 2016, 17:00:00')
+      }]
+    }, {
+      name: 'Blue House Doorkeeper',
+      training: 15,
+      slots: [{
+        assigned: [],
+        positions: 1,
+        start: new Date('April 1, 2016, 10:00:00'),
+        end: new Date('April 1, 2016, 11:00:00')
+      }, {
+        assigned: [],
+        positions: 1,
+        start:new Date('April 1, 2016, 11:00:00'),
+        end: new Date('April 1, 2016, 12:00:00')
+      }, {
+        assigned: [],
+        positions: 1,
+        start:new Date('April 1, 2016, 12:00:00'),
+        end: new Date('April 1, 2016, 13:00:00')
+      }, {
+        assigned: [],
+        positions: 1,
+        start:new Date('April 1, 2016, 13:00:00'),
+        end: new Date('April 1, 2016, 14:00:00')
+      }, {
+        assigned: [],
+        positions: 1,
+        start:new Date('April 1, 2016, 14:00:00'),
+        end: new Date('April 1, 2016, 15:00:00')
+      }, {
+        assigned: [],
+        positions: 1,
+        start:new Date('April 1, 2016, 15:00:00'),
+        end: new Date('April 1, 2016, 16:00:00')
+      }, {
+        assigned: [],
+        positions: 1,
+        start:new Date('April 1, 2016, 16:00:00'),
+        end: new Date('April 1, 2016, 17:00:00')
+      }]
+    }, {
+      name: 'Gym Doorkeeper',
+      training: 15,
+      slots: [{
+        assigned: [],
+        positions: 1,
+        start: new Date('April 1, 2016, 10:00:00'),
+        end: new Date('April 1, 2016, 11:00:00')
+      }, {
+        assigned: [],
+        positions: 1,
+        start:new Date('April 1, 2016, 11:00:00'),
+        end: new Date('April 1, 2016, 12:00:00')
+      }, {
+        assigned: [],
+        positions: 1,
+        start:new Date('April 1, 2016, 12:00:00'),
+        end: new Date('April 1, 2016, 13:00:00')
+      }, {
+        assigned: [],
+        positions: 1,
+        start:new Date('April 1, 2016, 13:00:00'),
+        end: new Date('April 1, 2016, 14:00:00')
+      }, {
+        assigned: [],
+        positions: 1,
+        start:new Date('April 1, 2016, 14:00:00'),
+        end: new Date('April 1, 2016, 15:00:00')
+      }, {
+        assigned: [],
+        positions: 1,
+        start:new Date('April 1, 2016, 15:00:00'),
+        end: new Date('April 1, 2016, 16:00:00')
+      }, {
+        assigned: [],
+        positions: 1,
+        start:new Date('April 1, 2016, 16:00:00'),
+        end: new Date('April 1, 2016, 17:00:00')
+      }]
+    }, {
+      name: 'Spontaneous check-in',
+      training: 15,
+      slots: [{
+        assigned: [],
+        positions: 2,
+        start: new Date('April 1, 2016, 10:00:00'),
+        end: new Date('April 1, 2016, 12:00:00')
+      }, {
+        assigned: [],
+        positions: 2,
+        start:new Date('April 1, 2016, 12:00:00'),
+        end: new Date('April 1, 2016, 14:00:00')
+      }, {
+        assigned: [],
+        positions: 2,
+        start:new Date('April 1, 2016, 14:00:00'),
+        end: new Date('April 1, 2016, 16:00:00')
+      }, {
+        assigned: [],
+        positions: 1,
+        start:new Date('April 1, 2016, 16:00:00'),
+        end: new Date('April 1, 2016, 17:00:00')
+      }]
+    }],
     unassigned: []
   }, {
-  name: 'Some Less Cool Odyssey Thing',
-  date: new Date('April 1, 2016'),
-  info: 'It will be totally wicked.',
-  jobs: [{
-    name: 'Food service',
-    training: 15,
-    slots: [{
-      assigned: [],
-      positions: 4,
-      start: new Date('April 1, 2016, 10:00:00'),
-      end: new Date('April 1, 2016, 11:00:00')
-    }, {
-      assigned: [],
-      positions: 4,
-      start:new Date('April 1, 2016, 11:00:00'),
-      end: new Date('April 1, 2016, 12:00:00')
-    }, {
-      assigned: [],
-      positions: 4,
-      start:new Date('April 1, 2016, 12:00:00'),
-      end: new Date('April 1, 2016, 13:00:00')
-    }, {
-      assigned: [],
-      positions: 4,
-      start:new Date('April 1, 2016, 13:00:00'),
-      end: new Date('April 1, 2016, 14:00:00')
-    }, {
-      assigned: [],
-      positions: 4,
-      start:new Date('April 1, 2016, 14:00:00'),
-      end: new Date('April 1, 2016, 15:00:00')
-    }, {
-      assigned: [],
-      positions: 4,
-      start:new Date('April 1, 2016, 15:00:00'),
-      end: new Date('April 1, 2016, 16:00:00')
-    }, {
-      assigned: [],
-      positions: 4,
-      start:new Date('April 1, 2016, 16:00:00'),
-      end: new Date('April 1, 2016, 17:00:00')
-    }]
-  }],
-  unassigned: []
-})
-    .then(() => {
-      console.log('finished populating schedules');
-    });
+    name: 'Automatically Scheduled Tournament',
+    date: new Date('April 1, 2016'),
+    info: 'It will be totally wicked.',
+    jobs: [{
+      name: 'Concession Stand',
+      training: 15,
+      slots: [{
+        assigned: [],
+        positions: 4,
+        start: new Date('April 1, 2016, 10:00:00'),
+        end: new Date('April 1, 2016, 11:00:00')
+      }, {
+        assigned: [],
+        positions: 4,
+        start:new Date('April 1, 2016, 11:00:00'),
+        end: new Date('April 1, 2016, 12:00:00')
+      }, {
+        assigned: [],
+        positions: 4,
+        start:new Date('April 1, 2016, 12:00:00'),
+        end: new Date('April 1, 2016, 13:00:00')
+      }, {
+        assigned: [],
+        positions: 4,
+        start:new Date('April 1, 2016, 13:00:00'),
+        end: new Date('April 1, 2016, 14:00:00')
+      }, {
+        assigned: [],
+        positions: 4,
+        start:new Date('April 1, 2016, 14:00:00'),
+        end: new Date('April 1, 2016, 15:00:00')
+      }, {
+        assigned: [],
+        positions: 4,
+        start:new Date('April 1, 2016, 15:00:00'),
+        end: new Date('April 1, 2016, 16:00:00')
+      }, {
+        assigned: [],
+        positions: 4,
+        start:new Date('April 1, 2016, 16:00:00'),
+        end: new Date('April 1, 2016, 17:00:00')
+      }]
+    }],
+    unassigned: []
+  })
+  .then(() => {
+    console.log('finished populating schedules');
   });
+});
 
 User.find({}).removeAsync()
+.then(() => {
+  User.createAsync({
+    provider: 'local',
+    role: 'volunteer',
+    name: 'Volunteer Vicki',
+    email: 'live2serve@volunteers4u.com',
+    password: 'helping123'
+  }, {
+    provider: 'local',
+    role: 'admin',
+    name: 'Admin',
+    email: 'admin@misterbossypants.com',
+    password: 'admin'
+  }, {
+    provider: 'local',
+    role: 'organizer',
+    name: 'Organizer Ollie',
+    email: 'ithinkiamincharge@2ndincommand.org',
+    password: 'password123'
+  })
   .then(() => {
-    User.createAsync({
-      provider: 'local',
-      role: 'volunteer',
-      name: 'Volunteer Vicki',
-      email: 'live2serve@volunteers4u.com',
-      password: 'helping123'
-    }, {
-      provider: 'local',
-      role: 'admin',
-      name: 'Admin',
-      email: 'admin@misterbossypants.com',
-      password: 'admin'
-    }, {
-      provider: 'local',
-      role: 'organizer',
-      name: 'Organizer Ollie',
-      email: 'ithinkiamincharge@2ndincommand.org',
-      password: 'password123'
-    })
-    .then(() => {
-      console.log('finished populating users');
-    });
+    console.log('finished populating users');
   });
+});

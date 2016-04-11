@@ -6,6 +6,7 @@ angular.module('ulyssesApp')
     $scope.teamCSV = null;
     $scope.volunteerCSV = null;
     $scope.conflicts = {};
+    $scope.unresolvables = 0;
 
     $scope.$parent.schedule.$promise.then(function(schedule) {
       $scope.schedule = schedule;
@@ -15,8 +16,8 @@ angular.module('ulyssesApp')
       $scope.schedule.unassigned.unshift({});
     };
 
-    $scope.remove = function(index) {
-      $scope.schedule.unassigned.splice(index, 1);
+    $scope.count = function(object) {
+      return Object.keys(object).length;
     };
 
     $scope.process = function(data) {
@@ -27,7 +28,9 @@ angular.module('ulyssesApp')
             $scope.schedule.unassigned.push(birthVolunteer(result.data[0]));
           },
           complete: function() {
-            $scope.$apply();
+            $scope.schedule.$save(function() {
+              $scope.$apply();
+            });
           }
         });
       }
@@ -69,10 +72,12 @@ angular.module('ulyssesApp')
         if (volunteer.childTeam) {
           var teams = volunteer.childTeam.split(", ");
           teams.forEach(function(team){
-            if(team in $scope.conflicts){
+            if(team in $scope.conflicts) {
               volunteer.constraints.push($scope.conflicts[team]);
             }
-            console.log($scope.schedule.unassigned[index].constraints);
+            else {
+              $scope.unresolvables++;
+            }
           });
         }
       }
@@ -96,15 +101,6 @@ angular.module('ulyssesApp')
         positions: [],
         preferences: []
       };
-    };
-
-    $scope.save = function() {
-      $scope.schedule.$save()
-        .then(function() {
-          $state.go('^.edit');
-        }, function() {
-          console.log('An error happened / You write terrible software / Life is meaningless');
-        });
     };
 
   });
