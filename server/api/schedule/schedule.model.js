@@ -7,6 +7,7 @@ var ConstraintSchema = new mongoose.Schema({
   end: Date
 });
 
+//testing stuff
 var VolunteerSchema = new mongoose.Schema({
   name: String,
   email: String,
