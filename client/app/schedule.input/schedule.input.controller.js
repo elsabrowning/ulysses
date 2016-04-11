@@ -7,6 +7,7 @@ angular.module('ulyssesApp')
     $scope.volunteerCSV = null;
     $scope.conflicts = {};
     $scope.unresolvables = 0;
+    $scope.detail = null;
 
     $scope.$parent.schedule.$promise.then(function(schedule) {
       $scope.schedule = schedule;
@@ -20,6 +21,10 @@ angular.module('ulyssesApp')
       return Object.keys(object).length;
     };
 
+    $scope.open = function(volunteer) {
+      $scope.detail = volunteer;
+    };
+
     $scope.process = function(data) {
       if ($scope.volunteerCSV) {
         papa.parse($scope.volunteerCSV, {
@@ -28,9 +33,7 @@ angular.module('ulyssesApp')
             $scope.schedule.unassigned.push(birthVolunteer(result.data[0]));
           },
           complete: function() {
-            $scope.schedule.$save(function() {
               $scope.$apply();
-            });
           }
         });
       }
@@ -101,6 +104,10 @@ angular.module('ulyssesApp')
         positions: [],
         preferences: []
       };
+    };
+
+    $scope.close = function(){
+      $scope.detail = null;
     };
 
   });

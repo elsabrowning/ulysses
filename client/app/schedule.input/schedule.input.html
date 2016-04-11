@@ -66,13 +66,33 @@
 
   <div class="col-md-4">
     <div class="list-group">
-      <a class="list-group-item" ng-repeat="volunteer in schedule.unassigned" ui-sref="schedule.input.detail({ volunteer: volunteer._id })" ui-sref-active="active">
+      <a class="list-group-item" ng-repeat="volunteer in schedule.unassigned" ng-click="open(volunteer)" ng-class="{ active: detail == volunteer }">
         {{ volunteer.name }}
       </a>
     </div>
   </div>
 
-  <div class="col-md-4">
-    <div ui-view></div>
+  <div class="col-md-4" ng-if="detail">
+    <form ng-submit="close()">
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" class="form-control" ng-model="detail.name" />
+      </div>
+
+      <div class="form-group">
+        <label>Email address</label>
+        <input type="email" class="form-control" ng-model="detail.email" />
+      </div>
+
+      <div class="form-group">
+        <label>Phone number</label>
+        <input type="text" class="form-control" ng-model="detail.phone" />
+      </div>
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-success">Done</button>
+        <button type="button" class="btn btn-danger" ng-click="remove($index)">Remove</button>
+      </div>
+    </form>
   </div>
 </div>
