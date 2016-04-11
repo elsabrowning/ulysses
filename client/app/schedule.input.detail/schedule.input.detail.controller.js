@@ -17,10 +17,11 @@ angular.module('ulyssesApp')
 
     $scope.close = function() {
       console.log('WHYYYY');
-      // $scope.schedule.$save(function() {
-      //   console.log('AARGH');
-      //   $state.go('schedule.input', $stateParams);
-      // }, console.log);
+      console.log($state.go('schedule.input', $stateParams));
+      $scope.schedule.$save(function() {
+        console.log('AARGH');
+        $state.go('schedule.input', $stateParams);
+      }, console.log);
     };
 
     $scope.remove = function(index) {
