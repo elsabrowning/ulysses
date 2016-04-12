@@ -8,11 +8,14 @@ angular.module('ulyssesApp')
       $scope.schedule = schedule;
     });
 
+    $scope.auto = function() {
+
+    };
+
     $scope.timeRange = function(slot) {
       var start = moment(slot.start);
       var end = moment(slot.end);
 
       return start.format('h:mma') + ' to ' + end.format('h:mma');
     };
-
   });
