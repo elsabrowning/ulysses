@@ -19,6 +19,7 @@ var VolunteerSchema = new mongoose.Schema({
   shirt: String,
   positions: Array,
   preferences: Array,
+  isJudge: Boolean,
   constraints: [ConstraintSchema]
 });
 
