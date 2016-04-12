@@ -7,14 +7,28 @@
     <div class="list-group-item" ng-repeat="job in schedule.jobs">
       <div class="row">
         <div class="col-md-3">
-          <label>Position Name</label>
-          <input type="text" class="form-control" ng-model="job.name" />
-          <label>Training (minutes)</label>
-          <input type="Number" class="form-control" ng-model="job.training" />
-          <br><br>
-          <button type="button" class="btn btn-default" ng-click="addSlot(job)">Add another time slot</button>
-          <br><br>
-          <button class="btn btn-danger" type="button" ng-click="removeJob($index)">Remove Job</button>
+          <div class="form-group">
+            <label>Position title</label>
+            <input type="text" class="form-control" ng-model="job.name" />
+          </div>
+
+          <div class="form-group">
+            <label>Training time (in minutes)</label>
+            <input type="number" class="form-control" ng-model="job.training" />
+          </div>
+
+          <div class="form-group">
+            <label>Judging position</label>
+            <input type="checkbox" class="form-control" ng-model="job.isJudging" />
+          </div>
+
+          <div class="form-group">
+            <button type="button" class="btn btn-default" ng-click="addSlot(job)">Add another time slot</button>
+          </div>
+
+          <div class="form-group">
+            <button class="btn btn-danger" type="button" ng-click="removeJob($index)">Remove Job</button>
+          </div>
         </div>
 
         <div class="col-md-9">
@@ -23,15 +37,15 @@
               <label>Volunteers</label>
               <input type="text" class="form-control" ng-model="slot.positions"/>
             </div>
-            <div class="col-sm-3">
+            <div class="col-md-3">
               <label>Start</label>
               <uib-timepicker ng-model="slot.start" hour-step="1" minute-step="1"></uib-timepicker>
             </div>
-            <div class="col-sm-3">
+            <div class="col-md-3">
               <label>End</label>
               <uib-timepicker ng-model="slot.end" hour-step="1" minute-step="1"></uib-timepicker>
             </div>
-            <div class="col-sm-1">
+            <div class="col-md-1">
               <label class="crouching-tiger-hidden-label">RAWR</label>
               <button class="btn btn-danger" type="button" ng-click="removeSlot(job, $index)">Remove Slot</button>
             </div>
