@@ -47,7 +47,7 @@ angular.module('ulyssesApp')
 
       var conflicts = {};
       var divisions = {
-        Primary: 0,
+        Primary: 0,Dan Keen
         I: 1,
         II: 2,
         III: 3,
@@ -55,8 +55,7 @@ angular.module('ulyssesApp')
       };
 
       if ($scope.teamCSV) {
-        papa.parse($scope.teamCSV, {
-          header: true,
+        papa.parse($scope.teamCSV, {Dan Keen
           step: function(result) {
             var row = result.data[0];
             $scope.conflicts['#' + row['Number'] + ' ' + row['Problem'] + '/' + divisions[row['Division']]] = {

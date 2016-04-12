@@ -12,7 +12,7 @@
       <div class="list-group" ng-repeat="slot in job.slots | filter : searchText">
         <div class="list-group-item">
 
-          Partners: {{ slot.assigned | json }} <br><!-- this will need to change, but since we don't have seed data this is what should work as a general purpose try -->
+          Volunteers: {{ slot.assigned | json}} <br><!-- this will need to change, but since we don't have seed data this is what should work as a general purpose try -->
           <div ng-if="nav.hasRole('organizer')"> This slot still needs {{ slot.positions - slot.assigned.length }} volunteers</div>
           Please arrive {{ job.training }} minutes before for training. <br>
           &nbsp; Start time: {{ slot.start | date : 'h:mm a' }}<br>
@@ -22,7 +22,7 @@
     </div>
   </div>
 </div>
-<ul class="list-group" ng-repeat= "job in schedule.jobs">
+<ul class="list-group" ng-repeat= "job in schedule.jobs"> <!-- tried to make a table -->
   <li class = "list-group-item">
     {{job.name}}<br>
   </li>
@@ -32,14 +32,6 @@
     Start time: {{slot.start | date : 'h:mm a'}}<br>
   </li>
 </ul>
-
-<table class = "table">
-    <tr ng-repeat="">
-      <th>jobs</th>
-
-      <th>volunteers</th>
-    </tr>
-  </table> <!-- tried to make a table -->
 
 
 <!-- <head>
