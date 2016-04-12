@@ -55,6 +55,7 @@ angular.module('ulyssesApp')
 
       if ($scope.teamCSV) {
         papa.parse($scope.teamCSV, {
+          header: true,
           step: function(result) {
             var row = result.data[0];
             $scope.conflicts['#' + row['Number'] + ' ' + row['Problem'] + '/' + divisions[row['Division']]] = {
