@@ -30,7 +30,9 @@ angular.module('ulyssesApp')
 
     $scope.process = function(data) {
       if ($scope.volunteerCSV) {
-        papa.parse($scope.vo ult) {
+        papa.parse($scope.volunteerCSV, {
+          header: true,
+          step: function(result) {
             $scope.schedule.unassigned.push(birthVolunteer(result.data[0]));
           },
           complete: function() {
@@ -103,7 +105,7 @@ angular.module('ulyssesApp')
         comments: row["comment"],
         shirt: row["T-shirt"],
         positions: [],
-        isJudge: row[""] == "AS_JUDGE",
+        isJudge: [""] == "AS_JUDGE",
         preferences: []
       };
     };
