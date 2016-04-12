@@ -24,6 +24,9 @@ angular.module('ulyssesApp')
     $scope.open = function(volunteer) {
       $scope.detail = volunteer;
     };
+    $scope.removeVolunteer = function(index) {
+      $scope.schedule.unassigned.splice(index, 1);
+    };
 
     $scope.process = function(data) {
       if ($scope.volunteerCSV) {
