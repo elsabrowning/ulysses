@@ -105,7 +105,7 @@ angular.module('ulyssesApp')
         comments: row["comment"],
         shirt: row["T-shirt"],
         positions: [],
-        isJudge: [""] == "AS_JUDGE",
+        isJudge: row[""] == "AS_JUDGE",
         preferences: []
       };
     };
