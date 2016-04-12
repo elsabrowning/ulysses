@@ -24,12 +24,13 @@ angular.module('ulyssesApp')
     $scope.open = function(volunteer) {
       $scope.detail = volunteer;
     };
+    $scope.removeVolunteer = function(index) {
+      $scope.schedule.unassigned.splice(index, 1);
+    };
 
     $scope.process = function(data) {
       if ($scope.volunteerCSV) {
-        papa.parse($scope.volunteerCSV, {
-          header: true,
-          step: function(result) {
+        papa.parse($scope.vo ult) {
             $scope.schedule.unassigned.push(birthVolunteer(result.data[0]));
           },
           complete: function() {
@@ -102,6 +103,7 @@ angular.module('ulyssesApp')
         comments: row["comment"],
         shirt: row["T-shirt"],
         positions: [],
+        isJudge: row[""] == "AS_JUDGE",
         preferences: []
       };
     };

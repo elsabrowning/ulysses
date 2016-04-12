@@ -88,11 +88,12 @@
       <div class="form-group">
         <label>Phone number</label>
         <input type="text" class="form-control" ng-model="detail.phone" />
+        {{detail}}
       </div>
 
       <div class="form-group">
         <button type="submit" class="btn btn-success">Done</button>
-        <button type="button" class="btn btn-danger" ng-click="remove($index)">Remove</button>
+        <button type="submit" class="btn btn-danger" ng-click="removeVolunteer($index)">Remove</button>
       </div>
     </form>
   </div>
