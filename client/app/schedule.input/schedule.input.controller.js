@@ -45,9 +45,8 @@ angular.module('ulyssesApp')
     $scope.processTeams = function(data) {
       console.log("got to processTeams");
 
-      var conflicts = {};
       var divisions = {
-        Primary: 0,Dan Keen
+        Primary: 0,
         I: 1,
         II: 2,
         III: 3,
@@ -55,7 +54,7 @@ angular.module('ulyssesApp')
       };
 
       if ($scope.teamCSV) {
-        papa.parse($scope.teamCSV, {Dan Keen
+        papa.parse($scope.teamCSV, {
           step: function(result) {
             var row = result.data[0];
             $scope.conflicts['#' + row['Number'] + ' ' + row['Problem'] + '/' + divisions[row['Division']]] = {
