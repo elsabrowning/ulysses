@@ -6,23 +6,42 @@
     &nbsp; {{ schedule.info }} <br>
     <div ng-if="nav.hasRole('organizer')">&nbsp; There are still {{ schedule.unassigned.length }} unassigned volunteers</div>
   </div>
-  <div class="list-group" ng-repeat="job in schedule.jobs">
+  <!-- <div class="list-group" ng-repeat="job in schedule.jobs">
     <div class="list-group-item">
 {{job.name}}
       <div class="list-group" ng-repeat="slot in job.slots | filter : searchText">
         <div class="list-group-item">
 
           Volunteers: {{ slot.assigned | json}} <br><!-- this will need to change, but since we don't have seed data this is what should work as a general purpose try -->
-          <div ng-if="nav.hasRole('organizer')"> This slot still needs {{ slot.positions - slot.assigned.length }} volunteers</div>
+          <!--<div ng-if="nav.hasRole('organizer')"> This slot still needs {{ slot.positions - slot.assigned.length }} volunteers</div>
           Please arrive {{ job.training }} minutes before for training. <br>
           &nbsp; Start time: {{ slot.start | date : 'h:mm a' }}<br>
           &nbsp; End time: {{ slot.end | date : 'h:mm a' }}
         </div>
       </div>
     </div>
+  </div> -->
+</div>
+<div class="row">
+  <span ng-repeat="job in schedule.jobs">
+    <label>{{job.name}}; </label>
+  </span>
+  <div class="col-sm-2">
+    <label> Time: </label>
+    <div ng-repeat="time in timeArray">
+      <div class="list-group">
+        <!-- <a class="list-group-item"> -->
+        {{time}}
+        <hr>
+        <!-- </a> -->
+      </div>
+    </div>
   </div>
 </div>
-<ul class="list-group" ng-repeat= "job in schedule.jobs"> <!-- tried to make a table -->
+
+
+
+<!-- <ul class="list-group" ng-repeat= "job in schedule.jobs"> <!-- tried to make a table
   <li class = "list-group-item">
     {{job.name}}<br>
   </li>
@@ -31,8 +50,7 @@
   <li class = "list-group-item">
     Start time: {{slot.start | date : 'h:mm a'}}<br>
   </li>
-</ul>
-
+</ul> -->
 
 <!-- <head>
   <title>Bootstrap Example</title>
@@ -74,4 +92,4 @@
 </div>
 
 </body>
-</html> -->
+</html>
