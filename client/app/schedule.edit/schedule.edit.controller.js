@@ -9,27 +9,7 @@ angular.module('ulyssesApp')
     });
 
     $scope.auto = function() {
-      // Separate judging and non-judging jobs:
-      var jobs = {
-        judging: $scope.schedule.jobs.filter(function(job) {
-          return job.isJudging;
-        }),
-        nonjudging: $scope.schedule.jobs.filter(function(job) {
-          return !job.isJudging;
-        })
-      };
 
-      // Separate judging and non-judging volunteers:
-      var unassigned = {
-        judging: $scope.schedule.unassigned.filter(function(volunteer) {
-          return volunteer.isJudge;
-        }),
-        nonjudging: $scope.schedule.unassigned.filter(function(volunteer) {
-          return !volunteer.isJudge;
-        })
-      };
-
-      console.log(unassigned);
     };
 
     $scope.timeRange = function(slot) {
