@@ -13,10 +13,6 @@ angular.module('ulyssesApp')
       $scope.schedule = schedule;
     });
 
-    $scope.add = function() {
-      $scope.schedule.unassigned.unshift({});
-    };
-
     $scope.count = function(object) {
       return Object.keys(object).length;
     };
@@ -24,8 +20,20 @@ angular.module('ulyssesApp')
     $scope.open = function(volunteer) {
       $scope.detail = volunteer;
     };
-    $scope.removeVolunteer = function(index) {
-      $scope.schedule.unassigned.splice(index, 1);
+
+    $scope.close = function() {
+      $scope.detail = null;
+    };
+
+    $scope.addVolunteer = function() {
+      var unassigned = $scope.schedule.unassigned;
+      unassigned.unshift({});
+      $scope.detail = unassigned[0];
+    };
+
+    $scope.removeVolunteer = function(volunteer) {
+      var unassigned = $scope.schedule.unassigned;
+      unassigned.splice(unassigned.indexOf(volunteer), 1);
     };
 
     $scope.process = function(data) {
@@ -107,10 +115,6 @@ angular.module('ulyssesApp')
         isJudge: row[""] == "AS_JUDGE",
         preferences: []
       };
-    };
-
-    $scope.close = function(){
-      $scope.detail = null;
     };
 
   });
