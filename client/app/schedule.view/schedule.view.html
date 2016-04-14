@@ -1,25 +1,18 @@
-<div class="panel panel-default viewer-container">
-  <h3 class="panel-heading">Schedule for {{ schedule.name }} on {{ schedule.date | date : 'MMM d, y' }} <br>
-    <input ng-model="searchText"></label>
-  </h3>
-  <div class="list-group">
-    &nbsp; {{ schedule.info }} <br>
-    <div ng-if="nav.hasRole('organizer')">&nbsp; There are still {{ schedule.unassigned.length }} unassigned volunteers</div>
-  </div>
-</div>
 <div class="job-table">
-  <div>
+  <div class="time-col">
     <div class="crouching-tiger-hidden-label">Time</div>
-    <div ng-repeat="time in timeArray" class="time-col">
+    <div ng-repeat="time in timeArray" class="time-block">
       {{time}}
     </div>
   </div>
+
   <div ng-repeat="job in schedule.jobs" class="job-col">
     <div class="job-header">
-    {{job.name}}
-  </div>
-    <div class="slot-spacing">
-      <div ng-repeat="slot in job.slots" class="slot" ng-style="cssMagic(slot)">
+      {{job.name}}
+    </div>
+
+    <div class="slot-container">
+      <div ng-repeat="slot in job.slots" class="slot" ng-style="calculateSlotPosition(slot)">
         <div ng-repeat="volunteer in slot.assigned">
           {{volunteer.name}}
         </div>

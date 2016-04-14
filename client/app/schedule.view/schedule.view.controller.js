@@ -20,13 +20,12 @@ angular.module('ulyssesApp')
     }
     $scope.populateTimeArray();
 
-    $scope.cssMagic = function(slot){
+    $scope.calculateSlotPosition = function(slot) {
       var start = new Date(slot.start)
       var dif = (start.getHours()-$scope.earlyTime.getHours()) + (Math.abs(start.getMinutes()-$scope.earlyTime.getMinutes())/60);
-      console.log(dif);
+
       return {
         top: 100 * dif,
       };
     }
-
   });

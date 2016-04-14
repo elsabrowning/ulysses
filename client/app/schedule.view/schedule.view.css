@@ -1,13 +1,11 @@
-.job-col
-{
-  width: 200px;
-  height: 1200px;
-  display: table-cell;
+.job-col {
   border: 1px solid black;
-
-
+  display: table-cell;
+  height: 1200px;
+  width: 200px;
 }
-.slot-spacing {
+
+.slot-container {
   position: relative;
 }
 
@@ -15,15 +13,15 @@
   position: absolute;
 }
 
-.job-header{
+.job-header {
   border-bottom: 1px solid black;
 }
 
-.job-table{
-  display: table;
+.job-table {
   border-collapse: collapse;
+  display: table;
 }
 
-.time-col{
+.time-block {
   height: 50px;
 }
