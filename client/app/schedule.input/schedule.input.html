@@ -67,7 +67,7 @@
 
   <div class="col-md-4">
     <div class="list-group">
-      <a class="list-group-item" ng-repeat="volunteer in schedule.unassigned" ng-click="open(volunteer)" ng-class="{ active: detail == volunteer }">
+      <a class="list-group-item" ng-repeat="volunteer in schedule.unassigned | orderBy: 'name'" ng-click="open(volunteer)" ng-class="{ active: detail == volunteer }">
         {{ volunteer.name }}<span ng-if="!volunteer.name">New Volunteer</span>
       </a>
     </div>
