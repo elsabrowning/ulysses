@@ -22,21 +22,76 @@
     </div>
   </div> -->
 </div>
-<div class="row">
+<!-- <div class="row">
   <span ng-repeat="job in schedule.jobs">
     <label>{{job.name}}; </label>
   </span>
   <div class="col-sm-2">
     <label> Time: </label>
     <div ng-repeat="time in timeArray">
-      <div class="list-group">
+      <div class="list-group"> -->
         <!-- <a class="list-group-item"> -->
-        {{time}}
-        <hr>
+        <!-- {{time}}
+        <hr> -->
         <!-- </a> -->
-      </div>
+      <!-- </div>
     </div>
   </div>
+</div> -->
+<div>
+<table width="80%" align="center" >
+    <div id="head_nav">
+    <tr>
+        <th>Time</th>
+        <th ng-repeat="job in schedule.jobs">{{job.name}}</th>
+    </tr>
+    </div>
+
+    <tr>
+        <th>{{timeArray[0]}}</th>
+            <td>Shift1</td>
+            <td>Shift1</td>
+            <td>Shift1</td>
+            <td>Shift1</td>
+        </div>
+    </tr>
+
+    <tr>
+        <th>{{timeArray[1]}}</td>
+            <td>Shift2</td>
+            <td>Shift2</td>
+            <td>Shift2</td>
+            <td>Shift2</td>
+        </div>
+    </tr>
+
+    <tr>
+        <th>{{timeArray[2]}}</td>
+            <td>Shift3</td>
+            <td>Shift3</td>
+            <td>Shift3</td>
+            <td>Shift3</td>
+        </div>
+    </tr>
+
+    <tr>
+        <th>{{timeArray[3]}}</td>
+            <td>Shift4</td>
+            <td>Shift4</td>
+            <td>Shift4</td>
+            <td>Shift4</td>
+          </div>
+    </tr>
+
+    <tr>
+        <th>{{timeArray[4]}}</td>
+            <td>Shift5</td>
+            <td>Shift5</td>
+            <td>Shift5</td>
+            <td>Shift5</td>
+        </div>
+    </tr>
+</table>
 </div>
 
 
