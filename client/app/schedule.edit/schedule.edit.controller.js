@@ -10,6 +10,52 @@ angular.module('ulyssesApp')
 
     $scope.auto = function() {
 
+<<<<<<< HEAD
+=======
+      // Separate judging and non-judging volunteers:
+      var unassigned = {
+        judging: $scope.schedule.unassigned.filter(function(volunteer) {
+          return volunteer.isJudge;
+        }),
+        nonjudging: $scope.schedule.unassigned.filter(function(volunteer) {
+          return !volunteer.isJudge;
+        })
+      };
+
+      // For judging and nonjudging:
+      for (var type in jobs) {
+        // If there are no volunteers of that type, skip:
+        if (!unassigned[type].length) {
+          continue;
+        }
+
+        // Iterate over jobs:
+        j:
+        for (var i = 0; i < jobs[type].length; i++) {
+          var job = jobs[type][i];
+          // If someday we care about preferences, do it here...
+
+          // Iterate over slots:
+          s:
+          for (var j = 0; j < job.slots.length; j++) {
+            var slot = job.slots[j];
+
+            // Iterate over volunteers because efficiency is for nerds:
+            v:
+            for (var k = 0; k < unassigned[type].length; k++) {
+              // If the slot is full, skip:
+              if (slot.assigned.length >= slot.positions) {
+                continue s;
+              }
+
+              var volunteer = unassigned[type].shift();
+              $scope.schedule.unassigned.splice($scope.schedule.unassigned.indexOf(volunteer), 1);
+              slot.assigned.push(volunteer);
+            }
+          }
+        }
+      }
+>>>>>>> 4c0e378fd5fb57612e564ec1a94be5eba818ee09
     };
 
     $scope.timeRange = function(slot) {
