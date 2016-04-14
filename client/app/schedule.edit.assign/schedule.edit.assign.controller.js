@@ -32,7 +32,8 @@ angular.module('ulyssesApp')
     };
 
     $scope.remainingPositions = function(slot) {
-      return Array(slot.positions - slot.assigned.length);
+      var remaining = slot.positions - slot.assigned.length;
+      return Array(remaining < 0 ? 0 : remaining);
     };
 
     $scope.unassign = function(volunteer, slot) {
