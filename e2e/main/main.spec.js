@@ -7,12 +7,12 @@ describe('Main View', function() {
 
   beforeEach(function() {
     browser.get(config.baseUrl + '/');
-    page = require('./main.po');
+    page = require('./main.po.js');
   });
 
   it('should include jumbotron with correct data', function() {
     expect(page.h1El.getText()).toBe('Ulysses');
-    expect(page.imgEl.getAttribute('src')).toMatch(assets/images/raccoon.jpg);
+    expect(page.imgEl.getAttribute('src')).toMatch("assets/images/raccoon.jpg");
     expect(page.imgEl.getAttribute('alt')).toBe('');
   });
 });
