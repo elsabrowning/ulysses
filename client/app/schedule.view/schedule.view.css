@@ -2,7 +2,9 @@
 {
   width: 200px;
   height: 1200px;
-  display: inline-block;
+  display: table-cell;
+  border: 1px solid black;
+
 
 }
 .slot-spacing {
@@ -11,4 +13,17 @@
 
 .slot {
   position: absolute;
+}
+
+.job-header{
+  border-bottom: 1px solid black;
+}
+
+.job-table{
+  display: table;
+  border-collapse: collapse;
+}
+
+.time-col{
+  height: 50px;
 }

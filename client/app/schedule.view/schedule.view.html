@@ -6,25 +6,18 @@
     &nbsp; {{ schedule.info }} <br>
     <div ng-if="nav.hasRole('organizer')">&nbsp; There are still {{ schedule.unassigned.length }} unassigned volunteers</div>
   </div>
-  <!-- <div class="list-group" ng-repeat="job in schedule.jobs">
-    <div class="list-group-item">
-{{job.name}}
-      <div class="list-group" ng-repeat="slot in job.slots | filter : searchText">
-        <div class="list-group-item">
-
-          Volunteers: {{ slot.assigned | json}} <br><!-- this will need to change, but since we don't have seed data this is what should work as a general purpose try -->
-          <!--<div ng-if="nav.hasRole('organizer')"> This slot still needs {{ slot.positions - slot.assigned.length }} volunteers</div>
-          Please arrive {{ job.training }} minutes before for training. <br>
-          &nbsp; Start time: {{ slot.start | date : 'h:mm a' }}<br>
-          &nbsp; End time: {{ slot.end | date : 'h:mm a' }}
-        </div>
-      </div>
-    </div>
-  </div> -->
 </div>
-<div>
+<div class="job-table">
+  <div>
+    <div class="crouching-tiger-hidden-label">Time</div>
+    <div ng-repeat="time in timeArray" class="time-col">
+      {{time}}
+    </div>
+  </div>
   <div ng-repeat="job in schedule.jobs" class="job-col">
+    <div class="job-header">
     {{job.name}}
+  </div>
     <div class="slot-spacing">
       <div ng-repeat="slot in job.slots" class="slot" ng-style="cssMagic(slot)">
         <div ng-repeat="volunteer in slot.assigned">
@@ -34,50 +27,3 @@
     </div>
   </div>
 </div>
-<!-- <div>
-  <table>
-    <th> Time </th><th ng-repeat="job in schedule.jobs">{{job.name}}</th>
-    <tr ng-repeat="time in timeArray"><th>{{time}}</th></tr>
-  </table>
-</div> -->
-<!-- <div>
-<table width="80%" align="center" >
-    <div id="head_nav">
-    <tr>
-        <th>Time</th>
-        <th ng-repeat="job in schedule.jobs">{{job.name}}</th>
-    </tr>
-    </div>
-
-    <tr>
-        <th>{{timeArray[6]}}</th>
-            <th ng-repeat="job in schedule.jobs"><td>{{job.name}}</td></th>
-        </div>
-    </tr>
-
-    <tr>
-        <th>{{timeArray[7]}}</td>
-
-        </div>
-    </tr>
-
-    <tr>
-        <th>{{timeArray[8]}}</td>
-
-        </div>
-    </tr>
-
-    <tr>
-        <th>{{timeArray[9]}}</td>
-
-          </div>
-    </tr>
-
-    <tr>
-        <th>{{timeArray[10]}}</td>
-
-
-        </div>
-    </tr>
-</table>
-</div> -->
