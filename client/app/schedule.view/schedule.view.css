@@ -1,34 +1,14 @@
-hr {
-  border-width: 4px;
-}
-body
+.job-col
 {
-    font-family: arial;
+  width: 200px;
+  height: 1200px;
+  display: inline-block;
+
+}
+.slot-spacing {
+  position: relative;
 }
 
-th,td
-{
-    margin: 0;
-    text-align: center;
-    border-collapse: collapse;
-    outline: 1px solid #e3e3e3;
-}
-
-td
-{
-    padding: 5px 10px;
-}
-
-th
-{
-    background: #666;
-    color: white;
-    padding: 5px 10px;
-}
-
-td:hover
-{
-    cursor: pointer;
-    background: #666;
-    color: white;
+.slot {
+  position: absolute;
 }

@@ -23,11 +23,23 @@
   </div> -->
 </div>
 <div>
+  <div ng-repeat="job in schedule.jobs" class="job-col">
+    {{job.name}}
+    <div class="slot-spacing">
+      <div ng-repeat="slot in job.slots" class="slot" ng-style="cssMagic(slot)">
+        <div ng-repeat="volunteer in slot.assigned">
+          {{volunteer.name}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div>
   <table>
     <th> Time </th><th ng-repeat="job in schedule.jobs">{{job.name}}</th>
     <tr ng-repeat="time in timeArray"><th>{{time}}</th></tr>
   </table>
-</div>
+</div> -->
 <!-- <div>
 <table width="80%" align="center" >
     <div id="head_nav">
