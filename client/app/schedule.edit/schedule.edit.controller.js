@@ -9,9 +9,6 @@ angular.module('ulyssesApp')
     });
 
     $scope.auto = function() {
-
-<<<<<<< HEAD
-=======
       // Separate judging and non-judging volunteers:
       var unassigned = {
         judging: $scope.schedule.unassigned.filter(function(volunteer) {
@@ -55,7 +52,6 @@ angular.module('ulyssesApp')
           }
         }
       }
->>>>>>> 4c0e378fd5fb57612e564ec1a94be5eba818ee09
     };
 
     $scope.timeRange = function(slot) {
