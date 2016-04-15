@@ -19,7 +19,7 @@
 
           <div class="form-group">
             <label>Judging position</label>
-            <input type="checkbox" class="form-control" ng-model="job.isJudging" />
+            <span ng-if="job.isJudging" class="judgeJ">J</span><input type="checkbox" class="form-control" ng-model="job.isJudging" />
           </div>
 
           <div class="form-group">
