@@ -1,6 +1,6 @@
 <div class="job-table">
   <div class="time-col">
-    <div class="crouching-tiger-hidden-label">Time</div>
+    <div class="crouching-tiger-hidden-label2">Time</div>
     <div ng-repeat="time in timeArray" class="time-block">
       {{time}}
     </div>
@@ -8,7 +8,9 @@
 
   <div ng-repeat="job in schedule.jobs" class="job-col">
     <div class="job-header">
-      {{job.name}}
+      <label>{{job.name}}</label>
+      <br>
+      <i>Arrive {{job.training}} minutes before shift for training</i>
     </div>
 
     <div class="slot-container">

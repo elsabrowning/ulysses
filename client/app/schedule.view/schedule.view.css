@@ -31,5 +31,10 @@
 }
 
 .time-block {
-  height: 60px;
+  height: 62px;
+}
+
+.crouching-tiger-hidden-label2{
+    visibility: hidden;
+    padding-bottom: 48px;
 }

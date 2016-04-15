@@ -52,8 +52,8 @@ angular.module('ulyssesApp')
       var shiftLength = $scope.duration(start, end);
 
       return {
-        top: $scope.hour * offset,
-        height: $scope.hour * shiftLength -  5,
+        top: $scope.hour * offset + 1,
+        height: $scope.hour * shiftLength - 5,
         backgroundColor: $scope.colorCode(slot),
         borderColor: $scope.borderColorCode(slot)
       };
