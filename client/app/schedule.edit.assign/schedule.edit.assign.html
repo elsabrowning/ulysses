@@ -11,7 +11,7 @@
     <div class="list-group">
       <a class="list-group-item" ng-click="assign(volunteer, slot)" ng-repeat="volunteer in schedule.unassigned | filter: filter | orderBy: 'name'">
         {{ volunteer.name }}
-        <span class="badge hover-badge">Assign →</span>
+        <span ng-if="volunteer.isJudge" class="judgeJ">J</span><span class="badge hover-badge">Assign →</span>
       </a>
     </div>
   </div>
