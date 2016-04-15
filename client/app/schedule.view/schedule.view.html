@@ -12,11 +12,11 @@
     </div>
 
     <div class="slot-container">
-      <div ng-repeat="slot in job.slots" class="slot" ng-style="calculateSlotPosition(slot)">
+      <a ng-repeat="slot in job.slots" class="slot" ng-style="calculateSlotPosition(slot)" ui-sref="schedule.edit.assign({ job: job._id, slot: slot._id })">
         <div ng-repeat="volunteer in slot.assigned">
           {{volunteer.name}}
         </div>
-      </div>
+      </a>
     </div>
   </div>
 </div>

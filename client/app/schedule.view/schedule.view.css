@@ -3,6 +3,7 @@
   display: table-cell;
   height: 1200px;
   width: 200px;
+  padding: 0 5px;
 }
 
 .slot-container {
@@ -11,6 +12,13 @@
 
 .slot {
   position: absolute;
+  border-width: 1px;
+  border-style: solid;
+  width: 100%;
+}
+
+.slot:hover {
+  text-decoration: none;
 }
 
 .job-header {
@@ -23,5 +31,5 @@
 }
 
 .time-block {
-  height: 50px;
+  height: 60px;
 }
