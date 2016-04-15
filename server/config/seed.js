@@ -43,11 +43,6 @@ Schedule.find({}).removeAsync().then(() => {
       }, {
         assigned: [],
         positions: 4,
-        start:new Date('April 1, 2016, 15:00:00'),
-        end: new Date('April 1, 2016, 16:00:00')
-      }, {
-        assigned: [],
-        positions: 4,
         start:new Date('April 1, 2016, 16:00:00'),
         end: new Date('April 1, 2016, 17:00:00')
       }]
@@ -132,6 +127,31 @@ Schedule.find({}).removeAsync().then(() => {
     }, {
       name: 'Spontaneous check-in',
       training: 15,
+      slots: [{
+        assigned: [],
+        positions: 2,
+        start: new Date('April 1, 2016, 10:00:00'),
+        end: new Date('April 1, 2016, 12:00:00')
+      }, {
+        assigned: [],
+        positions: 2,
+        start:new Date('April 1, 2016, 12:00:00'),
+        end: new Date('April 1, 2016, 14:00:00')
+      }, {
+        assigned: [],
+        positions: 2,
+        start:new Date('April 1, 2016, 14:00:00'),
+        end: new Date('April 1, 2016, 16:00:00')
+      }, {
+        assigned: [],
+        positions: 1,
+        start:new Date('April 1, 2016, 16:00:00'),
+        end: new Date('April 1, 2016, 17:00:00')
+      }]
+    }, {
+      name: 'Some Judge Job',
+      training: 15,
+      isJudging: true,
       slots: [{
         assigned: [],
         positions: 2,
