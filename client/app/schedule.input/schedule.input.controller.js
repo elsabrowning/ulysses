@@ -8,6 +8,7 @@ angular.module('ulyssesApp')
     $scope.conflicts = {};
     $scope.unresolvables = 0;
     $scope.detail = null;
+    $scope.allVolunteers = [];
 
     $scope.$parent.schedule.$promise.then(function(schedule) {
       $scope.schedule = schedule;
