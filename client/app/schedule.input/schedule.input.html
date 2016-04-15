@@ -72,7 +72,7 @@
 
     <div class="list-group">
       <a class="list-group-item" ng-repeat="volunteer in schedule.unassigned | filter: filter | orderBy: 'name'" ng-click="open(volunteer)" ng-class="{ active: detail == volunteer }">
-        {{ volunteer.name }}<span ng-if="volunteer.isJudge" class="judgeJ">J</span><span ng-if="!volunteer.name">New Volunteer</span>
+        {{ volunteer.name }}  <span ng-if="volunteer.isJudge" class="judgeJ">J</span><span ng-if="!volunteer.name">New Volunteer</span>
       </a>
     </div>
   </div>
