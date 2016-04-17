@@ -16,3 +16,10 @@
 .hasJob{
   background-color: #D3D3D3;
 }
+
+.Fixed2
+{
+    position: fixed;
+    top: 245px;
+    width: 300px;
+}

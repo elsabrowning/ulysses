@@ -85,31 +85,33 @@
   </div>
 
   <div class="col-md-4" ng-if="detail">
-    <form ng-submit="close()">
-      <div class="form-group">
-        <label>Name</label>
-        <input type="text" class="form-control" ng-model="detail.name" />
-      </div>
+    <div class="Fixed2"
+      <form ng-submit="close()">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" class="form-control" ng-model="detail.name" />
+        </div>
 
-      <div class="form-group">
-        <label>Email address</label>
-        <input type="email" class="form-control" ng-model="detail.email" />
-      </div>
+        <div class="form-group">
+          <label>Email address</label>
+          <input type="email" class="form-control" ng-model="detail.email" />
+        </div>
 
-      <div class="form-group">
-        <label>Phone number</label>
-        <input type="text" class="form-control" ng-model="detail.phone" />
-      </div>
+        <div class="form-group">
+          <label>Phone number</label>
+          <input type="text" class="form-control" ng-model="detail.phone" />
+        </div>
 
-      <div class="form-group">
-        <label>Judge</label>
-        <input type="checkbox" class="checkbox-inline" ng-model="detail.isJudge" />
-      </div>
+        <div class="form-group">
+          <label>Judge</label>
+          <input type="checkbox" class="checkbox-inline" ng-model="detail.isJudge" />
+        </div>
 
-      <div class="form-group">
-        <button type="submit" class="btn btn-success">Done</button>
-        <button type="submit" class="btn btn-danger" ng-click="removeVolunteer(detail)">Remove</button>
-      </div>
-    </form>
+        <div class="form-group">
+          <button type="submit" class="btn btn-success">Done</button>
+          <button type="submit" class="btn btn-danger" ng-click="removeVolunteer(detail)">Remove</button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
