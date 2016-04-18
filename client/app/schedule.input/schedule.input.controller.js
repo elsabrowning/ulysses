@@ -69,7 +69,7 @@ angular.module('ulyssesApp')
       console.log("got to processTeams");
 
       var divisions = {
-        Primary: 0,
+        Primary: 0, //primary listed as 1's in csv? Error?
         I: 1,
         II: 2,
         III: 3,
