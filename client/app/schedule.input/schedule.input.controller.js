@@ -132,4 +132,11 @@ angular.module('ulyssesApp')
       };
     };
 
+    $scope.timeRange = function(constraint) {
+      var start = moment(constraint.start);
+      var end = moment(constraint.end);
+
+      return start.format('h:mma') + ' to ' + end.format('h:mma');
+    };
+
   });

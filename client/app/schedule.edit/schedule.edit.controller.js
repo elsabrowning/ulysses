@@ -9,60 +9,62 @@ angular.module('ulyssesApp')
       $scope.schedule = schedule;
     });
 
-    // $scope.auto = function() {
-    //   // Separate judging and non-judging jobs:
-    //   var jobs = {
-    //     judging: $scope.schedule.jobs.filter(function(job) {
-    //       return job.isJudging;
-    //     }),
-    //     nonjudging: $scope.schedule.jobs.filter(function(job) {
-    //       return !job.isJudging;
-    //     })
-    //   };
-    //
-    //   // Separate judging and non-judging volunteers:
-    //   var unassigned = {
-    //     judging: $scope.schedule.unassigned.filter(function(volunteer) {
-    //       return volunteer.isJudge;
-    //     }),
-    //     nonjudging: $scope.schedule.unassigned.filter(function(volunteer) {
-    //       return !volunteer.isJudge;
-    //     })
-    //   };
-    //
-    //   // For judging and nonjudging:SLOT
-    //     if (!unassigned[type].length) {
-    //       continue;
-    //     }
-    // SLOT    $scope.earlyTime = new Date('April 13, 2016, 07:00:00');
-    //     // Iterate over jobs:
-    //     j:
-    //     for (var i = 0; i < jobs[type].length; i++) {
-    //       var job = jobs[type][i];
-    //       // If someday we care about preferences, do it here...
-    //
-    //       // Iterate over slots:
-    //       s:
-    //       for (var j = 0; j < job.slots.length; j++) {
-    //         var slot = job.slots[j];
-    //
-    //         // Iterate over volunteers because efficiency is for nerds:
-    //         v:
-    //         for (var k = 0; k < unassigned[type].length; k++) {
-    //           // If the slot is full, skip:
-    //           if (slot.assigned.length >= slot.positions) {
-    //             continue s;
-    //           }
-    //
-    //           var volunteer = unassigned[type].shift();
-    //           $scope.schedule.unassigned.splice($scope.schedule.unassigned.indexOf(volunteer), 1);
-    //           slot.assigned.push(volunteer);
-    //         }
-    //       }
-    //     }
-    //   }
-    // };
+    $scope.auto = function() {
+          // Separate judging and non-judging jobs:
+          var jobs = {
+            judging: $scope.schedule.jobs.filter(function(job) {
+              return job.isJudging;
+            }),
+            nonjudging: $scope.schedule.jobs.filter(function(job) {
+              return !job.isJudging;
+            })
+          };
 
+          // Separate judging and non-judging volunteers:
+          var unassigned = {
+            judging: $scope.schedule.unassigned.filter(function(volunteer) {
+              return volunteer.isJudge;
+            }),
+            nonjudging: $scope.schedule.unassigned.filter(function(volunteer) {
+              return !volunteer.isJudge;
+            })
+          };
+
+          // For judging and nonjudging:
+          for (var type in jobs) {
+            // If there are no volunteers of that type, skip:
+            if (!unassigned[type].length) {
+              continue;
+            }
+
+            // Iterate over jobs:
+            j:
+            for (var i = 0; i < jobs[type].length; i++) {
+              var job = jobs[type][i];
+              // If someday we care about preferences, do it here...
+
+              // Iterate over slots:
+              s:
+              for (var j = 0; j < job.slots.length; j++) {
+                var slot = job.slots[j];
+
+                // Iterate over volunteers because efficiency is for nerds:
+                v:
+                for (var k = 0; k < unassigned[type].length; k++) {
+                  // If the slot is full, skip:
+                  if (slot.assigned.length >= slot.positions) {
+                    continue s;
+                  }
+
+                  var volunteer = unassigned[type].shift();
+                  $scope.schedule.unassigned.splice($scope.schedule.unassigned.indexOf(volunteer), 1);
+                  slot.assigned.push(volunteer);
+                }
+              }
+            }
+          }
+        };
+        
     $scope.duration = function(time1, time2){
       return time2.getHours()-time1.getHours() + Math.abs(time2.getMinutes()-time1.getMinutes())/60;
     }
@@ -154,20 +156,20 @@ angular.module('ulyssesApp')
     }
   }
 
-    $scope.auto = function (){
-      for(var i in $scope.schedule.jobs){
-        var job = $scope.schedule.jobs[i];
-        // console.log(job.name);
-        for(var j in job.slots){
-          var slot = job.slots[j];
-          // console.log(slot.start);
-          // console.log(slot.end);
-          if(slot.assigned.length < slot.positions){
-            $scope.populateIndivSlot(slot, job);
-          }
-        }
-      }
-    }
+    // $scope.auto = function (){
+    //   for(var i in $scope.schedule.jobs){
+    //     var job = $scope.schedule.jobs[i];
+    //     // console.log(job.name);
+    //     for(var j in job.slots){
+    //       var slot = job.slots[j];
+    //       // console.log(slot.start);
+    //       // console.log(slot.end);
+    //       if(slot.assigned.length < slot.positions){
+    //         $scope.populateIndivSlot(slot, job);
+    //       }
+    //     }
+    //   }
+    // }
 
     $scope.timeRange = function(slot) {
       var start = moment(slot.start);
