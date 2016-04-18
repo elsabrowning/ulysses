@@ -71,7 +71,7 @@
     </div>
     <!--this is gross and we should make an allVolunteers array, but this is fine for now-->
     <div class="list-group">
-      <a class="list-group-item" ng-repeat="volunteer in schedule.unassigned | filter: filter | orderBy: 'name'" ng-click="open(volunteer)" ng-class="{ active: detail == volunteer }">
+      <a class="list-group-item" ng-repeat="volunteer in schedule.unassigned | filter: filter" ng-click="open(volunteer)" ng-class="{ active: detail == volunteer }">
         {{ volunteer.name }}  <span ng-if="volunteer.isJudge" class="judgeJ">J</span><span ng-if="!volunteer.name">New Volunteer</span>
       </a>
       <div ng-repeat="job in schedule.jobs">
@@ -85,31 +85,33 @@
   </div>
 
   <div class="col-md-4" ng-if="detail">
-    <form ng-submit="close()">
-      <div class="form-group">
-        <label>Name</label>
-        <input type="text" class="form-control" ng-model="detail.name" />
-      </div>
+    <div class="Fixed2"
+      <form ng-submit="close()">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" class="form-control" ng-model="detail.name" />
+        </div>
 
-      <div class="form-group">
-        <label>Email address</label>
-        <input type="email" class="form-control" ng-model="detail.email" />
-      </div>
+        <div class="form-group">
+          <label>Email address</label>
+          <input type="email" class="form-control" ng-model="detail.email" />
+        </div>
 
-      <div class="form-group">
-        <label>Phone number</label>
-        <input type="text" class="form-control" ng-model="detail.phone" />
-      </div>
+        <div class="form-group">
+          <label>Phone number</label>
+          <input type="text" class="form-control" ng-model="detail.phone" />
+        </div>
 
-      <div class="form-group">
-        <label>Judge</label>
-        <input type="checkbox" class="checkbox-inline" ng-model="detail.isJudge" />
-      </div>
+        <div class="form-group">
+          <label>Judge</label>
+          <input type="checkbox" class="checkbox-inline" ng-model="detail.isJudge" />
+        </div>
 
-      <div class="form-group">
-        <button type="submit" class="btn btn-success">Done</button>
-        <button type="submit" class="btn btn-danger" ng-click="removeVolunteer(detail)">Remove</button>
-      </div>
-    </form>
+        <div class="form-group">
+          <button type="submit" class="btn btn-success">Done</button>
+          <button type="submit" class="btn btn-danger" ng-click="removeVolunteer(detail)">Remove</button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>

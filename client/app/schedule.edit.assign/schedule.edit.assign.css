@@ -24,3 +24,10 @@ a.list-group-item {
   background-color: #F4A460;
   border-radius: 10px;
 }
+
+.Fixed
+{
+    position: fixed;
+    top: 245px;
+    width: 300px;
+}
