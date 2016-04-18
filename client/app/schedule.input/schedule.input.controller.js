@@ -34,7 +34,6 @@ angular.module('ulyssesApp')
 
     $scope.removeVolunteer = function(volunteer) {
       var unassigned = $scope.schedule.unassigned;
-      unassigned.splice(unassigned.indexOf(volunteer), 1);
       for(var i in $scope.schedule.jobs){
         var job = $scope.schedule.jobs[i];
         for(var j in job.slots){

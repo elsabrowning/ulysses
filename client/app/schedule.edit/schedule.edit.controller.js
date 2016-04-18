@@ -67,72 +67,104 @@ angular.module('ulyssesApp')
       return time2.getHours()-time1.getHours() + Math.abs(time2.getMinutes()-time1.getMinutes())/60;
     }
 
+    $scope.unLucky = function() {
+      console.log($scope.schedule.jobs);
+      for(var i = 0; i<$scope.schedule.jobs.length; i++){
+        var job = $scope.schedule.jobs[i];
+        console.log(job.name);
+        for(var j = 0; j<job.slots.length; j++){
+          var slot = job.slots[j];
+          console.log(slot.start);
+          for(var k = 0; k<slot.assigned.length; k++){
+            var vol = slot.assigned[k];
+            var volThing = slot.assigned.indexOf(vol)
+            console.log(vol.name);
+            $scope.schedule.unassigned.push(vol);
+          }
+          slot.assigned = [];
+        }
+      }
+    }
+
+    $scope.helperFunction = function(constraint, slot){
+      var count = 0;
+      var con = constraint;
+      var start = new Date(con.start);
+      var end = new Date(con.end);
+      var sStart = new Date(slot.start);
+      var sEnd = new Date(slot.end);
+      var conStart = $scope.duration($scope.earlyTime, start);
+      var conEnd = $scope.duration($scope.earlyTime, end);
+      var slotStart = $scope.duration($scope.earlyTime, sStart);
+      var slotEnd = $scope.duration($scope.earlyTime, sEnd);
+      if(((conStart >= slotStart)&&(conStart <= slotEnd)) || ((conEnd >= slotStart) &&(conEnd <= slotEnd))){
+        count++;
+      } else {
+        //do nothing
+      }
+      return count;
+    }
+
+    $scope.populateIndivSlot = function(slot, job){
+      var dif = slot.positions - slot.assigned.length;
+      for(var k in $scope.schedule.unassigned){
+        var vol = $scope.schedule.unassigned[k];
+        // console.log(vol.name);
+        if(dif != 0){
+          if(!job.isJudging && !vol.isJudge){
+            if(vol.constraints.length>0){
+              for(var l in vol.constraints){
+                var con = vol.constraints[l];
+                var count = $scope.helperFunction(con, slot);
+                if(count != 0){
+                  count = 0;
+                } else {
+                  slot.assigned.push(vol);
+                  $scope.schedule.unassigned.splice($scope.schedule.unassigned.indexOf(vol), 1);
+                  dif--;
+              }
+            }
+          } else {
+            slot.assigned.push(vol);
+            $scope.schedule.unassigned.splice($scope.schedule.unassigned.indexOf(vol), 1);
+            dif--;
+          }
+        } else if(job.isJudging && vol.isJudge){
+          if(vol.constraints.length>0){
+            for(var l in vol.constraints){
+              var con = vol.constraints[l];
+              var count = $scope.helperFunction(con);
+              if(count != 0){
+                count = 0;
+                } else {
+                slot.assigned.push(vol);
+                $scope.schedule.unassigned.splice($scope.schedule.unassigned.indexOf(vol), 1);
+                dif--;
+              }
+            }
+          } else {
+          slot.assigned.push(vol);
+          $scope.schedule.unassigned.splice($scope.schedule.unassigned.indexOf(vol), 1);
+          dif--;
+          }
+        } else {
+          //do nothing
+        }
+      }
+    }
+  }
 
     $scope.auto = function (){
       for(var i in $scope.schedule.jobs){
-        console.log("WHY");
         var job = $scope.schedule.jobs[i];
+        // console.log(job.name);
         for(var j in job.slots){
           var slot = job.slots[j];
-          // if(slot.assigned.length < slot.positions){
-            for(var k in $scope.schedule.unassigned){
-              if(slot.assigned.length < slot.positions){
-                var vol = $scope.schedule.unassigned[k];
-                if(!job.isJudging && !vol.isJudge){
-                  if(vol.constraints.length>0){
-                    for(var l in vol.constraints){
-                      var con = vol.constraints[l];
-                      var start = new Date(con.start);
-                      var end = new Date(con.end);
-                      var sStart = new Date(slot.start);
-                      var sEnd = new Date(slot.end);
-                      var conStart = $scope.duration($scope.earlyTime, start);
-                      var conEnd = $scope.duration($scope.earlyTime, end);
-                      var slotStart = $scope.duration($scope.earlyTime, sStart);
-                      var slotEnd = $scope.duration($scope.earlyTime, sEnd);
-                      if(((conStart >= slotStart)&&(conStart <= slotEnd)) || ((conEnd >= slotStart) &&(conEnd <= slotEnd))){
-                        //do nothing
-                      } else {
-                        $scope.schedule.unassigned.splice($scope.schedule.unassigned.indexOf(vol), 1);
-                        slot.assigned.push(vol);
-                      }
-                    } //end for constraint loop
-                  } else {
-                    console.log("test" + vol.name);
-                    $scope.schedule.unassigned.splice($scope.schedule.unassigned.indexOf(vol), 1);
-                    slot.assigned.push(vol);
-                  }
-                } else if(job.isJudging && vol.isJudge){
-                  if(vol.constraints.length>0){
-                    for(var l in vol.constraints){
-                      var con = vol.constraints[l];
-                      var start = new Date(con.start);
-                      var end = new Date(con.end);
-                      var sStart = new Date(slot.start);
-                      var sEnd = new Date(slot.end);
-                      var conStart = $scope.duration($scope.earlyTime, start);
-                      var conEnd = $scope.duration($scope.earlyTime, end);
-                      var slotStart = $scope.duration($scope.earlyTime, sStart);
-                      var slotEnd = $scope.duration($scope.earlyTime, sEnd);
-                      if(((conStart >= slotStart)&&(conStart <= slotEnd)) || ((conEnd >= slotStart) &&(conEnd <= slotEnd))){
-                        //do nothing
-                      } else {
-                        $scope.schedule.unassigned.splice($scope.schedule.unassigned.indexOf(vol), 1);
-                        slot.assigned.push(vol);
-                      }
-                    } //end for constraint loop
-                  } else {
-                    $scope.schedule.unassigned.splice($scope.schedule.unassigned.indexOf(vol), 1);
-                    slot.assigned.push(vol);
-                  }
-                } else {
-                  //do Nothing?
-                }
-              } else {
-                //do nothing;
-              }
-            }
-          // }
+          // console.log(slot.start);
+          // console.log(slot.end);
+          if(slot.assigned.length < slot.positions){
+            $scope.populateIndivSlot(slot, job);
+          }
         }
       }
     }
