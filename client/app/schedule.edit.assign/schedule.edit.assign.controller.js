@@ -69,6 +69,9 @@ angular.module('ulyssesApp')
           } else {
             $scope.errorMessage += " and " + volunteer.constraints[i].name + " from " + $scope.timeRange(volunteer.constraints[i]);
           }
+          if(i = volunteer.constraints.length) {
+            $scope.errorMessage += ".";
+          }
           conflicting = true;
         }
       }
@@ -76,14 +79,13 @@ angular.module('ulyssesApp')
     };
 
     $scope.assign = function(volunteer, slot) {
+      $scope.errorMessage = "";
       var unassigned = $scope.schedule.unassigned;
       if(!$scope.conflictLoop(volunteer,slot)){
         // AH, PUSH IT
         slot.assigned.push(unassigned.splice(unassigned.indexOf(volunteer), 1)[0]);
         volunteer.constraints.push({start: slot.start, end: slot.end, name: $scope.job.name});
 
-      } else {
-        console.log($scope.errorMessage);
       }
 
     };
