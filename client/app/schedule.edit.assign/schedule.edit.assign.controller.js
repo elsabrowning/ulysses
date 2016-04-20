@@ -47,8 +47,16 @@ angular.module('ulyssesApp')
 
     $scope.unassign = function(volunteer, slot) {
       var assigned = slot.assigned;
-
+      console.log(volunteer.constraints.length);
       // PUSH IT REAL GOOD
       $scope.schedule.unassigned.push(assigned.splice(assigned.indexOf(volunteer), 1)[0]);
+      for(var i = 0; i < volunteer.constraints.length; i++) {
+        if(volunteer.constraints[i].name != "Watching Performance") {
+          volunteer.constraints.splice(0, i);
+          console.log(volunteer.constraints.length);
+        }
+
+      }
+
     };
   });
