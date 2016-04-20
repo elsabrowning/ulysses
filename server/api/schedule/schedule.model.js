@@ -4,7 +4,8 @@ var mongoose = require('bluebird').promisifyAll(require('mongoose'));
 
 var ConstraintSchema = new mongoose.Schema({
   start: Date,
-  end: Date
+  end: Date,
+  name: String
 });
 
 //testing stuff

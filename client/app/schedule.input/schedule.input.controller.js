@@ -43,7 +43,7 @@ angular.module('ulyssesApp')
             console.log(aVol);
             if(aVol == volunteer){
               //lol hi Dan, SCREW YOU, I'M DOING A WINDOW ALERT!
-              window.alert(volunteer.name + " is assinged to " + job.name + ". Please unassign volunteer before deleting.");
+              window.alert(volunteer.name + " is assigned to " + job.name + ". Please unassign volunteer before deleting.");
             }
           }
         }
@@ -51,6 +51,7 @@ angular.module('ulyssesApp')
       unassigned.splice(unassigned.indexOf(volunteer), 1);
     };
 
+    //uploads volunteers
     $scope.process = function(data) {
       if ($scope.volunteerCSV) {
         papa.parse($scope.volunteerCSV, {
@@ -65,6 +66,7 @@ angular.module('ulyssesApp')
       }
     };
 
+    //uploads teams
     $scope.processTeams = function(data) {
       console.log("got to processTeams");
 
@@ -83,7 +85,8 @@ angular.module('ulyssesApp')
             var row = result.data[0];
             $scope.conflicts['#' + row['Number'] + ' ' + row['Problem'] + '/' + divisions[row['Division']]] = {
               start: moment(row['Longt Time'], 'h:mm A').subtract(15, 'minutes'),
-              end: moment(row['Longt Time'], 'h:mm A').add(45, 'minutes')
+              end: moment(row['Longt Time'], 'h:mm A').add(45, 'minutes'),
+              name: "Watching Performance"
             };
 
           },

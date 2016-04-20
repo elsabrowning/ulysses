@@ -71,7 +71,7 @@
     </div>
     <!--this is gross and we should make an allVolunteers array, but this is fine for now-->
     <div class="list-group">
-      <a class="list-group-item" ng-repeat="volunteer in schedule.unassigned | filter: filter track by $index" ng-click="open(volunteer)" ng-class="{ active: detail == volunteer }">
+      <a class="list-group-item" ng-repeat="volunteer in schedule.unassigned | filter: filter | orderBy: 'name' track by $index" ng-click="open(volunteer)" ng-class="{ active: detail == volunteer }">
         {{ volunteer.name }}  <span ng-if="volunteer.isJudge" class="judgeJ">J</span><span ng-if="!volunteer.name">New Volunteer</span>
       </a>
       <div ng-repeat="job in schedule.jobs">
@@ -104,7 +104,7 @@
 
         <div class="form-group">
           <label>Constraints</label>
-          <div ng-repeat="con in detail.constraints">{{timeRange(con)}}</div>
+          <div ng-repeat="con in detail.constraints">{{con.name}} {{timeRange(con)}}</div>
           <div ng-if="detail.constraints.length<1">This person has no constraints</div>
         </div>
 
