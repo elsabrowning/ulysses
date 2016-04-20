@@ -25,36 +25,50 @@ angular.module('ulyssesApp')
     });
 
     //checks to see if two time slots overlap
-    self.isConflict = function(slot1, slot2) {
-      var start1 = parseInt(slot1.start);
-      var end1 = parseInt(slot1.end);
-      var start2 = parseInt(slot2.start);
-      var end2 = parseInt(slot2.end);
+    $scope.isConflict = function(slot1, slot2) {
+      var start1 = parseInt($scope.timeStart(slot1));
+      var end1 = parseInt($scope.timeEnd(slot1));
+      var start2 = parseInt($scope.timeStart(slot2));
+      var end2 = parseInt($scope.timeEnd(slot2));
+
+
       if((start1 <= start2 && start2 <= end1)) {
-        console.log("scenario1");
+       // console.log("scenario1");
         return true;
       }
       else if(start2 <= start1 && start1 <= end2) {
-        console.log("scenario2");
+       // console.log("scenario2");
         return true;
       }
       else if(start1 == start2 && end1 == end2)
       {
-        console.log("scenario3");
+       // console.log("scenario3");
         return true;
       } else {
-        console.log("scenario4");
+        //console.log("scenario4");
         return false;
       }
-    }
+    };
+
+    //loops through volunteer constraints to check conflict loop
+    $scope.conflictLoop = function(volunteer, slot) {
+      for(var i = 0; i < volunteer.constraints.length; i++) {
+        if($scope.isConflict(volunteer.constraints[i], slot)) {
+          return true;
+        }
+      }
+      return false;
+    };
 
     $scope.assign = function(volunteer, slot) {
-      console.log("before assignment: " + volunteer.constraints.length);
       var unassigned = $scope.schedule.unassigned;
+      if(!$scope.conflictLoop(volunteer,slot)){
+        // AH, PUSH IT
+        slot.assigned.push(unassigned.splice(unassigned.indexOf(volunteer), 1)[0]);
+        volunteer.constraints.push({start: slot.start, end: slot.end, name: $scope.job.name});
 
-      // AH, PUSH IT
-      slot.assigned.push(unassigned.splice(unassigned.indexOf(volunteer), 1)[0]);
-      volunteer.constraints.push({start: slot.start, end: slot.end, name: $scope.job.name});
+      }
+
     };
 
     $scope.remainingPositions = function(slot) {
@@ -66,7 +80,14 @@ angular.module('ulyssesApp')
       var start = moment(constraint.start);
 
 
-      return start.format('h:mm');
+      return start.format('Hmm');
+    };
+
+    $scope.timeEnd = function(constraint) {
+      var end = moment(constraint.end);
+
+
+      return end.format('Hmm');
     };
 
     $scope.unassign = function(volunteer, slot) {
