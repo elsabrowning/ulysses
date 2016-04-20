@@ -5,6 +5,7 @@ angular.module('ulyssesApp')
     $scope.schedule = null;
     $scope.job = null;
     $scope.slot = null;
+    $scope.errorMessage = "";
 
     $scope.$parent.$parent.schedule.$promise.then(function(schedule) {
       $scope.schedule = schedule;
@@ -50,14 +51,28 @@ angular.module('ulyssesApp')
       }
     };
 
+    $scope.timeRange = function(constraint) {
+      var start = moment(constraint.start);
+      var end = moment(constraint.end);
+
+      return start.format('h:mma') + ' to ' + end.format('h:mma');
+    };
+
     //loops through volunteer constraints to check conflict loop
     $scope.conflictLoop = function(volunteer, slot) {
+      var conflicting = false;
       for(var i = 0; i < volunteer.constraints.length; i++) {
         if($scope.isConflict(volunteer.constraints[i], slot)) {
-          return true;
+          if($scope.errorMessage === "")
+          {
+            $scope.errorMessage = "This volunteer is occupied with " + volunteer.constraints[i].name + " from " + $scope.timeRange(volunteer.constraints[i]);
+          } else {
+            $scope.errorMessage += " and " + volunteer.constraints[i].name + " from " + $scope.timeRange(volunteer.constraints[i]);
+          }
+          conflicting = true;
         }
       }
-      return false;
+      return conflicting;
     };
 
     $scope.assign = function(volunteer, slot) {
@@ -67,6 +82,8 @@ angular.module('ulyssesApp')
         slot.assigned.push(unassigned.splice(unassigned.indexOf(volunteer), 1)[0]);
         volunteer.constraints.push({start: slot.start, end: slot.end, name: $scope.job.name});
 
+      } else {
+        console.log($scope.errorMessage);
       }
 
     };
