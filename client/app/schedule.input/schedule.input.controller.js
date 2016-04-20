@@ -86,7 +86,7 @@ angular.module('ulyssesApp')
             $scope.conflicts['#' + row['Number'] + ' ' + row['Problem'] + '/' + divisions[row['Division']]] = {
               start: moment(row['Longt Time'], 'h:mm A').subtract(15, 'minutes'),
               end: moment(row['Longt Time'], 'h:mm A').add(45, 'minutes'),
-              name: "Watching Performance"
+              name: "Watching A Performance"
             };
 
           },
