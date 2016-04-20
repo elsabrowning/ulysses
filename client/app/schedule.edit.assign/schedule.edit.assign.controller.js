@@ -24,11 +24,20 @@ angular.module('ulyssesApp')
       });
     });
 
+/*    $scope.getJobName = function(slot) {
+      $scope.schedule.jobs.forEach(function(job) {
+        if (job._id == $stateParams.job) {
+          $scope.job = job;
+        }
+      });
+    }; */
+
     $scope.assign = function(volunteer, slot) {
       var unassigned = $scope.schedule.unassigned;
 
       // AH, PUSH IT
       slot.assigned.push(unassigned.splice(unassigned.indexOf(volunteer), 1)[0]);
+      volunteer.constraints.push({start: slot.start, end: slot.end, name: $scope.job.name});
     };
 
     $scope.remainingPositions = function(slot) {
