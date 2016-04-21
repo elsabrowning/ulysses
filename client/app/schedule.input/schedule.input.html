@@ -103,9 +103,9 @@
         </div>
 
         <div class="form-group">
-          <label>Constraints</label>
+          <label>Scheduled Times</label>
           <div ng-repeat="con in detail.constraints">{{con.name}} {{timeRange(con)}}</div>
-          <div ng-if="detail.constraints.length<1">This person has no constraints</div>
+          <div ng-if="detail.constraints.length<1">This person is not scheduled at any time </div>
         </div>
 
         <div class="form-group">
