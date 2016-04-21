@@ -22,6 +22,14 @@
             </li>
           </ul>
         </li>
+        <li ng-show="nav.hasRole('organizer')" ui-sref-active="active">
+          <form class="form-inline" role="form">
+            <div class="form-group">
+              <input class="form-control" ng-model="scheduleName">
+            </div>
+            <button type="submit" class="btn btn-default" ng-click="addSchedule()">Make Schedule</button>
+          </form>
+        </li>
         <li ng-show="nav.hasRole('admin')" ui-sref-active="active">
           <a href="/admin">Admin</a>
         </li>
