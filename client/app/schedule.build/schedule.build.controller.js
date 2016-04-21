@@ -9,11 +9,11 @@ angular.module('ulyssesApp')
     });
 
     $scope.addJob = function() {
-      $scope.schedule.jobs.push({ slots: [{}] });
+      $scope.schedule.jobs.unshift({ slots: [{}] });
     };
 
     $scope.addSlot = function(job) {
-      job.slots.push({});
+      job.slots.unshift({});
     };
 
     $scope.removeJob = function(index) {

@@ -59,15 +59,15 @@ angular.module('ulyssesApp')
     };
 
     // creates an array of volunteers who prefered a specific job
-    $scope.listByPreferences = function(volunteer) {
-      var volunteersThatPreferJob = [];
-      for (var i = 0; i < VolunteerSchema.length(); i++){
-        if (volunteer.preferences == job.name && ){
-          volunteersThatPreferJob.push(volunteer);
-        }
-        return volunteersThatPreferjob;
-      }
-    };
+    // $scope.listByPreferences = function(volunteer) {
+    //   var volunteersThatPreferJob = [];
+    //   for (var i = 0; i < VolunteerSchema.length(); i++){
+    //     if (volunteer.preferences == job.name && ){
+    //       volunteersThatPreferJob.push(volunteer);
+    //     }
+    //     return volunteersThatPreferjob;
+    //   }
+    // };
 
     //loops through volunteer constraints to check conflict loop
     $scope.conflictLoop = function(volunteer, slot) {
