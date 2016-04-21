@@ -6,7 +6,7 @@
 'use strict';
 import Schedule from '../api/schedule/schedule.model';
 import User from '../api/user/user.model';
-
+/*
 Schedule.find({}).removeAsync().then(() => {
   Schedule.createAsync({
     name: 'Some Cool Odyssey Thing',
@@ -225,7 +225,7 @@ Schedule.find({}).removeAsync().then(() => {
     console.log('finished populating schedules');
   });
 });
-
+*/
 User.find({}).removeAsync()
 .then(() => {
   User.createAsync({
