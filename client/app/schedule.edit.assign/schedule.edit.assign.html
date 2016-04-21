@@ -18,6 +18,8 @@
 
   <div class="col-sm-6">
     <div class="list-group Fixed">
+      <h4 align = 'left'>{{ job.name }} </h4>
+      <h5>{{ timeRange(slot) }}</h5>
       <a class="list-group-item" ng-click="unassign(volunteer, slot)" ng-repeat="volunteer in slot.assigned track by $index">
         {{ volunteer.name }}
       <span ng-if="volunteer.isJudge" class="judgeJ">  J</span>  <span class="badge hover-badge">← Unassign</span>

@@ -31,3 +31,8 @@ a.list-group-item {
     top: 245px;
     width: 300px;
 }
+
+.header{
+  display: inline;
+  clear:none;
+}

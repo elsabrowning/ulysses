@@ -4,6 +4,8 @@
   height: 1200px;
   width: 200px;
   padding: 0 5px;
+  white-space: nowrap;
+  overflow-x: scroll;
 }
 
 .slot-container {
