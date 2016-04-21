@@ -103,9 +103,7 @@ angular.module('ulyssesApp')
         }
       });
 
-      judgeVol.sort(function(a,b) {
-        return b.constraints.length - a.constraints.length;
-      });
+
 
       nonJudgeVol.sort(function(a,b) {
         return b.constraints.length - a.constraints.length;
@@ -139,7 +137,9 @@ angular.module('ulyssesApp')
         nonJudgeVol.push(volunteer);
       });
 
-
+      judgeVol.sort(function(a,b) {
+        return b.constraints.length - a.constraints.length;
+      });
 
 
       nonJudgeVol.forEach(function(volunteer) {
