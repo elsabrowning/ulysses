@@ -1,7 +1,7 @@
 <form ng-submit="$parent.continue('schedule.edit')">
   <div class="form-group">
     <button type="submit" class="btn btn-success">Save and continue</button>
-    <button type="button"class="btn btn-default" ng-click="addVolunteer()">Add Volunteer</button>
+    <button type="button" ng-click="emailAllVolunteers()" align = "right" class="btn btn-info"><span class="glyphicon glyphicon-envelope"></span> Email All Volunteers</button>
   </div>
 </form>
 
@@ -23,6 +23,24 @@
           <button type="submit" class="btn btn-primary">
             Import volunteers
           </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Manually add a Volunteer
+      </div>
+
+      <div class="panel-body">
+
+        <div class="form-group">
+          <label for="csv">Manually add a volunteer</label>
+          <p class="help-block">Manually add a volunteer in the edit pane.</p>
+        </div>
+
+        <form ng-submit="process()">
+          <button type="button" class="btn btn-primary" ng-click="addVolunteer()">Add Volunteer</button>
         </form>
       </div>
     </div>
@@ -73,11 +91,13 @@
     <div class="list-group">
       <a class="list-group-item" ng-repeat="volunteer in schedule.unassigned | filter: filter | orderBy: 'name' track by $index" ng-click="open(volunteer)" ng-class="{ active: detail == volunteer }">
         {{ volunteer.name }}  <span ng-if="volunteer.isJudge" class="judgeJ">J</span><span ng-if="!volunteer.name">New Volunteer</span>
+        <button ng-click="volunteerCtrl.emailAll()" type="button" align = "right" class="btn btn-xs btn-info group-item-mail"><span class="glyphicon glyphicon-envelope"></span></button>
       </a>
       <div ng-repeat="job in schedule.jobs">
         <div ng-repeat="slot in job.slots">
           <a class="list-group-item hasJob" ng-repeat="volunteer in slot.assigned | filter: filter track by $index | orderBy: 'name'" ng-click="open(volunteer)" ng-class="{ active: detail == volunteer }">
             {{ volunteer.name }}  <span ng-if="volunteer.isJudge" class="judgeJ">J</span><span ng-if="!volunteer.name">New Volunteer</span>
+
           </a>
         </div>
       </div>
@@ -103,9 +123,9 @@
         </div>
 
         <div class="form-group">
-          <label>Constraints</label>
+          <label>Scheduled Times</label>
           <div ng-repeat="con in detail.constraints">{{con.name}} {{timeRange(con)}}</div>
-          <div ng-if="detail.constraints.length<1">This person has no constraints</div>
+          <div ng-if="detail.constraints.length<1">This person is not scheduled at any time </div>
         </div>
 
         <div class="form-group">
