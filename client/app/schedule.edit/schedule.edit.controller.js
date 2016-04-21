@@ -92,7 +92,7 @@ angular.module('ulyssesApp')
       });
 
 
-
+      var count = 0;
       $scope.schedule.unassigned.forEach(function(vol) {
         if(vol.isJudge) {
           judgeVol.push(vol);
@@ -100,11 +100,15 @@ angular.module('ulyssesApp')
         }
       });
 
+
+
       judgeVol.forEach(function(vol) {
         if(vol.isJudge) {
-          $scope.schedule.unassigned.splice($scope.schedule.unassigned.indexOf(vol), 1);
+          $scope.schedule.unassigned = $scope.schedule.unassigned.slice(0,$scope.schedule.unassigned.indexOf(vol)).concat($scope.schedule.unassigned.slice($scope.schedule.unassigned.indexOf(vol) + 1,$scope.schedule.unassigned.length + 1));
         }
       });
+
+
 
 
       $scope.schedule.unassigned.forEach(function(vol) {
@@ -115,7 +119,7 @@ angular.module('ulyssesApp')
 
       nonJudgeVol.forEach(function(vol) {
         if(!vol.isJudge) {
-          $scope.schedule.unassigned.splice($scope.schedule.unassigned.indexOf(vol), 1);
+          $scope.schedule.unassigned = $scope.schedule.unassigned.slice(0,$scope.schedule.unassigned.indexOf(vol)).concat($scope.schedule.unassigned.slice($scope.schedule.unassigned.indexOf(vol) + 1,$scope.schedule.unassigned.length + 1));
         }
       });
 
@@ -127,17 +131,23 @@ angular.module('ulyssesApp')
 
     */
 
-
+      console.log("length before " + judgeVol.length);
       judgeVol.forEach(function(volunteer) {
         assignment = false;
         judgeJobs.forEach(function(job) {
           job.slots.forEach(function(slot) {
             if(assignment == false) {
-             // console.log("vol: " + volunteer.name + " job " + job.name + " slot " + slot.positions);
               if((slot.positions - slot.assigned.length) > 0) {
+
+
                 if(!$scope.conflictLoop(volunteer,slot)){
+
                   // AH, PUSH IT
-                  slot.assigned.push(judgeVol.splice(judgeVol.indexOf(volunteer), 1)[0]);
+                  slot.assigned.push(volunteer);
+                  //console.log("length before judge " + judgeVol.slice(0,judgeVol.indexOf(volunteer)).length);
+                  //console.log("length after judge " + judgeVol.slice((judgeVol.indexOf(volunteer) + 1) ,judgeVol.length + 1).length);
+                  judgeVol = judgeVol.slice(0,judgeVol.indexOf(volunteer)).concat(judgeVol.slice(judgeVol.indexOf(volunteer) + 1,judgeVol.length + 1));
+
                   volunteer.constraints.push({start: slot.start, end: slot.end, name: job.name});
                   assignment = true;
                 }
@@ -147,13 +157,14 @@ angular.module('ulyssesApp')
         });
       });
 
+      console.log("length after " + judgeVol.length);
 
 
-/*
+
       judgeVol.forEach(function(volunteer) {
         nonJudgeVol.push(volunteer);
       });
-
+/*
 
       judgeVol.sort(function(a,b) {
         return b.constraints.length - a.constraints.length;
@@ -172,7 +183,8 @@ angular.module('ulyssesApp')
                 if((slot.positions - slot.assigned.length) > 0) {
                   if(!$scope.conflictLoop(volunteer,slot)){
                     // AH, PUSH IT
-                    slot.assigned.push(nonJudgeVol.splice(nonJudgeVol.indexOf(volunteer), 1)[0]);
+                    slot.assigned.push(volunteer);
+                    nonJudgeVol = nonJudgeVol.slice(0,nonJudgeVol.indexOf(volunteer)).concat(nonJudgeVol.slice(nonJudgeVol.indexOf(volunteer) + 1,nonJudgeVol.length + 1));
                     volunteer.constraints.push({start: slot.start, end: slot.end, name: job.name})
                     assignment = true;
                   }
