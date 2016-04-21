@@ -25,6 +25,19 @@ angular.module('ulyssesApp')
       });
     });
 
+    $scope.timeRange = function(constraint) {
+      if(constraint != null) {
+        var start = moment(constraint.start);
+        var end = moment(constraint.end);
+
+        return start.format('h:mma') + ' to ' + end.format('h:mma');
+      }
+    };
+
+
+
+
+
     //checks to see if two time slots overlap
     $scope.isConflict = function(slot1, slot2) {
       var start1 = parseInt($scope.timeStart(slot1));
@@ -51,12 +64,7 @@ angular.module('ulyssesApp')
       }
     };
 
-    $scope.timeRange = function(constraint) {
-      var start = moment(constraint.start);
-      var end = moment(constraint.end);
 
-      return start.format('h:mma') + ' to ' + end.format('h:mma');
-    };
 
     // creates an array of volunteers who prefered a specific job
     // $scope.listByPreferences = function(volunteer) {
@@ -79,6 +87,7 @@ angular.module('ulyssesApp')
             $scope.errorMessage = "This volunteer is occupied with " + volunteer.constraints[i].name + " from " + $scope.timeRange(volunteer.constraints[i]);
           } else {
             $scope.errorMessage += " and " + volunteer.constraints[i].name + " from " + $scope.timeRange(volunteer.constraints[i]);
+            console.log("volunteer.constraints[i] " + volunteer.constraints[i]);
           }
           if(i = volunteer.constraints.length) {
             $scope.errorMessage += ".";
@@ -92,12 +101,16 @@ angular.module('ulyssesApp')
     $scope.assign = function(volunteer, slot) {
       $scope.errorMessage = "";
       var unassigned = $scope.schedule.unassigned;
-      if(!$scope.conflictLoop(volunteer,slot)){
-        // AH, PUSH IT
-        slot.assigned.push(unassigned.splice(unassigned.indexOf(volunteer), 1)[0]);
-        volunteer.constraints.push({start: slot.start, end: slot.end, name: $scope.job.name});
+      if((slot.positions - slot.assigned.length) > 0) {
+        if(!$scope.conflictLoop(volunteer,slot)){
+          // AH, PUSH IT
+          slot.assigned.push(unassigned.splice(unassigned.indexOf(volunteer), 1)[0]);
+          volunteer.constraints.push({start: slot.start, end: slot.end, name: $scope.job.name});
 
+        }
       }
+
+
 
     };
 
@@ -108,8 +121,6 @@ angular.module('ulyssesApp')
 
     $scope.timeStart = function(constraint) {
       var start = moment(constraint.start);
-
-
       return start.format('Hmm');
     };
 
