@@ -232,20 +232,20 @@ User.find({}).removeAsync()
     provider: 'local',
     role: 'volunteer',
     name: 'Volunteer Vicki',
-    email: 'live2serve@volunteers4u.com',
-    password: 'helping123'
+    email: 'volunteer@example.com',
+    password: 'volunteer'
   }, {
     provider: 'local',
     role: 'admin',
     name: 'Admin',
-    email: 'admin@misterbossypants.com',
+    email: 'admin@example.com',
     password: 'admin'
   }, {
     provider: 'local',
     role: 'organizer',
     name: 'Organizer Ollie',
-    email: 'ithinkiamincharge@2ndincommand.org',
-    password: 'password123'
+    email: 'organizer@example.com',
+    password: 'organizer'
   })
   .then(() => {
     console.log('finished populating users');
