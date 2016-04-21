@@ -91,11 +91,21 @@ angular.module('ulyssesApp')
         }
       });
 
+
+
       $scope.schedule.unassigned.forEach(function(vol) {
         if(vol.isJudge) {
           judgeVol.push(vol);
+
         }
       });
+
+      judgeVol.forEach(function(vol) {
+        if(vol.isJudge) {
+          $scope.schedule.unassigned.splice($scope.schedule.unassigned.indexOf(vol), 1);
+        }
+      });
+
 
       $scope.schedule.unassigned.forEach(function(vol) {
         if(!vol.isJudge) {
@@ -103,13 +113,19 @@ angular.module('ulyssesApp')
         }
       });
 
+      nonJudgeVol.forEach(function(vol) {
+        if(!vol.isJudge) {
+          $scope.schedule.unassigned.splice($scope.schedule.unassigned.indexOf(vol), 1);
+        }
+      });
 
 
+      /*
       nonJudgeVol.sort(function(a,b) {
         return b.constraints.length - a.constraints.length;
       });
 
-
+    */
 
 
       judgeVol.forEach(function(volunteer) {
@@ -117,12 +133,12 @@ angular.module('ulyssesApp')
         judgeJobs.forEach(function(job) {
           job.slots.forEach(function(slot) {
             if(assignment == false) {
-              console.log("vol: " + volunteer.name + " job " + job.name + " slot " + slot.positions);
+             // console.log("vol: " + volunteer.name + " job " + job.name + " slot " + slot.positions);
               if((slot.positions - slot.assigned.length) > 0) {
                 if(!$scope.conflictLoop(volunteer,slot)){
                   // AH, PUSH IT
                   slot.assigned.push(judgeVol.splice(judgeVol.indexOf(volunteer), 1)[0]);
-                  volunteer.constraints.push({start: slot.start, end: slot.end, name: job.name})
+                  volunteer.constraints.push({start: slot.start, end: slot.end, name: job.name});
                   assignment = true;
                 }
               }
@@ -133,13 +149,17 @@ angular.module('ulyssesApp')
 
 
 
+/*
       judgeVol.forEach(function(volunteer) {
         nonJudgeVol.push(volunteer);
       });
 
+
       judgeVol.sort(function(a,b) {
         return b.constraints.length - a.constraints.length;
       });
+
+      */
 
 
       nonJudgeVol.forEach(function(volunteer) {
@@ -148,7 +168,7 @@ angular.module('ulyssesApp')
           job.slots.forEach(function(slot) {
             if(assignment == false) {
 
-                console.log("vol: " + volunteer.name + volunteer.email + " job " + job.name + " slot " + slot.positions);
+                //console.log("vol: " + volunteer.name + volunteer.email + " job " + job.name + " slot " + slot.positions);
                 if((slot.positions - slot.assigned.length) > 0) {
                   if(!$scope.conflictLoop(volunteer,slot)){
                     // AH, PUSH IT
@@ -164,6 +184,14 @@ angular.module('ulyssesApp')
         });
       });
 
+
+      nonJudgeVol.forEach(function(vol) {
+        $scope.schedule.unassigned.push(vol);
+      });
+
+      judgeVol.forEach(function(vol) {
+        $scope.schedule.unassigned.push(vol);
+      });
 
 
     }
@@ -226,7 +254,7 @@ angular.module('ulyssesApp')
 */
     $scope.duration = function(time1, time2){
       return time2.getHours()-time1.getHours() + Math.abs(time2.getMinutes()-time1.getMinutes())/60;
-    }
+    };
 
     $scope.unLucky = function() {
       console.log($scope.schedule.jobs);
