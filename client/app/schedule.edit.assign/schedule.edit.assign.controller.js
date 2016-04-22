@@ -84,7 +84,7 @@ angular.module('ulyssesApp')
         if($scope.isConflict(volunteer.constraints[i], slot)) {
           if($scope.errorMessage === "")
           {
-            $scope.errorMessage = "This volunteer is occupied with " + volunteer.constraints[i].name + " from " + $scope.timeRange(volunteer.constraints[i]);
+            $scope.errorMessage = volunteer.name + " is occupied with " + volunteer.constraints[i].name + " from " + $scope.timeRange(volunteer.constraints[i]);
           } else {
             $scope.errorMessage += " and " + volunteer.constraints[i].name + " from " + $scope.timeRange(volunteer.constraints[i]);
             console.log("volunteer.constraints[i] " + volunteer.constraints[i]);

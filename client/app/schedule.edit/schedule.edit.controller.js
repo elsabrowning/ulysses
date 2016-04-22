@@ -207,15 +207,15 @@ angular.module('ulyssesApp')
         console.log(job.name);
         for(var j = 0; j<job.slots.length; j++){
           var slot = job.slots[j];
-          console.log(slot.start);
+          //console.log(slot.start);
           for(var k = 0; k<slot.assigned.length; k++){
             var vol = slot.assigned[k];
-            console.log(vol.name);
-            for(var i = 0; i < vol.constraints.length; i++) {
+            //console.log(vol.name);
+            for(var t = 0; t < vol.constraints.length; t++) {
 
-              if(vol.constraints[i].name === job.name) {
+              if(vol.constraints[t].name === job.name) {
 
-                vol.constraints = vol.constraints.slice(i,i + 1);
+                vol.constraints = vol.constraints.slice(0,t).concat(vol.constraints.slice(t + 1, vol.constraints.length + 1));
               }
 
             }
