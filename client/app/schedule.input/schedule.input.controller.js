@@ -106,7 +106,7 @@ angular.module('ulyssesApp')
             if(team in $scope.conflicts) {
               volunteer.constraints.push($scope.conflicts[team]);
             }
-            else {
+            else {volunteerCtrl.
               $scope.unresolvables++;
             }
           });
@@ -141,5 +141,25 @@ angular.module('ulyssesApp')
 
       return start.format('h:mma') + ' to ' + end.format('h:mma');
     };
+
+    /*var sendEmail = function(vols){
+      var str = 'http://mail.google.com/mail/?view=cm&fs=1'+
+        '&to=' + vols.to +
+        '&su=' + vols.subject +
+        '&body=' + vols.message +
+        '&ui=1';
+      $window.open(str);
+    };
+
+    $scope.emailAllVolunteers = function(){
+
+    }
+
+    $scope.emailOneVolunteer = function(){
+      console.log($scope.schedule.jobs[0].name);
+      sendEmail({
+      to:
+      }
+    })*/
 
   });
