@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ulyssesApp')
-  .controller('ScheduleInputCtrl', function ($scope, papa, $state) {
+  .controller('ScheduleInputCtrl', function ($scope, papa, $state, $window) {
     $scope.schedule = null;
     $scope.teamCSV = null;
     $scope.volunteerCSV = null;
@@ -10,38 +10,38 @@ angular.module('ulyssesApp')
     $scope.detail = null;
     $scope.allVolunteers = [];
 
-    $scope.$parent.schedule.$promise.then(function(schedule) {
+    $scope.$parent.schedule.$promise.then(function (schedule) {
       $scope.schedule = schedule;
     });
 
-    $scope.count = function(object) {
+    $scope.count = function (object) {
       return Object.keys(object).length;
     };
 
-    $scope.open = function(volunteer) {
+    $scope.open = function (volunteer) {
       $scope.detail = volunteer;
     };
 
-    $scope.close = function() {
+    $scope.close = function () {
       $scope.detail = null;
     };
 
-    $scope.addVolunteer = function() {
+    $scope.addVolunteer = function () {
       var unassigned = $scope.schedule.unassigned;
       unassigned.unshift({});
       $scope.detail = unassigned[0];
     };
 
-    $scope.removeVolunteer = function(volunteer) {
+    $scope.removeVolunteer = function (volunteer) {
       var unassigned = $scope.schedule.unassigned;
-      for(var i in $scope.schedule.jobs){
+      for (var i in $scope.schedule.jobs) {
         var job = $scope.schedule.jobs[i];
-        for(var j in job.slots){
+        for (var j in job.slots) {
           var slot = job.slots[j];
-          for(var k in slot.assigned){
+          for (var k in slot.assigned) {
             var aVol = slot.assigned[k];
             console.log(aVol);
-            if(aVol == volunteer){
+            if (aVol == volunteer) {
               //lol hi Dan, SCREW YOU, I'M DOING A WINDOW ALERT!
               window.alert(volunteer.name + " is assigned to " + job.name + ". Please unassign volunteer before deleting.");
             }
@@ -52,22 +52,22 @@ angular.module('ulyssesApp')
     };
 
     //uploads volunteers
-    $scope.process = function(data) {
+    $scope.process = function (data) {
       if ($scope.volunteerCSV) {
         papa.parse($scope.volunteerCSV, {
           header: true,
-          step: function(result) {
+          step: function (result) {
             $scope.schedule.unassigned.push(birthVolunteer(result.data[0]));
           },
-          complete: function() {
-              $scope.$apply();
+          complete: function () {
+            $scope.$apply();
           }
         });
       }
     };
 
     //uploads teams
-    $scope.processTeams = function(data) {
+    $scope.processTeams = function (data) {
       console.log("got to processTeams");
 
       var divisions = {
@@ -81,7 +81,7 @@ angular.module('ulyssesApp')
       if ($scope.teamCSV) {
         papa.parse($scope.teamCSV, {
           header: true,
-          step: function(result) {
+          step: function (result) {
             var row = result.data[0];
             $scope.conflicts['#' + row['Number'] + ' ' + row['Problem'] + '/' + divisions[row['Division']]] = {
               start: moment(row['Longt Time'], 'h:mm A').subtract(15, 'minutes'),
@@ -90,20 +90,20 @@ angular.module('ulyssesApp')
             };
 
           },
-          complete: function() {
+          complete: function () {
             $scope.$apply();
           }
         });
       }
     };
 
-    $scope.addConstraints = function() {
-      for(var index in $scope.schedule.unassigned){
+    $scope.addConstraints = function () {
+      for (var index in $scope.schedule.unassigned) {
         var volunteer = $scope.schedule.unassigned[index];
         if (volunteer.childTeam) {
           var teams = volunteer.childTeam.split(", ");
-          teams.forEach(function(team){
-            if(team in $scope.conflicts) {
+          teams.forEach(function (team) {
+            if (team in $scope.conflicts) {
               volunteer.constraints.push($scope.conflicts[team]);
             }
             else {
@@ -114,11 +114,11 @@ angular.module('ulyssesApp')
       }
     };
 
-    var fullName = function(first, last){
+    var fullName = function (first, last) {
       return [first, last].join(" ");
     };
 
-    var birthVolunteer = function(row) {
+    var birthVolunteer = function (row) {
       return {
         name: fullName(row["First name"], row["Last name"]),
         email: row["E-mail"],
@@ -135,31 +135,32 @@ angular.module('ulyssesApp')
       };
     };
 
-    $scope.timeRange = function(constraint) {
+    $scope.timeRange = function (constraint) {
       var start = moment(constraint.start);
       var end = moment(constraint.end);
 
       return start.format('h:mma') + ' to ' + end.format('h:mma');
     };
 
-    /*var sendEmail = function(vols){
-      var str = 'http://mail.google.com/mail/?view=cm&fs=1'+
-        '&to=' + vols.to +
-        '&su=' + vols.subject +
-        '&body=' + vols.message +
-        '&ui=1';
-      $window.open(str);
-    };
+    // var sendEmail = function(vols){
+    //   var str = 'http://mail.google.com/mail/?view=cm&fs=1'+
+    //     '&to=' + vols.to +
+    //     '&su=' + vols.subject +
+    //     '&body=' + vols.message +
+    //     '&ui=1';
+    //   $window.open(str);
+    // };
+    //
+    // $scope.emailAllVolunteers = function(){
+    //
+    // };
+    //
+    // $scope.emailOneVolunteer = function(){
+    //   console.log($scope.schedule.jobs[0].name);
+    //   sendEmail({
+    //   to:
+    //   }
+    // });
+  }
+  );
 
-    $scope.emailAllVolunteers = function(){
-
-    }
-
-    $scope.emailOneVolunteer = function(){
-      console.log($scope.schedule.jobs[0].name);
-      sendEmail({
-      to:
-      }
-    })*/
-
-  });
