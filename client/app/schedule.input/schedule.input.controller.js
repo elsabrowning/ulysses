@@ -60,7 +60,7 @@ angular.module('ulyssesApp')
             $scope.schedule.unassigned.push(birthVolunteer(result.data[0]));
           },
           complete: function() {
-            $scope.$apply();
+              $scope.$apply();
           }
         });
       }
@@ -171,24 +171,40 @@ angular.module('ulyssesApp')
       return start.format('h:mma') + ' to ' + end.format('h:mma');
     };
 
-    /*var sendEmail = function(vols){
-     var str = 'http://mail.google.com/mail/?view=cm&fs=1'+
-     '&to=' + vols.to +
-     '&su=' + vols.subject +
-     '&body=' + vols.message +
-     '&ui=1';
-     $window.open(str);
-     };
+    // var sendEmail = function(vols){
+    //   var str = 'http://mail.google.com/mail/?view=cm&fs=1'+
+    //     '&to=' + vols.to +
+    //     '&su=' + vols.subject +
+    //     '&body=' + vols.message +
+    //     '&ui=1';
+    //   $window.open(str);
+    // };
+    //
+    // $scope.getAssignedEmails = function{
+    //   var assignedEmials = "";
+    //   return assignedEmails;
+    // };
+    //
+    // $scope.emailAllVolunteers = function(){
+    //   var unassignedEmials = "";
+    //   return unassignedEmails;
+    // };
+    //
+    // $scope.emailOneVolunteer = function(){
+    //   sendEmail({
+    //   to:
+    //   }
+    // });
 
-     $scope.emailAllVolunteers = function(){
+  })
 
-     }
+    }
 
-     $scope.emailOneVolunteer = function(){
-     console.log($scope.schedule.jobs[0].name);
-     sendEmail({
-     to:
-     }
-     })*/
+    $scope.emailOneVolunteer = function(){
+      console.log($scope.schedule.jobs[0].name);
+      sendEmail({
+      to:
+      }
+    })*/
 
   });
