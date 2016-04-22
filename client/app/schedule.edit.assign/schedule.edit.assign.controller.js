@@ -84,7 +84,7 @@ angular.module('ulyssesApp')
         if($scope.isConflict(volunteer.constraints[i], slot)) {
           if($scope.errorMessage === "")
           {
-            $scope.errorMessage = "This volunteer is occupied with " + volunteer.constraints[i].name + " from " + $scope.timeRange(volunteer.constraints[i]);
+            $scope.errorMessage = volunteer.name + " is occupied with " + volunteer.constraints[i].name + " from " + $scope.timeRange(volunteer.constraints[i]);
           } else {
             $scope.errorMessage += " and " + volunteer.constraints[i].name + " from " + $scope.timeRange(volunteer.constraints[i]);
             console.log("volunteer.constraints[i] " + volunteer.constraints[i]);
@@ -131,14 +131,14 @@ angular.module('ulyssesApp')
       return end.format('Hmm');
     };
 
-    $scope.unassign = function(volunteer, slot) {
+    $scope.unassign = function(volunteer, slot, job) {
       var assigned = slot.assigned;
 
       for(var i = 0; i < volunteer.constraints.length; i++) {
+        console.log("job name " + job.name);
+        if(volunteer.constraints[i].name === job.name) {
 
-        if(volunteer.constraints[i].name !== "Watching Performance") {
-
-            volunteer.constraints = volunteer.constraints.slice(0,i);
+            volunteer.constraints = volunteer.constraints.slice(0,i).concat(volunteer.constraints.slice(i + 1, volunteer.constraints.length + 1));
         }
 
       }

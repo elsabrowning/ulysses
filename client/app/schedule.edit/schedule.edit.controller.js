@@ -56,15 +56,6 @@ angular.module('ulyssesApp')
       var conflicting = false;
       for(var i = 0; i < volunteer.constraints.length; i++) {
         if($scope.isConflict(volunteer.constraints[i], slot)) {
-          if($scope.errorMessage === "")
-          {
-            $scope.errorMessage = "This volunteer is occupied with " + volunteer.constraints[i].name + " from " + $scope.timeRange(volunteer.constraints[i]);
-          } else {
-            $scope.errorMessage += " and " + volunteer.constraints[i].name + " from " + $scope.timeRange(volunteer.constraints[i]);
-          }
-          if(i = volunteer.constraints.length) {
-            $scope.errorMessage += ".";
-          }
           conflicting = true;
         }
       }
@@ -72,35 +63,61 @@ angular.module('ulyssesApp')
     };
 
     $scope.auto = function () {
+      //variables to hold arrays of jobs and volunteers separated by judging versus nonjudging
       var judgeJobs = [];
       var nonJudgeJobs = [];
       var judgeVol = [];
       var nonJudgeVol = [];
+      //master list of volunteers
+      var allVol = [];
+      //variable which tracks whether a volunteer has been assigned
       var assignment = false;
 
+      //forming array of judging jobs
       $scope.schedule.jobs.forEach(function(job) {
         if(job.isJudging) {
           judgeJobs.push(job);
         }
       });
 
-
+      //forming array of nonjudging jobs
       $scope.schedule.jobs.forEach(function(job) {
         if(!job.isJudging) {
           nonJudgeJobs.push(job);
         }
       });
 
+
+      //forming array of judges
       $scope.schedule.unassigned.forEach(function(vol) {
         if(vol.isJudge) {
           judgeVol.push(vol);
+
         }
       });
 
+
+      //removing judges from $scope.schedule.unassigned
+      judgeVol.forEach(function(vol) {
+
+          $scope.schedule.unassigned = $scope.schedule.unassigned.slice(0,$scope.schedule.unassigned.indexOf(vol)).concat($scope.schedule.unassigned.slice($scope.schedule.unassigned.indexOf(vol) + 1,$scope.schedule.unassigned.length + 1));
+
+      });
+
+
+
+      //forming array of volunteers
       $scope.schedule.unassigned.forEach(function(vol) {
         if(!vol.isJudge) {
           nonJudgeVol.push(vol);
         }
+      });
+
+      //removing volunteers from $scope.schedule.unassigned
+      nonJudgeVol.forEach(function(vol) {
+
+          $scope.schedule.unassigned = $scope.schedule.unassigned.slice(0,$scope.schedule.unassigned.indexOf(vol)).concat($scope.schedule.unassigned.slice($scope.schedule.unassigned.indexOf(vol) + 1,$scope.schedule.unassigned.length + 1));
+
       });
 
 
@@ -111,19 +128,50 @@ angular.module('ulyssesApp')
 
 
 
+      judgeJobs.sort(function(a,b) {
+        var slotsTotalA = 0;
+        var slotsTotalB = 0;
 
+        a.slots.forEach(function(slot) {
+          slotsTotalA += slot.positions;
+        });
+
+        b.slots.forEach(function(slot) {
+          slotsTotalB += slot.positions;
+        });
+        return b.slotsTotalB - a.slotsTotalA;
+      });
+
+      nonJudgeJobs.sort(function(a,b) {
+        var slotsTotalA = 0;
+        var slotsTotalB = 0;
+
+          a.slots.forEach(function(slot) {
+            slotsTotalA += slot.positions;
+          });
+
+        b.slots.forEach(function(slot) {
+          slotsTotalB += slot.positions;
+        });
+        return b.slotsTotalB - a.slotsTotalA;
+      });
+
+
+
+
+      //loop which assigns judges to judging jobs
       judgeVol.forEach(function(volunteer) {
         assignment = false;
         judgeJobs.forEach(function(job) {
           job.slots.forEach(function(slot) {
             if(assignment == false) {
-              console.log("vol: " + volunteer.name + " job " + job.name + " slot " + slot.positions);
               if((slot.positions - slot.assigned.length) > 0) {
                 if(!$scope.conflictLoop(volunteer,slot)){
-                  // AH, PUSH IT
-                  slot.assigned.push(judgeVol.splice(judgeVol.indexOf(volunteer), 1)[0]);
-                  volunteer.constraints.push({start: slot.start, end: slot.end, name: job.name})
+                  slot.assigned.push(volunteer);
+                  judgeVol = judgeVol.slice(0,judgeVol.indexOf(volunteer)).concat(judgeVol.slice(judgeVol.indexOf(volunteer) + 1,judgeVol.length + 1));
+                  volunteer.constraints.push({start: slot.start, end: slot.end, name: job.name});
                   assignment = true;
+
                 }
               }
             }
@@ -131,103 +179,50 @@ angular.module('ulyssesApp')
         });
       });
 
+      //combines array of judges and volunteers
+      allVol = nonJudgeVol.concat(judgeVol);
 
 
-      judgeVol.forEach(function(volunteer) {
-        nonJudgeVol.push(volunteer);
-      });
-
-      judgeVol.sort(function(a,b) {
-        return b.constraints.length - a.constraints.length;
-      });
 
 
-      nonJudgeVol.forEach(function(volunteer) {
+
+
+
+      //loop to assign all remaining judges and volunteers to jobs
+      allVol.forEach(function(volunteer) {
         assignment = false;
         nonJudgeJobs.forEach(function(job) {
           job.slots.forEach(function(slot) {
             if(assignment == false) {
 
-                console.log("vol: " + volunteer.name + volunteer.email + " job " + job.name + " slot " + slot.positions);
+                //console.log("vol: " + volunteer.name + volunteer.email + " job " + job.name + " slot " + slot.positions);
                 if((slot.positions - slot.assigned.length) > 0) {
                   if(!$scope.conflictLoop(volunteer,slot)){
                     // AH, PUSH IT
-                    slot.assigned.push(nonJudgeVol.splice(nonJudgeVol.indexOf(volunteer), 1)[0]);
+                    slot.assigned.push(volunteer);
+                    allVol = allVol.slice(0,allVol.indexOf(volunteer)).concat(allVol.slice(allVol.indexOf(volunteer) + 1,allVol.length + 1));
                     volunteer.constraints.push({start: slot.start, end: slot.end, name: job.name})
                     assignment = true;
                   }
                 }
-
-
             }
           });
         });
       });
 
 
-
+      //puts remaining volunteers and remaining judges back into $scope.schedule.unassigned
+      allVol.forEach(function(vol) {
+        $scope.schedule.unassigned.push(vol);
+      });
     }
-/*
-    $scope.auto = function() {
-          // Separate judging and non-judging jobs:
-          var jobs = {
-            judging: $scope.schedule.jobs.filter(function(job) {
-              return job.isJudging;
-            }),
-            nonjudging: $scope.schedule.jobs.filter(function(job) {
-              return !job.isJudging;
-            })
-          };
 
-          // Separate judging and non-judging volunteers:
-          var unassigned = {
-            judging: $scope.schedule.unassigned.filter(function(volunteer) {
-              return volunteer.isJudge;
-            }),
-            nonjudging: $scope.schedule.unassigned.filter(function(volunteer) {
-              return !volunteer.isJudge;
-            })
-          };
-
-          // For judging and nonjudging:
-          for (var type in jobs) {
-            // If there are no volunteers of that type, skip:
-            if (!unassigned[type].length) {
-              continue;
-            }
-
-            // Iterate over jobs:
-            j:
-            for (var i = 0; i < jobs[type].length; i++) {
-              var job = jobs[type][i];
-              // If someday we care about preferences, do it here...
-
-              // Iterate over slots:
-              s:
-              for (var j = 0; j < job.slots.length; j++) {
-                var slot = job.slots[j];
-
-                // Iterate over volunteers because efficiency is for nerds:
-                v:
-                for (var k = 0; k < unassigned[type].length; k++) {
-                  // If the slot is full, skip:
-                  if (slot.assigned.length >= slot.positions) {
-                    continue s;
-                  }
-
-                  var volunteer = unassigned[type].shift();
-                  $scope.schedule.unassigned.splice($scope.schedule.unassigned.indexOf(volunteer), 1);
-                  slot.assigned.push(volunteer);
-                }
-              }
-            }
-          }
-        };
-*/
+    //takes in date objects and returns the differences between two times
     $scope.duration = function(time1, time2){
       return time2.getHours()-time1.getHours() + Math.abs(time2.getMinutes()-time1.getMinutes())/60;
-    }
+    };
 
+    //removes all volunteers and judges from all slots and repopulates unassigned
     $scope.unLucky = function() {
       console.log($scope.schedule.jobs);
       for(var i = 0; i<$scope.schedule.jobs.length; i++){
@@ -235,11 +230,18 @@ angular.module('ulyssesApp')
         console.log(job.name);
         for(var j = 0; j<job.slots.length; j++){
           var slot = job.slots[j];
-          console.log(slot.start);
+          //console.log(slot.start);
           for(var k = 0; k<slot.assigned.length; k++){
             var vol = slot.assigned[k];
-            var volThing = slot.assigned.indexOf(vol)
-            console.log(vol.name);
+            //console.log(vol.name);
+            for(var t = 0; t < vol.constraints.length; t++) {
+
+              if(vol.constraints[t].name === job.name) {
+
+                vol.constraints = vol.constraints.slice(0,t).concat(vol.constraints.slice(t + 1, vol.constraints.length + 1));
+              }
+
+            }
             $scope.schedule.unassigned.push(vol);
           }
           slot.assigned = [];
@@ -247,96 +249,15 @@ angular.module('ulyssesApp')
       }
     }
 
-    $scope.helperFunction = function(constraint, slot){
-      var count = 0;
-      var con = constraint;
-      var start = new Date(con.start);
-      var end = new Date(con.end);
-      var sStart = new Date(slot.start);
-      var sEnd = new Date(slot.end);
-      var conStart = $scope.duration($scope.earlyTime, start);
-      var conEnd = $scope.duration($scope.earlyTime, end);
-      var slotStart = $scope.duration($scope.earlyTime, sStart);
-      var slotEnd = $scope.duration($scope.earlyTime, sEnd);
-      if(((conStart >= slotStart)&&(conStart <= slotEnd)) || ((conEnd >= slotStart) &&(conEnd <= slotEnd))){
-        count++;
-      } else {
-        //do nothing
-      }
-      return count;
-    }
 
-    $scope.populateIndivSlot = function(slot, job){
-      var dif = slot.positions - slot.assigned.length;
-      for(var k in $scope.schedule.unassigned){
-        var vol = $scope.schedule.unassigned[k];
-        // console.log(vol.name);
-        if(dif != 0){
-          if(!job.isJudging && !vol.isJudge){
-            if(vol.constraints.length>0){
-              for(var l in vol.constraints){
-                var con = vol.constraints[l];
-                var count = $scope.helperFunction(con, slot);
-                if(count != 0){
-                  count = 0;
-                } else {
-                  slot.assigned.push(vol);
-                  $scope.schedule.unassigned.splice($scope.schedule.unassigned.indexOf(vol), 1);
-                  dif--;
-              }
-            }
-          } else {
-            slot.assigned.push(vol);
-            $scope.schedule.unassigned.splice($scope.schedule.unassigned.indexOf(vol), 1);
-            dif--;
-          }
-        } else if(job.isJudging && vol.isJudge){
-          if(vol.constraints.length>0){
-            for(var l in vol.constraints){
-              var con = vol.constraints[l];
-              var count = $scope.helperFunction(con);
-              if(count != 0){
-                count = 0;
-                } else {
-                slot.assigned.push(vol);
-                $scope.schedule.unassigned.splice($scope.schedule.unassigned.indexOf(vol), 1);
-                dif--;
-              }
-            }
-          } else {
-          slot.assigned.push(vol);
-          $scope.schedule.unassigned.splice($scope.schedule.unassigned.indexOf(vol), 1);
-          dif--;
-          }
-        } else {
-          //do nothing
-        }
-      }
-    }
-  }
-
-    // $scope.auto = function (){
-    //   for(var i in $scope.schedule.jobs){
-    //     var job = $scope.schedule.jobs[i];
-    //     // console.log(job.name);
-    //     for(var j in job.slots){
-    //       var slot = job.slots[j];
-    //       // console.log(slot.start);
-    //       // console.log(slot.end);
-    //       if(slot.assigned.length < slot.positions){
-    //         $scope.populateIndivSlot(slot, job);
-    //       }
-    //     }
-    //   }
-    // }
-
+    //takes in a slot and returns the range of time of the slot
     $scope.timeRange = function(slot) {
       var start = moment(slot.start);
       var end = moment(slot.end);
 
       return start.format('h:mma') + ' to ' + end.format('h:mma');
     };
-    $scope.buildSchedule = function() {
 
-    }
+
+
   });
