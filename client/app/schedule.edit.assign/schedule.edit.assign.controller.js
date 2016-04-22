@@ -131,12 +131,12 @@ angular.module('ulyssesApp')
       return end.format('Hmm');
     };
 
-    $scope.unassign = function(volunteer, slot) {
+    $scope.unassign = function(volunteer, slot, job) {
       var assigned = slot.assigned;
 
       for(var i = 0; i < volunteer.constraints.length; i++) {
 
-        if(volunteer.constraints[i].name !== "Watching Performance") {
+        if(volunteer.constraints[i].name === job.name) {
 
             volunteer.constraints = volunteer.constraints.slice(0,i);
         }

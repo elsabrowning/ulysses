@@ -76,6 +76,7 @@ angular.module('ulyssesApp')
       var nonJudgeJobs = [];
       var judgeVol = [];
       var nonJudgeVol = [];
+      var allVol = [];
       var assignment = false;
 
       $scope.schedule.jobs.forEach(function(job) {
@@ -161,9 +162,8 @@ angular.module('ulyssesApp')
 
 
 
-      judgeVol.forEach(function(volunteer) {
-        nonJudgeVol.push(volunteer);
-      });
+
+      allVol = nonJudgeVol.concat(judgeVol);
 /*
 
       judgeVol.sort(function(a,b) {
@@ -173,7 +173,7 @@ angular.module('ulyssesApp')
       */
 
 
-      nonJudgeVol.forEach(function(volunteer) {
+      allVol.forEach(function(volunteer) {
         assignment = false;
         nonJudgeJobs.forEach(function(job) {
           job.slots.forEach(function(slot) {
@@ -184,7 +184,7 @@ angular.module('ulyssesApp')
                   if(!$scope.conflictLoop(volunteer,slot)){
                     // AH, PUSH IT
                     slot.assigned.push(volunteer);
-                    nonJudgeVol = nonJudgeVol.slice(0,nonJudgeVol.indexOf(volunteer)).concat(nonJudgeVol.slice(nonJudgeVol.indexOf(volunteer) + 1,nonJudgeVol.length + 1));
+                    allVol = allVol.slice(0,allVol.indexOf(volunteer)).concat(allVol.slice(allVol.indexOf(volunteer) + 1,allVol.length + 1));
                     volunteer.constraints.push({start: slot.start, end: slot.end, name: job.name})
                     assignment = true;
                   }
@@ -196,74 +196,19 @@ angular.module('ulyssesApp')
         });
       });
 
+      console.log("nonJudge length " + nonJudgeVol.length);
+      console.log("judge length " + judgeVol.length);
 
-      nonJudgeVol.forEach(function(vol) {
+
+      allVol.forEach(function(vol) {
         $scope.schedule.unassigned.push(vol);
       });
 
-      judgeVol.forEach(function(vol) {
-        $scope.schedule.unassigned.push(vol);
-      });
+
 
 
     }
-/*
-    $scope.auto = function() {
-          // Separate judging and non-judging jobs:
-          var jobs = {
-            judging: $scope.schedule.jobs.filter(function(job) {
-              return job.isJudging;
-            }),
-            nonjudging: $scope.schedule.jobs.filter(function(job) {
-              return !job.isJudging;
-            })
-          };
 
-          // Separate judging and non-judging volunteers:
-          var unassigned = {
-            judging: $scope.schedule.unassigned.filter(function(volunteer) {
-              return volunteer.isJudge;
-            }),
-            nonjudging: $scope.schedule.unassigned.filter(function(volunteer) {
-              return !volunteer.isJudge;
-            })
-          };
-
-          // For judging and nonjudging:
-          for (var type in jobs) {
-            // If there are no volunteers of that type, skip:
-            if (!unassigned[type].length) {
-              continue;
-            }
-
-            // Iterate over jobs:
-            j:
-            for (var i = 0; i < jobs[type].length; i++) {
-              var job = jobs[type][i];
-              // If someday we care about preferences, do it here...
-
-              // Iterate over slots:
-              s:
-              for (var j = 0; j < job.slots.length; j++) {
-                var slot = job.slots[j];
-
-                // Iterate over volunteers because efficiency is for nerds:
-                v:
-                for (var k = 0; k < unassigned[type].length; k++) {
-                  // If the slot is full, skip:
-                  if (slot.assigned.length >= slot.positions) {
-                    continue s;
-                  }
-
-                  var volunteer = unassigned[type].shift();
-                  $scope.schedule.unassigned.splice($scope.schedule.unassigned.indexOf(volunteer), 1);
-                  slot.assigned.push(volunteer);
-                }
-              }
-            }
-          }
-        };
-*/
     $scope.duration = function(time1, time2){
       return time2.getHours()-time1.getHours() + Math.abs(time2.getMinutes()-time1.getMinutes())/60;
     };
@@ -376,7 +321,64 @@ angular.module('ulyssesApp')
 
       return start.format('h:mma') + ' to ' + end.format('h:mma');
     };
-    $scope.buildSchedule = function() {
 
-    }
+
+    /*
+     $scope.auto = function() {
+     // Separate judging and non-judging jobs:
+     var jobs = {
+     judging: $scope.schedule.jobs.filter(function(job) {
+     return job.isJudging;
+     }),
+     nonjudging: $scope.schedule.jobs.filter(function(job) {
+     return !job.isJudging;
+     })
+     };
+
+     // Separate judging and non-judging volunteers:
+     var unassigned = {
+     judging: $scope.schedule.unassigned.filter(function(volunteer) {
+     return volunteer.isJudge;
+     }),
+     nonjudging: $scope.schedule.unassigned.filter(function(volunteer) {
+     return !volunteer.isJudge;
+     })
+     };
+
+     // For judging and nonjudging:
+     for (var type in jobs) {
+     // If there are no volunteers of that type, skip:
+     if (!unassigned[type].length) {
+     continue;
+     }
+
+     // Iterate over jobs:
+     j:
+     for (var i = 0; i < jobs[type].length; i++) {
+     var job = jobs[type][i];
+     // If someday we care about preferences, do it here...
+
+     // Iterate over slots:
+     s:
+     for (var j = 0; j < job.slots.length; j++) {
+     var slot = job.slots[j];
+
+     // Iterate over volunteers because efficiency is for nerds:
+     v:
+     for (var k = 0; k < unassigned[type].length; k++) {
+     // If the slot is full, skip:
+     if (slot.assigned.length >= slot.positions) {
+     continue s;
+     }
+
+     var volunteer = unassigned[type].shift();
+     $scope.schedule.unassigned.splice($scope.schedule.unassigned.indexOf(volunteer), 1);
+     slot.assigned.push(volunteer);
+     }
+     }
+     }
+     }
+     };
+     */
+
   });
