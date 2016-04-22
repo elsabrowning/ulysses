@@ -64,22 +64,22 @@
 
           <div class="form-group">
             <button type="submit" class="btn btn-primary">
-              Import teams
+              Import Teams
             </button>
           </div>
 
           <div class="alert alert-success" ng-if="count(conflicts)">
-            <strong>{{ count(conflicts) }} teams</strong> found.
+            <strong>{{ count(conflicts) }} </strong> teams found.
           </div>
 
           <div class="form-group" ng-if="count(conflicts)">
             <button type="button" ng-click="addConstraints()" class="btn btn-primary">
-              Add team constraints
+              Add Team Performances
             </button>
           </div>
 
           <div class="alert alert-danger" ng-if="unresolvables">
-            <strong>FYI</strong>, {{ unresolvables }} child teams couldn't be
+            <strong>Note:</strong> {{ unresolvables }} child teams couldn't be
             found in the master schedule file.
           </div>
         </form>

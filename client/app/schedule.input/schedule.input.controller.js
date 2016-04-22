@@ -151,16 +151,21 @@ angular.module('ulyssesApp')
     //   $window.open(str);
     // };
     //
-    // $scope.emailAllVolunteers = function(){
+    // $scope.getAssignedEmails = function{
+    //   var assignedEmials = "";
+    //   return assignedEmails;
+    // };
     //
+    // $scope.emailAllVolunteers = function(){
+    //   var unassignedEmials = "";
+    //   return unassignedEmails;
     // };
     //
     // $scope.emailOneVolunteer = function(){
-    //   console.log($scope.schedule.jobs[0].name);
     //   sendEmail({
     //   to:
     //   }
     // });
-  }
-  );
+
+  })
 
