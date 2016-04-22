@@ -154,22 +154,22 @@ Schedule.find({}).removeAsync().then(() => {
       isJudging: true,
       slots: [{
         assigned: [],
-        positions: 2,
+        positions: 20,
         start: new Date('April 1, 2016, 10:00:00'),
         end: new Date('April 1, 2016, 12:00:00')
       }, {
         assigned: [],
-        positions: 2,
+        positions: 10,
         start:new Date('April 1, 2016, 12:00:00'),
         end: new Date('April 1, 2016, 14:00:00')
       }, {
         assigned: [],
-        positions: 2,
+        positions: 10,
         start:new Date('April 1, 2016, 14:00:00'),
         end: new Date('April 1, 2016, 16:00:00')
       }, {
         assigned: [],
-        positions: 1,
+        positions: 10,
         start:new Date('April 1, 2016, 16:00:00'),
         end: new Date('April 1, 2016, 17:00:00')
       }]
