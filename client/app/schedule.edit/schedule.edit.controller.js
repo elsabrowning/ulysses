@@ -128,6 +128,35 @@ angular.module('ulyssesApp')
 
 
 
+      judgeJobs.sort(function(a,b) {
+        var slotsTotalA = 0;
+        var slotsTotalB = 0;
+
+        a.slots.forEach(function(slot) {
+          slotsTotalA += slot.positions;
+        });
+
+        b.slots.forEach(function(slot) {
+          slotsTotalB += slot.positions;
+        });
+        return b.slotsTotalB - a.slotsTotalA;
+      });
+
+      nonJudgeJobs.sort(function(a,b) {
+        var slotsTotalA = 0;
+        var slotsTotalB = 0;
+
+          a.slots.forEach(function(slot) {
+            slotsTotalA += slot.positions;
+          });
+
+        b.slots.forEach(function(slot) {
+          slotsTotalB += slot.positions;
+        });
+        return b.slotsTotalB - a.slotsTotalA;
+      });
+
+
 
 
       //loop which assigns judges to judging jobs
