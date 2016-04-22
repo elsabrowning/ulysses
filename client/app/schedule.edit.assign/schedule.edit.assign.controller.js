@@ -101,14 +101,14 @@ angular.module('ulyssesApp')
     $scope.assign = function(volunteer, slot) {
       $scope.errorMessage = "";
       var unassigned = $scope.schedule.unassigned;
-      if((slot.positions - slot.assigned.length) > 0) {
+      // if((slot.positions - slot.assigned.length) > 0) {
         if(!$scope.conflictLoop(volunteer,slot)){
           // AH, PUSH IT
           slot.assigned.push(unassigned.splice(unassigned.indexOf(volunteer), 1)[0]);
           volunteer.constraints.push({start: slot.start, end: slot.end, name: $scope.job.name});
 
         }
-      }
+      //}
 
 
 
