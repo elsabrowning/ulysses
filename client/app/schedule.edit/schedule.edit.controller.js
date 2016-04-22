@@ -56,15 +56,6 @@ angular.module('ulyssesApp')
       var conflicting = false;
       for(var i = 0; i < volunteer.constraints.length; i++) {
         if($scope.isConflict(volunteer.constraints[i], slot)) {
-          if($scope.errorMessage === "")
-          {
-            $scope.errorMessage = "This volunteer is occupied with " + volunteer.constraints[i].name + " from " + $scope.timeRange(volunteer.constraints[i]);
-          } else {
-            $scope.errorMessage += " and " + volunteer.constraints[i].name + " from " + $scope.timeRange(volunteer.constraints[i]);
-          }
-          if(i = volunteer.constraints.length) {
-            $scope.errorMessage += ".";
-          }
           conflicting = true;
         }
       }
@@ -201,16 +192,14 @@ angular.module('ulyssesApp')
       allVol.forEach(function(vol) {
         $scope.schedule.unassigned.push(vol);
       });
-
-
-
-
     }
 
+    //takes in date objects and returns the differences between two times
     $scope.duration = function(time1, time2){
       return time2.getHours()-time1.getHours() + Math.abs(time2.getMinutes()-time1.getMinutes())/60;
     };
 
+    //removes all volunteers and judges from all slots and repopulates unassigned
     $scope.unLucky = function() {
       console.log($scope.schedule.jobs);
       for(var i = 0; i<$scope.schedule.jobs.length; i++){
@@ -221,8 +210,15 @@ angular.module('ulyssesApp')
           console.log(slot.start);
           for(var k = 0; k<slot.assigned.length; k++){
             var vol = slot.assigned[k];
-            var volThing = slot.assigned.indexOf(vol)
             console.log(vol.name);
+            for(var i = 0; i < vol.constraints.length; i++) {
+
+              if(vol.constraints[i].name === job.name) {
+
+                vol.constraints = vol.constraints.slice(i,i + 1);
+              }
+
+            }
             $scope.schedule.unassigned.push(vol);
           }
           slot.assigned = [];
@@ -231,6 +227,7 @@ angular.module('ulyssesApp')
     }
 
 
+    //takes in a slot and returns the range of time of the slot
     $scope.timeRange = function(slot) {
       var start = moment(slot.start);
       var end = moment(slot.end);

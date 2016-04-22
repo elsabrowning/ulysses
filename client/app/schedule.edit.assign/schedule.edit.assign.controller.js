@@ -135,10 +135,10 @@ angular.module('ulyssesApp')
       var assigned = slot.assigned;
 
       for(var i = 0; i < volunteer.constraints.length; i++) {
-
+        console.log("job name " + job.name);
         if(volunteer.constraints[i].name === job.name) {
 
-            volunteer.constraints = volunteer.constraints.slice(0,i);
+            volunteer.constraints = volunteer.constraints.slice(0,i).concat(volunteer.constraints.slice(i + 1, volunteer.constraints.length + 1));
         }
 
       }
