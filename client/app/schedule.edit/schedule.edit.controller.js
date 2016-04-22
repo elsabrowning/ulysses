@@ -120,14 +120,18 @@ angular.module('ulyssesApp')
 
       });
 
+      //sorts judges by number of constraints
+      judgeVol.sort(function(a,b) {
+        return b.constraints.length - a.constraints.length;
+      });
 
-
+      //sorts volunteers by number of constraints
       nonJudgeVol.sort(function(a,b) {
         return b.constraints.length - a.constraints.length;
       });
 
 
-
+      //sorts judging jobs by total volunteers needed
       judgeJobs.sort(function(a,b) {
         var slotsTotalA = 0;
         var slotsTotalB = 0;
@@ -139,9 +143,10 @@ angular.module('ulyssesApp')
         b.slots.forEach(function(slot) {
           slotsTotalB += slot.positions;
         });
-        return b.slotsTotalB - a.slotsTotalA;
+        return slotsTotalB - slotsTotalA;
       });
 
+      //sorts nonjudging jobs by total judges needed
       nonJudgeJobs.sort(function(a,b) {
         var slotsTotalA = 0;
         var slotsTotalB = 0;
@@ -153,10 +158,22 @@ angular.module('ulyssesApp')
         b.slots.forEach(function(slot) {
           slotsTotalB += slot.positions;
         });
-        return b.slotsTotalB - a.slotsTotalA;
+        return slotsTotalB - slotsTotalA;
       });
 
+      //sorts slots within all the judge jobs by order of volunteers needed
+      judgeJobs.forEach(function(job) {
+        job.slots.sort(function(a,b) {
+          return (b.positions - b.assigned.length) - (a.positions - a.assigned.length);
+        });
+      });
 
+      //sorts slots within all the non judge jobs by order of volunteers needed
+      nonJudgeJobs.forEach(function(job) {
+        job.slots.sort(function(a,b) {
+          return (b.positions - b.assigned.length) - (a.positions - a.assigned.length);
+        });
+      });
 
 
       //loop which assigns judges to judging jobs
@@ -178,6 +195,8 @@ angular.module('ulyssesApp')
           });
         });
       });
+
+
 
       //combines array of judges and volunteers
       allVol = nonJudgeVol.concat(judgeVol);
@@ -217,6 +236,13 @@ angular.module('ulyssesApp')
       });
     }
 
+    /*
+    $scope.movePrefsFirst = function(vol, array) {
+      array.sort(function(a,b) {
+        return (vol.preferences.indexOf(b.name) != -1 ? 1 : -1) - (vol.preferences.indexOf(a.name) != -1 ? 1 : -1)
+      });
+    }
+*/
     //takes in date objects and returns the differences between two times
     $scope.duration = function(time1, time2){
       return time2.getHours()-time1.getHours() + Math.abs(time2.getMinutes()-time1.getMinutes())/60;

@@ -60,7 +60,7 @@ angular.module('ulyssesApp')
             $scope.schedule.unassigned.push(birthVolunteer(result.data[0]));
           },
           complete: function() {
-              $scope.$apply();
+            $scope.$apply();
           }
         });
       }
@@ -131,9 +131,38 @@ angular.module('ulyssesApp')
         shirt: row["T-shirt"],
         positions: [],
         isJudge: row[""] == "AS_JUDGE",
-        preferences: []
+        preferences: genPrefs(generatePrefTitle(row["Job Preference #1"]), generatePrefTitle(row["Job Preference #2"]))
       };
     };
+
+    /*
+    var genJobs = function(row) {
+
+    }
+    */
+
+
+    var genPrefs = function(pref1, pref2) {
+      var arr = [];
+      if (!(pref1 === "burg") && pref1 != " " && pref1 != "") {
+        arr.push(pref1);
+      }
+      if (!(pref2 === "burg") && pref1 != pref2 && pref2 != " " && pref2 != "") {
+        arr.push(pref2);
+      }
+      return arr;
+    }
+
+    var generatePrefTitle = function(string) {
+      if (string.startsWith("Non-Judging")) {
+        if(string.substring("Non-Judging".length + 1) != "No Preference") {
+          return string.substring("Non-Judging".length + 1);
+        }
+      } else if (string.endsWith("No Preference")) {
+        return string.substring(0, string.length - "No Preference".length);
+      }
+      return "burg";
+    }
 
     $scope.timeRange = function(constraint) {
       var start = moment(constraint.start);
@@ -143,23 +172,23 @@ angular.module('ulyssesApp')
     };
 
     /*var sendEmail = function(vols){
-      var str = 'http://mail.google.com/mail/?view=cm&fs=1'+
-        '&to=' + vols.to +
-        '&su=' + vols.subject +
-        '&body=' + vols.message +
-        '&ui=1';
-      $window.open(str);
-    };
+     var str = 'http://mail.google.com/mail/?view=cm&fs=1'+
+     '&to=' + vols.to +
+     '&su=' + vols.subject +
+     '&body=' + vols.message +
+     '&ui=1';
+     $window.open(str);
+     };
 
-    $scope.emailAllVolunteers = function(){
+     $scope.emailAllVolunteers = function(){
 
-    }
+     }
 
-    $scope.emailOneVolunteer = function(){
-      console.log($scope.schedule.jobs[0].name);
-      sendEmail({
-      to:
-      }
-    })*/
+     $scope.emailOneVolunteer = function(){
+     console.log($scope.schedule.jobs[0].name);
+     sendEmail({
+     to:
+     }
+     })*/
 
   });
