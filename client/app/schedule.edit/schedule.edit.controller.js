@@ -72,20 +72,24 @@ angular.module('ulyssesApp')
     };
 
     $scope.auto = function () {
+      //variables to hold arrays of jobs and volunteers separated by judging versus nonjudging
       var judgeJobs = [];
       var nonJudgeJobs = [];
       var judgeVol = [];
       var nonJudgeVol = [];
+      //master list of volunteers
       var allVol = [];
+      //variable which tracks whether a volunteer has been assigned
       var assignment = false;
 
+      //forming array of judging jobs
       $scope.schedule.jobs.forEach(function(job) {
         if(job.isJudging) {
           judgeJobs.push(job);
         }
       });
 
-
+      //forming array of nonjudging jobs
       $scope.schedule.jobs.forEach(function(job) {
         if(!job.isJudging) {
           nonJudgeJobs.push(job);
@@ -93,7 +97,7 @@ angular.module('ulyssesApp')
       });
 
 
-      var count = 0;
+      //forming array of judges
       $scope.schedule.unassigned.forEach(function(vol) {
         if(vol.isJudge) {
           judgeVol.push(vol);
@@ -102,7 +106,7 @@ angular.module('ulyssesApp')
       });
 
 
-
+      //removing judges from $scope.schedule.unassigned
       judgeVol.forEach(function(vol) {
         if(vol.isJudge) {
           $scope.schedule.unassigned = $scope.schedule.unassigned.slice(0,$scope.schedule.unassigned.indexOf(vol)).concat($scope.schedule.unassigned.slice($scope.schedule.unassigned.indexOf(vol) + 1,$scope.schedule.unassigned.length + 1));
@@ -111,13 +115,14 @@ angular.module('ulyssesApp')
 
 
 
-
+      //forming array of volunteers
       $scope.schedule.unassigned.forEach(function(vol) {
         if(!vol.isJudge) {
           nonJudgeVol.push(vol);
         }
       });
 
+      //removing volunteers from $scope.schedule.unassigned
       nonJudgeVol.forEach(function(vol) {
         if(!vol.isJudge) {
           $scope.schedule.unassigned = $scope.schedule.unassigned.slice(0,$scope.schedule.unassigned.indexOf(vol)).concat($scope.schedule.unassigned.slice($scope.schedule.unassigned.indexOf(vol) + 1,$scope.schedule.unassigned.length + 1));
@@ -132,7 +137,7 @@ angular.module('ulyssesApp')
 
     */
 
-      console.log("length before " + judgeVol.length);
+      //loop which assigns judges to judging jobs
       judgeVol.forEach(function(volunteer) {
         assignment = false;
         judgeJobs.forEach(function(job) {
@@ -158,13 +163,10 @@ angular.module('ulyssesApp')
         });
       });
 
-      console.log("length after " + judgeVol.length);
-
-
-
-
+      //combines array of judges and volunteers
       allVol = nonJudgeVol.concat(judgeVol);
-/*
+
+    /*
 
       judgeVol.sort(function(a,b) {
         return b.constraints.length - a.constraints.length;
@@ -172,7 +174,7 @@ angular.module('ulyssesApp')
 
       */
 
-
+      //loop to assign all remaining judges and volunteers to jobs
       allVol.forEach(function(volunteer) {
         assignment = false;
         nonJudgeJobs.forEach(function(job) {
@@ -189,17 +191,13 @@ angular.module('ulyssesApp')
                     assignment = true;
                   }
                 }
-
-
             }
           });
         });
       });
 
-      console.log("nonJudge length " + nonJudgeVol.length);
-      console.log("judge length " + judgeVol.length);
 
-
+      //puts remaining volunteers and remaining judges back into $scope.schedule.unassigned
       allVol.forEach(function(vol) {
         $scope.schedule.unassigned.push(vol);
       });
@@ -232,88 +230,6 @@ angular.module('ulyssesApp')
       }
     }
 
-    $scope.helperFunction = function(constraint, slot){
-      var count = 0;
-      var con = constraint;
-      var start = new Date(con.start);
-      var end = new Date(con.end);
-      var sStart = new Date(slot.start);
-      var sEnd = new Date(slot.end);
-      var conStart = $scope.duration($scope.earlyTime, start);
-      var conEnd = $scope.duration($scope.earlyTime, end);
-      var slotStart = $scope.duration($scope.earlyTime, sStart);
-      var slotEnd = $scope.duration($scope.earlyTime, sEnd);
-      if(((conStart >= slotStart)&&(conStart <= slotEnd)) || ((conEnd >= slotStart) &&(conEnd <= slotEnd))){
-        count++;
-      } else {
-        //do nothing
-      }
-      return count;
-    }
-
-    $scope.populateIndivSlot = function(slot, job){
-      var dif = slot.positions - slot.assigned.length;
-      for(var k in $scope.schedule.unassigned){
-        var vol = $scope.schedule.unassigned[k];
-        // console.log(vol.name);
-        if(dif != 0){
-          if(!job.isJudging && !vol.isJudge){
-            if(vol.constraints.length>0){
-              for(var l in vol.constraints){
-                var con = vol.constraints[l];
-                var count = $scope.helperFunction(con, slot);
-                if(count != 0){
-                  count = 0;
-                } else {
-                  slot.assigned.push(vol);
-                  $scope.schedule.unassigned.splice($scope.schedule.unassigned.indexOf(vol), 1);
-                  dif--;
-              }
-            }
-          } else {
-            slot.assigned.push(vol);
-            $scope.schedule.unassigned.splice($scope.schedule.unassigned.indexOf(vol), 1);
-            dif--;
-          }
-        } else if(job.isJudging && vol.isJudge){
-          if(vol.constraints.length>0){
-            for(var l in vol.constraints){
-              var con = vol.constraints[l];
-              var count = $scope.helperFunction(con);
-              if(count != 0){
-                count = 0;
-                } else {
-                slot.assigned.push(vol);
-                $scope.schedule.unassigned.splice($scope.schedule.unassigned.indexOf(vol), 1);
-                dif--;
-              }
-            }
-          } else {
-          slot.assigned.push(vol);
-          $scope.schedule.unassigned.splice($scope.schedule.unassigned.indexOf(vol), 1);
-          dif--;
-          }
-        } else {
-          //do nothing
-        }
-      }
-    }
-  }
-
-    // $scope.auto = function (){
-    //   for(var i in $scope.schedule.jobs){
-    //     var job = $scope.schedule.jobs[i];
-    //     // console.log(job.name);
-    //     for(var j in job.slots){
-    //       var slot = job.slots[j];
-    //       // console.log(slot.start);
-    //       // console.log(slot.end);
-    //       if(slot.assigned.length < slot.positions){
-    //         $scope.populateIndivSlot(slot, job);
-    //       }
-    //     }
-    //   }
-    // }
 
     $scope.timeRange = function(slot) {
       var start = moment(slot.start);
@@ -323,62 +239,5 @@ angular.module('ulyssesApp')
     };
 
 
-    /*
-     $scope.auto = function() {
-     // Separate judging and non-judging jobs:
-     var jobs = {
-     judging: $scope.schedule.jobs.filter(function(job) {
-     return job.isJudging;
-     }),
-     nonjudging: $scope.schedule.jobs.filter(function(job) {
-     return !job.isJudging;
-     })
-     };
-
-     // Separate judging and non-judging volunteers:
-     var unassigned = {
-     judging: $scope.schedule.unassigned.filter(function(volunteer) {
-     return volunteer.isJudge;
-     }),
-     nonjudging: $scope.schedule.unassigned.filter(function(volunteer) {
-     return !volunteer.isJudge;
-     })
-     };
-
-     // For judging and nonjudging:
-     for (var type in jobs) {
-     // If there are no volunteers of that type, skip:
-     if (!unassigned[type].length) {
-     continue;
-     }
-
-     // Iterate over jobs:
-     j:
-     for (var i = 0; i < jobs[type].length; i++) {
-     var job = jobs[type][i];
-     // If someday we care about preferences, do it here...
-
-     // Iterate over slots:
-     s:
-     for (var j = 0; j < job.slots.length; j++) {
-     var slot = job.slots[j];
-
-     // Iterate over volunteers because efficiency is for nerds:
-     v:
-     for (var k = 0; k < unassigned[type].length; k++) {
-     // If the slot is full, skip:
-     if (slot.assigned.length >= slot.positions) {
-     continue s;
-     }
-
-     var volunteer = unassigned[type].shift();
-     $scope.schedule.unassigned.splice($scope.schedule.unassigned.indexOf(volunteer), 1);
-     slot.assigned.push(volunteer);
-     }
-     }
-     }
-     }
-     };
-     */
 
   });
