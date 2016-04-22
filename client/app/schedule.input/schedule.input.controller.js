@@ -106,7 +106,7 @@ angular.module('ulyssesApp')
             if(team in $scope.conflicts) {
               volunteer.constraints.push($scope.conflicts[team]);
             }
-            else {volunteerCtrl.
+            else {
               $scope.unresolvables++;
             }
           });

@@ -16,22 +16,22 @@ angular.module('ulyssesApp')
 
 
     //checks to see if two time slots overlap
-    $scope.isConflict = function(slot1, slot2) {
-      var start1 = parseInt($scope.timeStart(slot1));
-      var end1 = parseInt($scope.timeEnd(slot1));
-      var start2 = parseInt($scope.timeStart(slot2));
-      var end2 = parseInt($scope.timeEnd(slot2));
+    $scope.isConflict = function(constraint, slot) {
+      var conStart= parseInt($scope.timeStart(constraint));
+      var conEnd = parseInt($scope.timeEnd(constraint));
+      var slotStart= parseInt($scope.timeStart(slot));
+      var slotEnd = parseInt($scope.timeEnd(slot));
 
 
-      if((start1 <= start2 && start2 <= end1)) {
+      if((conStart <= slotStart && slotStart <= conEnd)) {
         // console.log("scenario1");
         return true;
       }
-      else if(start2 <= start1 && start1 <= end2) {
+      else if(slotStart <= conStart && conStart<= slotEnd) {
         // console.log("scenario2");
         return true;
       }
-      else if(start1 == start2 && end1 == end2)
+      else if(conStart == slotStart && conEnd == slotEnd)
       {
         // console.log("scenario3");
         return true;
