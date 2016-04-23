@@ -131,38 +131,56 @@ angular.module('ulyssesApp')
         shirt: row["T-shirt"],
         positions: [],
         isJudge: row[""] == "AS_JUDGE",
-        preferences: genPrefs(generatePrefTitle(row["Job Preference #1"]), generatePrefTitle(row["Job Preference #2"]))
+        preferences: jobPrefs(row["Job Preference #1"], row["Job Preference #2"])
       };
     };
 
-    /*
-    var genJobs = function(row) {
+    var jobPrefs = function(pref1, pref2) {
+      var prefsArray = [];
+      var firstElement;
+      if(pref1 == "" || pref1 == null) {
+        return [];
+      } else {
+        if(pref1.startsWith("Non-Judging")) {
+          if(pref1.substring("Non-Judging ".length, pref1.length) != "No Preference" && pref1.substring("Non-Judging ".length, pref1.length) != "") {
+            prefsArray.push(pref1.substring("Non-Judging ".length, pref1.length));
+            firstElement = pref1.substring("Non-Judging ".length, pref1.length);
+          }
+        } else {
+          if(pref1.endsWith("No Preference")) {
+            prefsArray.push(pref1.substring(0, pref1.length - " No Preference".length));
+            firstElement = pref1.substring(0, pref1.length - " No Preference".length);
+          } else {
+            prefsArray.push(pref1);
+            firstElement = pref1;
+          }
 
-    }
-    */
-
-
-    var genPrefs = function(pref1, pref2) {
-      var arr = [];
-      if (!(pref1 === "burg") && pref1 != " " && pref1 != "") {
-        arr.push(pref1);
-      }
-      if (!(pref2 === "burg") && pref1 != pref2 && pref2 != " " && pref2 != "") {
-        arr.push(pref2);
-      }
-      return arr;
-    }
-
-    var generatePrefTitle = function(string) {
-      if (string.startsWith("Non-Judging")) {
-        if(string.substring("Non-Judging".length + 1) != "No Preference") {
-          return string.substring("Non-Judging".length + 1);
         }
-      } else if (string.endsWith("No Preference")) {
-        return string.substring(0, string.length - "No Preference".length);
+        if(pref2 != "" && pref2 != null) {
+          if(pref2.startsWith("Non-Judging")) {
+            if(pref2.substring("Non-Judging ".length, pref2.length) != "No Preference" && pref2.substring("Non-Judging ".length, pref2.length) != "") {
+              if(pref2.substring("Non-Judging ".length, pref2.length) != firstElement) {
+                prefsArray.push(pref2.substring("Non-Judging ".length, pref2.length));
+              }
+            }
+          } else {
+            if(pref2.endsWith("No Preference")) {
+              if(pref2.substring(0, pref2.length - " No Preference".length) != firstElement) {
+                prefsArray.push(pref2.substring(0, pref2.length - " No Preference".length));
+              }
+            } else {
+              if(pref2 != firstElement) {
+                prefsArray.push(pref2);
+              }
+            }
+          }
+        }
+          return prefsArray;
       }
-      return "burg";
     }
+
+
+    
 
     $scope.timeRange = function(constraint) {
       var start = moment(constraint.start);
@@ -196,15 +214,8 @@ angular.module('ulyssesApp')
     //   }
     // });
 
-  })
 
-    }
 
-    $scope.emailOneVolunteer = function(){
-      console.log($scope.schedule.jobs[0].name);
-      sendEmail({
-      to:
-      }
-    })*/
+
 
   });
