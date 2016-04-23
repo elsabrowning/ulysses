@@ -196,15 +196,6 @@ angular.module('ulyssesApp')
     //   }
     // });
 
-  })
 
-    }
-
-    $scope.emailOneVolunteer = function(){
-      console.log($scope.schedule.jobs[0].name);
-      sendEmail({
-      to:
-      }
-    })*/
 
   });

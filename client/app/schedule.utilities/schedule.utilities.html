@@ -1,1 +1,16 @@
-<div>This is the schedule.utilities view.</div>
+
+<div class="col-md-4">
+  <button type="button" ng-click="emailAllVolunteers()" align = "right" class="btn btn-primary"><span class="glyphicon glyphicon-envelope"></span> Email All Volunteers</button>
+  <br> <br>
+  <div class="form-group" ng-show="schedule.unassigned.length">
+    <input type="text" class="form-control" placeholder="Filter by name" ng-model="filter.name" />
+  </div>
+  <!--this is gross and we should make an allVolunteers array, but this is fine for now-->
+  <div class="list-group">
+    <a class="list-group-item" ng-repeat="volunteer in schedule.unassigned | filter: filter | orderBy: 'name' track by $index" ng-click="open(volunteer)" ng-class="{ active: detail == volunteer }">
+      {{ volunteer.name }}  <span ng-if="volunteer.isJudge" class="judgeJ">J</span><span ng-if="!volunteer.name">New Volunteer</span>
+      <button ng-click="emailOneVolunteer()" type="button" align = "right" class="btn btn-xs btn-primary group-item-mail"><span class="glyphicon glyphicon-envelope"></span></button>
+    </a>
+
+  </div>
+</div>
