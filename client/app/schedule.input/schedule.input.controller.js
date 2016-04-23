@@ -58,8 +58,16 @@ angular.module('ulyssesApp')
           header: true,
           step: function(result) {
             $scope.schedule.unassigned.push(birthVolunteer(result.data[0]));
+            if(result.data[0]["Job Preference #1"].startsWith("Non-Judging") && !alreadyAJob(result.data[0]["Job Preference #1"]))
+            {
+              console.log("the pref " + result.data[0]["Job Preference #1"] + " the result " + result.data[0]["Job Preference #1"].startsWith("Non-Judging"));
+              $scope.schedule.jobs.push({name: birthJob1(result.data[0])});
+            }
+
+
           },
           complete: function() {
+              //$scope.schedule.jobs.push({name: "Problem 1 Division 1"});
               $scope.$apply();
           }
         });
@@ -116,6 +124,30 @@ angular.module('ulyssesApp')
 
     var fullName = function(first, last){
       return [first, last].join(" ");
+    };
+
+    var alreadyAJob = function(pref) {
+      var jobAlready = false;
+      if(pref.substring("Non-Judging ".length, pref.length) === "" || pref.substring("Non-Judging ".length, pref.length) === " " || pref.substring("Non-Judging ".length, pref.length) === "No Preference") {
+        jobAlready = true;
+      } else {
+        for(var i = 0; i < $scope.schedule.jobs.length; i++) {
+          console.log("pref name: " + pref.substring("Non-Judging ".length, pref.length) + " job name: " + $scope.schedule.jobs[i].name + " equal? " + pref.substring("Non-Judging ".length, pref.length) === $scope.schedule.jobs[i].name);
+
+          if(pref.substring("Non-Judging ".length, pref.length) === $scope.schedule.jobs[i].name) {
+            jobAlready = true;
+          }
+        }
+      }
+      return jobAlready;
+    }
+
+    var birthJob1 = function(row) {
+      var pref = row["Job Preference #1"];
+      var jobName;
+      jobName = pref.substring("Non-Judging ".length, pref.length);
+
+      return jobName;
     };
 
     var birthVolunteer = function(row) {
@@ -180,7 +212,7 @@ angular.module('ulyssesApp')
     }
 
 
-    
+
 
     $scope.timeRange = function(constraint) {
       var start = moment(constraint.start);
