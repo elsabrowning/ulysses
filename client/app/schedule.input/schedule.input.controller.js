@@ -220,31 +220,7 @@ angular.module('ulyssesApp')
 
       return start.format('h:mma') + ' to ' + end.format('h:mma');
     };
-
-    // var sendEmail = function(vols){
-    //   var str = 'http://mail.google.com/mail/?view=cm&fs=1'+
-    //     '&to=' + vols.to +
-    //     '&su=' + vols.subject +
-    //     '&body=' + vols.message +
-    //     '&ui=1';
-    //   $window.open(str);
-    // };
-    //
-    // $scope.getAssignedEmails = function{
-    //   var assignedEmials = "";
-    //   return assignedEmails;
-    // };
-    //
-    // $scope.emailAllVolunteers = function(){
-    //   var unassignedEmials = "";
-    //   return unassignedEmails;
-    // };
-    //
-    // $scope.emailOneVolunteer = function(){
-    //   sendEmail({
-    //   to:
-    //   }
-    // });
+    
 
 
 
