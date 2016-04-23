@@ -29,7 +29,8 @@
         <a class="list-group-item disabled" ng-repeat="n in remainingPositions(slot) track by $index">
           Unassigned
         </a>
-        {{errorMessage}}
+        {{errorMessage}} <br/>
+        <button type="button" class="btn btn-danger" ng-click="override(slot)" ng-show="addThemAnyway" >Add Volunteer Anyway?</button>
       </div>
     </div>
   </div>

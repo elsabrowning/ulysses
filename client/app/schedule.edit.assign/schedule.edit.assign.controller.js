@@ -6,6 +6,9 @@ angular.module('ulyssesApp')
     $scope.job = null;
     $scope.slot = null;
     $scope.errorMessage = "";
+    $scope.addThemAnyway = false;
+    $scope.tempVol = null;
+    $scope.tempSlot = null;
 
     $scope.$parent.$parent.schedule.$promise.then(function(schedule) {
       $scope.schedule = schedule;
@@ -107,11 +110,19 @@ angular.module('ulyssesApp')
           slot.assigned.push(unassigned.splice(unassigned.indexOf(volunteer), 1)[0]);
           volunteer.constraints.push({start: slot.start, end: slot.end, name: $scope.job.name});
 
+        } else {
+          $scope.addThemAnyway = true;
+          $scope.tempVol = volunteer;
         }
       //}
+    };
 
-
-
+    $scope.override = function(slot) {
+      $scope.errorMessage = "";
+      var unassigned = $scope.schedule.unassigned;
+        // AH, PUSH IT
+        slot.assigned.push(unassigned.splice(unassigned.indexOf($scope.tempVol), 1)[0]);
+      $scope.tempVol.constraints.push({start: slot.start, end: slot.end, name: $scope.job.name});
     };
 
     $scope.remainingPositions = function(slot) {
@@ -137,7 +148,6 @@ angular.module('ulyssesApp')
       for(var i = 0; i < volunteer.constraints.length; i++) {
         console.log("job name " + job.name);
         if(volunteer.constraints[i].name === job.name) {
-
             volunteer.constraints = volunteer.constraints.slice(0,i).concat(volunteer.constraints.slice(i + 1, volunteer.constraints.length + 1));
         }
 
