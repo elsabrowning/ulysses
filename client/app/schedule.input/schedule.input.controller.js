@@ -67,7 +67,6 @@ angular.module('ulyssesApp')
 
           },
           complete: function() {
-              //$scope.schedule.jobs.push({name: "Problem 1 Division 1"});
               $scope.$apply();
           }
         });
@@ -121,6 +120,9 @@ angular.module('ulyssesApp')
         }
       }
     };
+
+
+
 
     var fullName = function(first, last){
       return [first, last].join(" ");

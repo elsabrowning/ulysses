@@ -28,14 +28,16 @@ var SlotSchema = new mongoose.Schema({
   assigned: [VolunteerSchema],
   positions: Number,
   start: Date,
-  end: Date
+  end: Date,
+  slotComments: String
 });
 
 var JobSchema = new mongoose.Schema({
   name: String,
   training: Number,
   isJudging: Boolean,
-  slots: [SlotSchema]
+  slots: [SlotSchema],
+  jobComments: String
 });
 
 var ProblemSchema = new mongoose.Schema({
