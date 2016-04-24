@@ -52,6 +52,24 @@ angular.module('ulyssesApp')
       });
     };
 
+    $scope.timeRange = function(constraint) {
+      if(constraint != null) {
+        var start = moment(constraint.start);
+        var end = moment(constraint.end);
+
+        return start.format('h:mma') + ' to ' + end.format('h:mma');
+      }
+    };
+
+
+    $scope.getConstraints = function(volunteer){
+      var constraints = "";
+      for(var i = 0; i < volunteer.constraints.length; i++){
+        constraints += volunteer.constraints[i].name + ", " + $scope.timeRange(volunteer.constraints[i]) + "%0D%0A" ;
+      }
+      return constraints;
+    };
+
 
     $scope.emailOneVolunteer = function(volunteer){
       console.log("Child team is: " + volunteer.childTeam)
@@ -65,12 +83,17 @@ angular.module('ulyssesApp')
 
         childTeamMessage = "Our records show you have the following team(s) of interest " + childTeam;
       }
+
+      if(volunteer.constraints.length > 0){
+
+      }
       sendEmail({
         to: volunteer.email,
         subject: "Volunteer information for Odyssey of the Mind",
         message: "Dear " + volunteer.name +",%0D%0A%0D%0AThank you for participating in this event! " + childTeamMessage +
-        ".%0D%0A%0D%0AYou have been assigned to the following:%0D%0A%0D%0A" +
-        ""
+        ".%0D%0A%0D%0AYou have been assigned to the following:%0D%0A%0D%0A" + $scope.getConstraints(volunteer) +
+        "%0D%0A%0D%0AYou can log in at http://localhost:9000/ using the email \"volunteer@example.com\" " +
+        "and the password \"volunteer\" to view your schedule for the event.%0D%0A%0D%0ASincerely,%0D%0A%0D%0AYour Odyssey of the Mind Organizer"
       })
     };
 
