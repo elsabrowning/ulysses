@@ -69,7 +69,8 @@ angular.module('ulyssesApp')
         to: volunteer.email,
         subject: "Volunteer information for Odyssey of the Mind",
         message: "Dear " + volunteer.name +",%0D%0A%0D%0AThank you for participating in this event! " + childTeamMessage +
-        ".%0D%0A%0D%0AYou have been assigned to the following:%0D%0A%0D%0A"
+        ".%0D%0A%0D%0AYou have been assigned to the following:%0D%0A%0D%0A" +
+        ""
       })
     };
 

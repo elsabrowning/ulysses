@@ -95,15 +95,15 @@
       <a class="list-group-item" ng-repeat="volunteer in schedule.unassigned | filter: filter | orderBy: 'name' track by $index" ng-click="open(volunteer)" ng-class="{ active: detail == volunteer }">
         {{ volunteer.name }}  <span ng-if="volunteer.isJudge" class="judgeJ">J</span><span ng-if="!volunteer.name">New Volunteer</span>
       </a>
-      <!--<div ng-repeat="job in schedule.jobs">-->
-        <!--<div ng-repeat="slot in job.slots">-->
-          <!--<a class="list-group-item hasJob" ng-repeat="volunteer in slot.assigned | filter: filter track by $index | orderBy: 'name'" ng-click="open(volunteer)" ng-class="{ active: detail == volunteer }">-->
-            <!--{{ volunteer.name }}  <span ng-if="volunteer.isJudge" class="judgeJ">J</span><span ng-if="!volunteer.name">New Volunteer</span>-->
-            <!--<button ng-click="emailOneVolunteer()" type="button" align = "right" class="btn btn-xs btn-default group-item-mail"><span class="glyphicon glyphicon-envelope"></span></button>-->
+      <div ng-repeat="job in schedule.jobs">
+        <div ng-repeat="slot in job.slots">
+          <a class="list-group-item hasJob" ng-repeat="volunteer in slot.assigned | filter: filter track by $index | orderBy: 'name'" ng-click="open(volunteer)" ng-class="{ active: detail == volunteer }">
+            {{ volunteer.name }}  <span ng-if="volunteer.isJudge" class="judgeJ">J</span><span ng-if="!volunteer.name">New Volunteer</span>
+            <button ng-click="emailOneVolunteer()" type="button" align = "right" class="btn btn-xs btn-default group-item-mail"><span class="glyphicon glyphicon-envelope"></span></button>
 
-          <!--</a>-->
-        <!--</div>-->
-      <!--</div>-->
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -127,7 +127,7 @@
 
         <div class="form-group">
           <label>Team of Interest</label>
-          <p>Format: #TeamNumber Problem/Divison. <br><em>(e.g., #12345 3/1, #12345 6/1)</em></p>
+          <p>Format: #TeamNumber Problem/Divison. <br><em>(e.g., #12345 3/1, #)</em></p>
           <input type="text" class="form-control" ng-model="detail.childTeam" />
         </div>
 
