@@ -220,7 +220,7 @@ angular.module('ulyssesApp')
 
       return start.format('h:mma') + ' to ' + end.format('h:mma');
     };
-    
+
 
 
 
