@@ -61,7 +61,7 @@ angular.module('ulyssesApp')
             if(result.data[0]["Job Preference #1"].startsWith("Non-Judging") && !alreadyAJob(result.data[0]["Job Preference #1"]))
             {
               console.log("the pref " + result.data[0]["Job Preference #1"] + " the result " + result.data[0]["Job Preference #1"].startsWith("Non-Judging"));
-              $scope.schedule.jobs.push({name: birthJob1(result.data[0])});
+              $scope.schedule.jobs.push({name: birthJob1(result.data[0]), isJudging: false});
             }
 
 

@@ -62,6 +62,21 @@ angular.module('ulyssesApp')
       return conflicting;
     };
 
+    $scope.sortJobsByPref = function (jobArray, volunteer) {
+      for(var p = 0; p < volunteer.preferences.length; p++) {
+        var pref = volunteer.preferences[p];
+        for(var a = 0; a < jobArray.length; a++) {
+          var job = jobArray[a];
+          if(job.name === pref) {
+            console.log("getting here? " + pref + " " + job.name);
+            jobArray = jobArray.slice(0,jobArray.indexOf(job)).concat(jobArray.slice(jobArray.indexOf(job) + 1, jobArray.length + 1));
+            jobArray.unshift(job);
+            console.log(jobArray[0].name);
+          }
+        }
+      }
+    }
+
     $scope.auto = function () {
       //variables to hold arrays of jobs and volunteers separated by judging versus nonjudging
       var judgeJobs = [];
@@ -178,7 +193,30 @@ angular.module('ulyssesApp')
 
       //loop which assigns judges to judging jobs
       judgeVol.forEach(function(volunteer) {
+        judgeJobs.sort(function(a,b) {
+          var slotsTotalA = 0;
+          var slotsTotalB = 0;
+
+          a.slots.forEach(function(slot) {
+            slotsTotalA += slot.positions;
+          });
+
+          b.slots.forEach(function(slot) {
+            slotsTotalB += slot.positions;
+          });
+          return slotsTotalB - slotsTotalA;
+        });
         assignment = false;
+        for(var p = 0; p < volunteer.preferences.length; p++) {
+          var pref = volunteer.preferences[p];
+          for(var a = 0; a < judgeJobs.length; a++) {
+            var job1 = judgeJobs[a];
+            if(job1.name.indexOf(pref) >= 0) {
+              judgeJobs = judgeJobs.slice(0,judgeJobs.indexOf(job1)).concat(judgeJobs.slice(judgeJobs.indexOf(job1) + 1, judgeJobs.length + 1));
+              judgeJobs.unshift(job1);
+            }
+          }
+        }
         judgeJobs.forEach(function(job) {
           job.slots.forEach(function(slot) {
             if(assignment == false) {
@@ -209,7 +247,30 @@ angular.module('ulyssesApp')
 
       //loop to assign all remaining judges and volunteers to jobs
       allVol.forEach(function(volunteer) {
+        nonJudgeJobs.sort(function(a,b) {
+          var slotsTotalA = 0;
+          var slotsTotalB = 0;
+
+            a.slots.forEach(function(slot) {
+              slotsTotalA += slot.positions;
+            });
+
+          b.slots.forEach(function(slot) {
+            slotsTotalB += slot.positions;
+          });
+          return slotsTotalB - slotsTotalA;
+        });
         assignment = false;
+        for(var p = 0; p < volunteer.preferences.length; p++) {
+          var pref = volunteer.preferences[p];
+          for(var a = 0; a < nonJudgeJobs.length; a++) {
+            var job1 = nonJudgeJobs[a];
+            if(job1.name.indexOf(pref) >= 0) {
+              nonJudgeJobs = nonJudgeJobs.slice(0,nonJudgeJobs.indexOf(job1)).concat(nonJudgeJobs.slice(nonJudgeJobs.indexOf(job1) + 1, nonJudgeJobs.length + 1));
+              nonJudgeJobs.unshift(job1);
+            }
+          }
+        }
         nonJudgeJobs.forEach(function(job) {
           job.slots.forEach(function(slot) {
             if(assignment == false) {
