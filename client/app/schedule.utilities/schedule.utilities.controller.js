@@ -40,21 +40,36 @@ angular.module('ulyssesApp')
         to: $scope.getAssignedEmails(),
         subject: "Volunteer information for Odyssey of the Mind",
         message: "Dear Volunteer, %0D%0A%0D%0AThank you for your participation in this event!%0D%0A%0D%0A" +
-        "You can log in to see your scheduled volunteer positions at http://localhost:9000/ using the email \"volunteer@example.com\" " +
+        "You can log in to see the volunteer positions you have been scheduled for at http://localhost:9000/ using the email \"volunteer@example.com\" " +
         "and the password \"volunteer\".%0D%0A%0D%0ASincerely,%0D%0A%0D%0AYour Odyssey of the Mind Organizer"
       });
       sendEmail({
         to: $scope.getUnassignedEmails(),
         subject: "Volunteer information for Odyssey of the Mind",
         message: "Dear Volunteer, %0D%0A%0D%0AThank you for your interest in participating in this event!%0D%0A%0D%0A" +
-        "Unfortunately, we were unable to assign to any volunteer positions, but we hope you still enjoy coming to watch the performance. You can log in to see your team of interest performance time at http://localhost:9000/ using the email \"volunteer@example.com\" " +
+        "Unfortunately, we were unable to assign to any volunteer positions, but we hope you still enjoy coming to watch the performance. You can log in to see your team of interest's performance time at http://localhost:9000/ using the email \"volunteer@example.com\" " +
         "and the password \"volunteer\".%0D%0A%0D%0ASincerely,%0D%0A%0D%0AYour Odyssey of the Mind Organizer"
       });
     };
 
 
-    $scope.emailOneVolunteer = function(){
+    $scope.emailOneVolunteer = function(volunteer){
+      console.log("Child team is: " + volunteer.childTeam)
+      var childTeam = volunteer.childTeam;
+      var childTeamMessage = "Our records show that you did not list a team of interest for the day";
+      if (childTeam != "") {
+        childTeam = childTeam.replace('#', 'Team-');
+        childTeam = childTeam.replace('#', 'Team-');
+        childTeam = childTeam.replace('#', 'Team-');
+        childTeam = childTeam.replace('#', 'Team-');
+
+        childTeamMessage = "Our records show you have the following team(s) of interest " + childTeam;
+      }
       sendEmail({
+        to: volunteer.email,
+        subject: "Volunteer information for Odyssey of the Mind",
+        message: "Dear " + volunteer.name +",%0D%0A%0D%0AThank you for participating in this event! " + childTeamMessage +
+        ".%0D%0A%0D%0AYou have been assigned to the following:%0D%0A%0D%0A"
       })
     };
 
