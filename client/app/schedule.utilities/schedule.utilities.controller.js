@@ -70,6 +70,12 @@ angular.module('ulyssesApp')
       return constraints;
     };
 
+    // $scope.noEmail = function(volunteer){
+    //   if (volunteer.email = ""){
+    //     return true;
+    //   }
+    // };
+
 
     $scope.emailOneVolunteer = function(volunteer){
       console.log("Child team is: " + volunteer.childTeam)
@@ -83,15 +89,15 @@ angular.module('ulyssesApp')
 
         childTeamMessage = "Our records show you have the following team(s) of interest " + childTeam;
       }
-
+      var constraintMessage = "Unfortunately, we were unable to assign to any volunteer positions, but we hope you still enjoy coming to watch the performance.";
       if(volunteer.constraints.length > 0){
-
+       constraintMessage = "You have been scheduled for the following: "
       }
       sendEmail({
         to: volunteer.email,
         subject: "Volunteer information for Odyssey of the Mind",
         message: "Dear " + volunteer.name +",%0D%0A%0D%0AThank you for participating in this event! " + childTeamMessage +
-        ".%0D%0A%0D%0AYou have been assigned to the following:%0D%0A%0D%0A" + $scope.getConstraints(volunteer) +
+        ".%0D%0A%0D%0A" + constraintMessage + "%0D%0A%0D%0A" + $scope.getConstraints(volunteer) +
         "%0D%0A%0D%0AYou can log in at http://localhost:9000/ using the email \"volunteer@example.com\" " +
         "and the password \"volunteer\" to view your schedule for the event.%0D%0A%0D%0ASincerely,%0D%0A%0D%0AYour Odyssey of the Mind Organizer"
       })
