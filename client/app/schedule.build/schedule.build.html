@@ -4,16 +4,49 @@
       <button type="button" class="btn btn-default" ng-click="addJob()">Add another Job</button>
       <button type="button" class="btn btn-default" ng-click="showDetails()">Automatic Judge Jobs</button>
   </div>
+
+
   <div class="form-group" ng-show="judgeJobDetails">
-    <label>Primary</label>
-    <input type="checkbox" class="checkbox-inline"  ng-model="isPrimary" />
-    <label>Number of Problem Divisions</label>
-    <input type="Number" min="0" ng-model="probDiv" />
-    <label>Number of Primary Divisions</label>
-    <input type="Number" min="0" ng-model="primDiv" />
+    <div class="checkbox">
+      <label><input type="checkbox" class="checkbox"  ng-model="isPrimary" /> Primary</label>
+    </div>
+    <label>Problem 1</label>
+    <div class="checkbox">
+      <label class="checkbox-inline"><input type="checkbox" ng-model="p1d1">Div 1</label>
+      <label class="checkbox-inline"><input type="checkbox" ng-model="p1d2">Div 2</label>
+      <label class="checkbox-inline"><input type="checkbox" ng-model="p1d3">Div 3</label>
+      <label class="checkbox-inline"><input type="checkbox" ng-model="p1d4">Div 4</label>
+    </div>
+    <label>Problem 2</label>
+    <div class="checkbox">
+      <label class="checkbox-inline"><input type="checkbox" ng-model="p2d1">Div 1</label>
+      <label class="checkbox-inline"><input type="checkbox" ng-model="p2d2">Div 2</label>
+      <label class="checkbox-inline"><input type="checkbox" ng-model="p2d3">Div 3</label>
+      <label class="checkbox-inline"><input type="checkbox" ng-model="p2d4">Div 4</label>
+    </div>
+    <label>Problem 3</label>
+    <div class="checkbox">
+      <label class="checkbox-inline"><input type="checkbox" ng-model="p3d1">Div 1</label>
+      <label class="checkbox-inline"><input type="checkbox" ng-model="p3d2">Div 2</label>
+      <label class="checkbox-inline"><input type="checkbox" ng-model="p3d3">Div 3</label>
+      <label class="checkbox-inline"><input type="checkbox" ng-model="p3d4">Div 4</label>
+    </div>
+    <label>Problem 4</label>
+    <div class="checkbox">
+      <label class="checkbox-inline"><input type="checkbox" ng-model="p4d1">Div 1</label>
+      <label class="checkbox-inline"><input type="checkbox" ng-model="p4d2">Div 2</label>
+      <label class="checkbox-inline"><input type="checkbox" ng-model="p4d3">Div 3</label>
+      <label class="checkbox-inline"><input type="checkbox" ng-model="p4d4">Div 4</label>
+    </div>
+    <label>Problem 5</label>
+    <div class="checkbox">
+      <label class="checkbox-inline"><input type="checkbox" ng-model="p5d1">Div 1</label>
+      <label class="checkbox-inline"><input type="checkbox" ng-model="p5d2">Div 2</label>
+      <label class="checkbox-inline"><input type="checkbox" ng-model="p5d3">Div 3</label>
+      <label class="checkbox-inline"><input type="checkbox" ng-model="p5d4">Div 4</label>
+    </div>
     <button type="button" class="btn btn-primary" ng-click="createJudgeJobs()">Create</button>
   </div>
-
 
   <div class="list-group">
     <div class="list-group-item" ng-repeat="job in schedule.jobs">
