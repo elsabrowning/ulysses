@@ -52,7 +52,7 @@ angular.module('ulyssesApp')
     $scope.addJob = function() {
       $scope.schedule.jobs.unshift({ slots: [{}] });
     };
-
+    
     $scope.timePull = function(slot) {
       var start = moment(slot.end);
       return start.format('H:mm');
@@ -97,13 +97,15 @@ angular.module('ulyssesApp')
 
     $scope.addSlot = function(job) {
       job.slots.unshift({});
-      var prevDurationHour = $scope.prevSlotDurationHour(job.slots[1]);
-      var prevDurationMin = $scope.prevSlotDurationMin(job.slots[1]);
-      var startTime = $scope.timePull(job.slots[1]);
-      var endTime = ($scope.hourPull(job.slots[1]) + prevDurationHour) + ":" + ($scope.minutePull(job.slots[1]) + prevDurationMin);
+      if(job.slots.length > 1) {
+        var prevDurationHour = $scope.prevSlotDurationHour(job.slots[1]);
+        var prevDurationMin = $scope.prevSlotDurationMin(job.slots[1]);
+        var startTime = $scope.timePull(job.slots[1]);
+        var endTime = ($scope.hourPull(job.slots[1]) + prevDurationHour) + ":" + ($scope.minutePull(job.slots[1]) + prevDurationMin);
 
-      job.slots[0].start = new Date('April 1, 2016, ' + startTime + ':00');
-      job.slots[0].end = new Date('April 1, 2016, ' + endTime + ':00');
+        job.slots[0].start = new Date('April 1, 2016, ' + startTime + ':00');
+        job.slots[0].end = new Date('April 1, 2016, ' + endTime + ':00');
+      }
     };
 
     $scope.removeJob = function(index) {
