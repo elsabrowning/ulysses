@@ -89,11 +89,11 @@
             </div>
             <div class="col-md-3">
               <label>Start</label>
-              <uib-timepicker ng-model="slot.start" hour-step="1" minute-step="1"></uib-timepicker>
+              <uib-timepicker ng-model="slot.start" hour-step="1" minute-step="1" max="slot.end"></uib-timepicker>
             </div>
             <div class="col-md-3">
               <label>End</label>
-              <uib-timepicker ng-model="slot.end" hour-step="1" minute-step="1"></uib-timepicker>
+              <uib-timepicker ng-model="slot.end" hour-step="1" minute-step="1" min="slot.start"></uib-timepicker>
             </div>
             <div class="col-md-1">
               <label class="crouching-tiger-hidden-label">RAWR</label>
