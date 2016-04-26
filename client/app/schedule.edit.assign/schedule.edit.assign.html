@@ -11,7 +11,7 @@
     <div class="list-group">
       <a class="list-group-item" ng-class="{'list-group-item-danger': conflictLoopNoMess(volunteer, slot)}" ng-click="assign(volunteer, slot)" ng-repeat="volunteer in schedule.unassigned| filter: filter | orderBy: 'name' track by $index">
         {{ volunteer.name }}
-        <span ng-if="volunteer.isJudge" class="judgeJ">  J</span> <span class="badge hover-badge">Assign →</span>
+        <span ng-if="volunteer.isJudge" class="judgeJ">  J</span> <span ng-if="visualPreferences(volunteer, job)" class="pref">  WANT</span> <span class="badge hover-badge">Assign →</span>
       </a>
     </div>
   </div>
@@ -22,7 +22,7 @@
       <h5>{{ timeRange(slot) }}</h5>
       <a class="list-group-item" ng-click="unassign(volunteer, slot, job)" ng-repeat="volunteer in slot.assigned track by $index">
         {{ volunteer.name }}
-      <span ng-if="volunteer.isJudge" class="judgeJ">  J</span> <span class="badge hover-badge">← Unassign</span>
+      <span ng-if="volunteer.isJudge" class="judgeJ">  J</span> <span ng-if="visualPreferences(volunteer, job)" class="pref">  WANT</span>  <span class="badge hover-badge">← Unassign</span>
       </a>
 
       <div ng-if="slot">
