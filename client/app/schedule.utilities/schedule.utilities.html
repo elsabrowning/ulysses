@@ -10,9 +10,19 @@
         <div class="panel-body">
 
           <form class="form-inline" role="form">
-            <input class="form-control" ng-model="nScheduleName" placeholder="New Schedule Name">
-            <button type="submit" class="btn btn-warning" ng-click="changeScheduleName()">Change</button>
+            <input class="form-control" ng-model="nScheduleName" placeholder="Schedule Name">
+            <button type="submit" class="btn btn-warning" ng-click="changeScheduleName()">Rename</button>
           </form>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Email All Volunteers
+        </div>
+
+        <div class="panel-body">
+          <button type="button" class="btn btn-primary" ng-click="emailAllVolunteers()" ><span class="glyphicon glyphicon-envelope"></span> Email All Volunteers</button>
         </div>
       </div>
 
@@ -39,10 +49,6 @@
 
   </div>
   <div class="col-md-4">
-    <button type="button" class="btn btn-primary" ng-click="emailAllVolunteers()" ><span class="glyphicon glyphicon-envelope"></span> Email All Volunteers</button>
-
-    <br> <br>
-    <h5>Email one volunteer:</h5>
     <div class="form-group" ng-show="schedule.unassigned.length">
       <input type="text" class="form-control" placeholder="Filter by name" ng-model="filter.name" />
     </div>
@@ -63,5 +69,55 @@
 
     </div>
   </div>
+
+
+<div class="col-md-4" ng-if="detail">
+  <div class="Fixed2">
+    <form ng-submit="close()">
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" class="form-control" ng-model="detail.name" required/>
+      </div>
+
+      <div class="form-group">
+        <label>Email address</label>
+        <input type="email" class="form-control" ng-model="detail.email" required />
+      </div>
+
+      <div class="form-group">
+        <label>Phone number</label>
+        <input type="text" class="form-control" ng-model="detail.phone" />
+      </div>
+
+      <div class="form-group">
+        <label>Team of Interest</label>
+        <p>Format: #TeamNumber Problem/Divison. <br><em>(e.g., #12345 3/1, #)</em></p>
+        <input type="text" class="form-control" ng-model="detail.childTeam" />
+      </div>
+
+      <div class="form-group">
+        <label>Preferences</label>
+        <div ng-repeat="con in detail.preferences">{{con}}</div>
+        <div ng-if="detail.preferences.length<1">This person has no preferences. </div>
+      </div>
+      <div class="form-group">
+        <label>Scheduled Times</label>
+        <div ng-repeat="con in detail.constraints">{{con.name}} {{timeRange(con)}}</div>
+        <div ng-if="detail.constraints.length<1">This person is not scheduled at any time </div>
+      </div>
+
+      <div class="form-group">
+        <label>Judge</label>
+        <input type="checkbox" class="checkbox-inline" ng-model="detail.isJudge" />
+      </div>
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-success">Done</button>
+        <button type="submit" class="btn btn-danger" ng-click="removeVolunteer(detail)">Remove</button>
+      </div>
+    </form>
   </div>
+</div>
+
+</div>
 </div>

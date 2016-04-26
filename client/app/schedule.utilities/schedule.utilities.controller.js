@@ -3,6 +3,7 @@
 angular.module('ulyssesApp')
   .controller('ScheduleUtilitiesCtrl', function ($scope, $window, Schedule, $anchorScroll) {
     $scope.nScheduleName = "";
+    $scope.detail = null;
 
     var sendEmail = function(vols){
       var str = 'http://mail.google.com/mail/?view=cm&fs=1'+
@@ -25,6 +26,36 @@ angular.module('ulyssesApp')
       }
       return assignedEmails;
     };
+
+
+    $scope.open = function(volunteer) {
+      $scope.detail = volunteer;
+    };
+
+    $scope.close = function() {
+      $scope.detail = null;
+    };
+
+
+    $scope.removeVolunteer = function(volunteer) {
+      var unassigned = $scope.schedule.unassigned;
+      for(var i in $scope.schedule.jobs){
+        var job = $scope.schedule.jobs[i];
+        for(var j in job.slots){
+          var slot = job.slots[j];
+          for(var k in slot.assigned){
+            var aVol = slot.assigned[k];
+            console.log(aVol);
+            if(aVol == volunteer){
+              //lol hi Dan, SCREW YOU, I'M DOING A WINDOW ALERT!
+              window.alert(volunteer.name + " is assigned to " + job.name + ". Please unassign volunteer before deleting.");
+            }
+          }
+        }
+      }
+      unassigned.splice(unassigned.indexOf(volunteer), 1);
+    };
+
 
     $scope.getUnassignedEmails = function (){
       var unassignedEmails = "";
