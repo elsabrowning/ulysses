@@ -101,7 +101,18 @@ angular.module('ulyssesApp')
       return conflicting;
     };
 
+    $scope.conflictLoopNoMess = function(volunteer, slot) {
+      var conflicting = false;
+      for(var i = 0; i < volunteer.constraints.length; i++) {
+        if($scope.isConflict(volunteer.constraints[i], slot)) {
+          conflicting = true;
+        }
+      }
+      return conflicting;
+    };
+
     $scope.assign = function(volunteer, slot) {
+      $scope.addThemAnyway = false;
       $scope.errorMessage = "";
       var unassigned = $scope.schedule.unassigned;
       // if((slot.positions - slot.assigned.length) > 0) {
@@ -123,6 +134,7 @@ angular.module('ulyssesApp')
         // AH, PUSH IT
         slot.assigned.push(unassigned.splice(unassigned.indexOf($scope.tempVol), 1)[0]);
       $scope.tempVol.constraints.push({start: slot.start, end: slot.end, name: $scope.job.name});
+      $scope.addThemAnyway = false;
     };
 
     $scope.remainingPositions = function(slot) {

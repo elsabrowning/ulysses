@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('ulyssesApp')
-  .controller('ScheduleUtilitiesCtrl', function ($scope, $window) {
-
+  .controller('ScheduleUtilitiesCtrl', function ($scope, $window, Schedule, $anchorScroll) {
+    $scope.nScheduleName = "";
 
     var sendEmail = function(vols){
       var str = 'http://mail.google.com/mail/?view=cm&fs=1'+
@@ -103,5 +103,24 @@ angular.module('ulyssesApp')
       })
     };
 
+    $scope.changeScheduleName = function() {
+      $scope.schedule.name = $scope.nScheduleName;
+      $scope.schedules = Schedule.query();
+      $scope.continue('schedule.utilities');
+      $scope.nScheduleName = "";
+      $anchorScroll();
+    };
+
+    $scope.duplicateSchedule = function() {
+    };
+
+    $scope.deleteSchedule = function() {
+      Schedule.remove({id: $scope.schedule._id});
+      $scope.continue('main');
+      window.location.reload();
+      $scope.continue('main');
+
+
+    };
 
   });
