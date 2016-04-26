@@ -112,6 +112,19 @@ angular.module('ulyssesApp')
     };
 
     $scope.duplicateSchedule = function() {
+      var clone = Object.create($scope.schedule);
+      clone.name = clone.name + " - Copy";
+      clone.date = $scope.schedule.date;
+      clone.info = $scope.schedule.info;
+      clone.jobs = $scope.schedule.jobs;
+      clone.teams = $scope.schedule.teams;
+      clone.unassigned = $scope.schedule.unassigned;
+      Schedule.save(clone).$promise.then(function(response) {
+        console.log(response);
+        $scope.schedules = Schedule.query();
+        $location.path('schedule/' + response._id + '/build');
+        window.location.reload();
+      });
     };
 
     $scope.deleteSchedule = function() {
