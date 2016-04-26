@@ -115,17 +115,10 @@ angular.module('ulyssesApp')
     };
 
     $scope.deleteSchedule = function() {
-      console.log("check");
-      for(var i = 0; i < $scope.schedules.length; i++) {
-        if($scope.schedules[0].name == $scope.schedule.name && $scope.schedules[0].date == $scope.schedule.date) {
-          console.log($scope.schedules.length);
-         // $scope.schedules = $scope.schedules.slice(0,i).concat($scope.schedules.slice(i + 1, $scope.schedules.length + 1));
-          //$scope.continue('schedule.utilities');
-          //$anchorScroll();
-          console.log($scope.schedules.length);
-        }
-      }
-
+      Schedule.remove({id: $scope.schedule._id});
+      $scope.continue('main');
+      window.location.reload();
+      $scope.continue('main');
 
 
     };
