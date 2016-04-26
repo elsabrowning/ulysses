@@ -309,6 +309,18 @@ angular.module('ulyssesApp')
       return time2.getHours()-time1.getHours() + Math.abs(time2.getMinutes()-time1.getMinutes())/60;
     };
 
+    $scope.visualPreferences = function(volunteer, job){
+      var prefer = false;
+      if(volunteer.preferences.length > 0){
+        for(var i=0; i<volunteer.preferences.length; i++){
+          if(volunteer.preferences[i] == job.name){
+            prefer = true;
+          }
+        }
+      }
+      return prefer;
+    }
+
     //removes all volunteers and judges from all slots and repopulates unassigned
     $scope.unLucky = function() {
       console.log($scope.schedule.jobs);

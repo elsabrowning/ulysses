@@ -25,7 +25,7 @@ a.list-group-item {
   border-radius: 10px;
 }
 
-.conflictC{
+.pref{
   display: inline-block;
   min-width: 10px;
   padding: 3px 7px;
@@ -36,7 +36,7 @@ a.list-group-item {
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
-  background-color: #f2dede;
+  background-color: #3c763d;
   border-radius: 10px;
 }
 

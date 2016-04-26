@@ -169,4 +169,17 @@ angular.module('ulyssesApp')
 
 
     };
+
+    $scope.visualPreferences = function(volunteer, job){
+      var prefer = false;
+      if(volunteer.preferences.length > 0){
+        for(var i=0; i<volunteer.preferences.length; i++){
+          if(volunteer.preferences[i] == job.name){
+            prefer = true;
+          }
+        }
+      }
+      console.log(volunteer.name + " prefers " + volunteer.preferences[0] + " and " + volunteer.preferences[1] + "; job listed is: "+ job.name);
+      return prefer;
+    }
   });
