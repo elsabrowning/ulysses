@@ -9,7 +9,7 @@
     </div>
 
     <div class="list-group">
-      <a class="list-group-item" ng-class="{'list-group-item-danger': conflictLoopNoMess(volunteer, slot)}" ng-click="assign(volunteer, slot)" ng-repeat="volunteer in schedule.unassigned| filter: filter | orderBy: 'name' track by $index">
+      <a class="list-group-item" ng-class="{'list-group-item-danger': conflictLoopNoMess(volunteer, slot)}" ng-click="assign(volunteer, slot)" ng-repeat="volunteer in schedule.unassigned| filter: filter | orderBy: [preference(job), 'name']">
         {{ volunteer.name }}
         <span ng-if="volunteer.isJudge" class="judgeJ">  J</span> <span ng-if="visualPreferences(volunteer, job)" class="pref">  WANT</span> <span class="badge hover-badge">Assign →</span>
       </a>
