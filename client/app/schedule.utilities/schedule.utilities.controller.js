@@ -47,7 +47,7 @@ angular.module('ulyssesApp')
         to: $scope.getUnassignedEmails(),
         subject: "Volunteer information for Odyssey of the Mind",
         message: "Dear Volunteer, %0D%0A%0D%0AThank you for your interest in participating in this event!%0D%0A%0D%0A" +
-        "Unfortunately, we were unable to assign to any volunteer positions, but we hope you still enjoy coming to watch the performance. You can log in to see your team of interest's performance time at http://localhost:9000/ using the email \"volunteer@example.com\" " +
+        "Unfortunately, we were unable to assign you to any volunteer positions, but we hope you still enjoy coming to watch the performance. You can log in to see your team of interest's performance time at http://localhost:9000/ using the email \"volunteer@example.com\" " +
         "and the password \"volunteer\".%0D%0A%0D%0ASincerely,%0D%0A%0D%0AYour Odyssey of the Mind Organizer"
       });
     };
@@ -89,7 +89,7 @@ angular.module('ulyssesApp')
 
         childTeamMessage = "Our records show you have the following team(s) of interest " + childTeam;
       }
-      var constraintMessage = "Unfortunately, we were unable to assign to any volunteer positions, but we hope you still enjoy coming to watch the performance.";
+      var constraintMessage = "Unfortunately, we were unable to assign you to any volunteer positions, but we hope you still enjoy coming to watch the performance.";
       if(volunteer.constraints.length > 0){
        constraintMessage = "You have been scheduled for the following: "
       }
