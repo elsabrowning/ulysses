@@ -57,10 +57,11 @@ angular.module('ulyssesApp')
         papa.parse($scope.volunteerCSV, {
           header: true,
           step: function(result) {
-            $scope.schedule.unassigned.push(birthVolunteer(result.data[0]));
+            if(!alreadyAVolunteer(result.data[0]["First name"], result.data[0]["Last name"], result.data[0]["E-mail"])) {
+              $scope.schedule.unassigned.push(birthVolunteer(result.data[0]));
+            }
             if(result.data[0]["Job Preference #1"].startsWith("Non-Judging") && !alreadyAJob(result.data[0]["Job Preference #1"]))
             {
-              console.log("the pref " + result.data[0]["Job Preference #1"] + " the result " + result.data[0]["Job Preference #1"].startsWith("Non-Judging"));
               $scope.schedule.jobs.push({name: birthJob1(result.data[0]), training: 5, isJudging: false, slots: [], jobComments: ""});
             }
 
@@ -134,14 +135,21 @@ angular.module('ulyssesApp')
         jobAlready = true;
       } else {
         for(var i = 0; i < $scope.schedule.jobs.length; i++) {
-          console.log("pref name: " + pref.substring("Non-Judging ".length, pref.length) + " job name: " + $scope.schedule.jobs[i].name + " equal? " + pref.substring("Non-Judging ".length, pref.length) === $scope.schedule.jobs[i].name);
-
           if(pref.substring("Non-Judging ".length, pref.length) === $scope.schedule.jobs[i].name) {
             jobAlready = true;
           }
         }
       }
       return jobAlready;
+    }
+
+    var alreadyAVolunteer = function(firstName, lastName, email) {
+      for(var i = 0; i < $scope.schedule.unassigned.length; i++) {
+        if((firstName + " " + lastName) === $scope.schedule.unassigned[i].name && email === $scope.schedule.unassigned[i].email ) {
+          return true;
+        }
+      }
+      return false;
     }
 
     var birthJob1 = function(row) {

@@ -1,4 +1,4 @@
-<div class="job-table" id="scrollable">
+<div class="job-table">
   <div class="time-col">
     <div class="crouching-tiger-hidden-label2">Time</div>
     <div ng-repeat="time in timeArray" class="time-block">
@@ -6,7 +6,7 @@
     </div>
   </div>
 
-  <div ng-repeat="job in schedule.jobs" class="job-col">
+  <div ng-repeat="job in schedule.jobs" class="job-col" id="scrollable">
     <div class="job-header">
       <label>{{job.name}}  <span ng-if="job.isJudging" class="judgeJ">J</span></label>
       <br>

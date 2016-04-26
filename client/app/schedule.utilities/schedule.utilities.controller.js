@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ulyssesApp')
-  .controller('ScheduleUtilitiesCtrl', function ($scope, $window, Schedule, $anchorScroll) {
+  .controller('ScheduleUtilitiesCtrl', function ($scope, $window, Schedule, $anchorScroll, $location) {
     $scope.nScheduleName = "";
 
     var sendEmail = function(vols){
@@ -112,13 +112,33 @@ angular.module('ulyssesApp')
     };
 
     $scope.duplicateSchedule = function() {
+      var clone = Object.create($scope.schedule);
+      clone.name = clone.name + " - Copy";
+      clone.date = $scope.schedule.date;
+      clone.info = $scope.schedule.info;
+      clone.jobs = $scope.schedule.jobs;
+      clone.teams = $scope.schedule.teams;
+      clone.unassigned = $scope.schedule.unassigned;
+      Schedule.save(clone).$promise.then(function(response) {
+        console.log(response);
+        $scope.schedules = Schedule.query();
+        $location.path('schedule/' + response._id + '/build');
+        window.location.reload();
+      });
     };
 
     $scope.deleteSchedule = function() {
-      Schedule.remove({id: $scope.schedule._id});
-      $scope.continue('main');
-      window.location.reload();
-      $scope.continue('main');
+      var temp = $scope.schedule;
+      if (confirm("Are you SURE you want to delete the schedule?")) {
+        Schedule.remove({id: temp._id}).$promise.then(function() {
+          //$scope.continue('main');
+          $location.path('main');
+          window.location.reload();
+        });
+      }
+
+
+
 
 
     };
