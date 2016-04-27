@@ -134,14 +134,17 @@ angular.module('ulyssesApp')
       })
     };
 
+    //changes the name of the schedule
     $scope.changeScheduleName = function() {
       $scope.schedule.name = $scope.nScheduleName;
       $scope.schedules = Schedule.query();
       $scope.continue('schedule.utilities');
       $scope.nScheduleName = "";
       $anchorScroll();
+      window.location.reload();
     };
 
+    //duplicates the schedule with only the name changed, " - Copy" is added at the end
     $scope.duplicateSchedule = function() {
       var clone = Object.create($scope.schedule);
       clone.name = clone.name + " - Copy";
@@ -158,6 +161,7 @@ angular.module('ulyssesApp')
       });
     };
 
+    //deletes the schedule and takes user to the main page
     $scope.deleteSchedule = function() {
       var temp = $scope.schedule;
       if (confirm("Are you SURE you want to delete the schedule?")) {

@@ -26,12 +26,14 @@ angular.module('ulyssesApp')
       $scope.detail = null;
     };
 
+    //adds volunteer to array of unassigned volunteers in the schedule
     $scope.addVolunteer = function() {
       var unassigned = $scope.schedule.unassigned;
       unassigned.unshift({});
       $scope.detail = unassigned[0];
     };
 
+    //removes a volunteer from the schedule
     $scope.removeVolunteer = function(volunteer) {
       var unassigned = $scope.schedule.unassigned;
       for(var i in $scope.schedule.jobs){
@@ -57,9 +59,11 @@ angular.module('ulyssesApp')
         papa.parse($scope.volunteerCSV, {
           header: true,
           step: function(result) {
+            //checks against duplicate volunteers
             if(!alreadyAVolunteer(result.data[0]["First name"], result.data[0]["Last name"], result.data[0]["E-mail"])) {
               $scope.schedule.unassigned.push(birthVolunteer(result.data[0]));
             }
+            //checks against duplicate jobs
             if(result.data[0]["Job Preference #1"].startsWith("Non-Judging") && !alreadyAJob(result.data[0]["Job Preference #1"]))
             {
               $scope.schedule.jobs.push({name: birthJob1(result.data[0]), training: 5, isJudging: false, slots: [], jobComments: ""});
@@ -105,6 +109,7 @@ angular.module('ulyssesApp')
       }
     };
 
+    //adds team constraints to volunteers
     $scope.addConstraints = function() {
       for(var index in $scope.schedule.unassigned){
         var volunteer = $scope.schedule.unassigned[index];
@@ -124,11 +129,12 @@ angular.module('ulyssesApp')
 
 
 
-
+    //combines first and last name into one name
     var fullName = function(first, last){
       return [first, last].join(" ");
     };
 
+    //checks through jobs to make sure that job is not already in existence
     var alreadyAJob = function(pref) {
       var jobAlready = false;
       if(pref.substring("Non-Judging ".length, pref.length) === "" || pref.substring("Non-Judging ".length, pref.length) === " " || pref.substring("Non-Judging ".length, pref.length) === "No Preference") {
@@ -143,15 +149,30 @@ angular.module('ulyssesApp')
       return jobAlready;
     }
 
+    //checks to see if a volunteer is already in the schedule
     var alreadyAVolunteer = function(firstName, lastName, email) {
       for(var i = 0; i < $scope.schedule.unassigned.length; i++) {
         if((firstName + " " + lastName) === $scope.schedule.unassigned[i].name && email === $scope.schedule.unassigned[i].email ) {
           return true;
         }
       }
+
+      for(var j = 0; j < $scope.schedule.jobs.length; j++) {
+        var job = $scope.schedule.jobs[j];
+        for(var s = 0; s < job.slots.length; s++) {
+          var slot = job.slots[s];
+          for(var v = 0; v < slot.assigned.length; v++) {
+            var volunteer = slot.assigned[v];
+            if((firstName + " " + lastName) === volunteer.name && email === volunteer.email ) {
+              return true;
+            }
+          }
+        }
+      }
       return false;
     }
 
+    //returns the name of the job
     var birthJob1 = function(row) {
       var pref = row["Job Preference #1"];
       var jobName;
@@ -160,6 +181,7 @@ angular.module('ulyssesApp')
       return jobName;
     };
 
+    //returns the volunteer to be added to the schedule
     var birthVolunteer = function(row) {
       return {
         name: fullName(row["First name"], row["Last name"]),
@@ -177,6 +199,7 @@ angular.module('ulyssesApp')
       };
     };
 
+    //returns an array of the volunteers job preferences so that preferences are in volunteer info upon upload
     var jobPrefs = function(pref1, pref2) {
       var prefsArray = [];
       var firstElement;
@@ -223,7 +246,7 @@ angular.module('ulyssesApp')
 
 
 
-
+    //returns time range of constraint in form of start time 'to' end time
     $scope.timeRange = function(constraint) {
       var start = moment(constraint.start);
       var end = moment(constraint.end);
