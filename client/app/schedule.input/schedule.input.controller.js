@@ -35,6 +35,7 @@ angular.module('ulyssesApp')
 
     //removes a volunteer from the schedule
     $scope.removeVolunteer = function(volunteer) {
+      var stop = false;
       var unassigned = $scope.schedule.unassigned;
       for(var i in $scope.schedule.jobs){
         var job = $scope.schedule.jobs[i];
@@ -46,11 +47,16 @@ angular.module('ulyssesApp')
             if(aVol == volunteer){
               //lol hi Dan, SCREW YOU, I'M DOING A WINDOW ALERT!
               window.alert(volunteer.name + " is assigned to " + job.name + ". Please unassign volunteer before deleting.");
+              stop = true;
             }
           }
         }
       }
-      unassigned.splice(unassigned.indexOf(volunteer), 1);
+      if(!stop)
+      {
+        unassigned.splice(unassigned.indexOf(volunteer), 1);
+      }
+
     };
 
     //uploads volunteers
