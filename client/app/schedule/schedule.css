@@ -1,3 +1,14 @@
 .schedule-sub {
   margin-top: 2em;
 }
+
+#fixedTabs{
+  position:fixed;
+  margin-top: 65px;
+}
+
+
+#buttonSize{
+ width:200px;
+ margin-left: 30px;
+}
