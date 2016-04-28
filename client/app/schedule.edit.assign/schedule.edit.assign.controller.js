@@ -179,7 +179,22 @@ angular.module('ulyssesApp')
           }
         }
       }
-      console.log(volunteer.name + " prefers " + volunteer.preferences[0] + " and " + volunteer.preferences[1] + "; job listed is: "+ job.name);
+      //console.log(volunteer.name + " prefers " + volunteer.preferences[0] + " and " + volunteer.preferences[1] + "; job listed is: "+ job.name);
       return prefer;
-    }
+    };
+
+    $scope.preference = function(job) {
+      return function(volunteer) {
+        return !$scope.visualPreferences(volunteer, job);
+      };
+    };
+
+    $scope.sortPeople = function(volunteer, job){
+        for(var i=0; i<$scope.schedule.unassigned.length; i++){
+          if(visualPreferences(volunteer, job)){
+            $scope.schedule.unassigned =  $scope.schedule.unassigned.slice(0,i).concat($scope.schedule.unassigned.slice(i + 1, $scope.schedule.unassigned.length + 1));
+            $scope.schedule.unassigned.unshift(volunteer);
+          }
+        }
+      }
   });

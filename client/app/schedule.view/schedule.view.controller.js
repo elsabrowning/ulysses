@@ -7,7 +7,7 @@ angular.module('ulyssesApp')
     $scope.timeArray = [];
     $scope.earlyTime = new Date('April 13, 2016, 07:00:00');
     $scope.lateTime = new Date('April 13, 2016, 17:00:00');
-
+    
     $scope.$parent.schedule.$promise.then(function(schedule) {
       $scope.schedule = schedule;
     });

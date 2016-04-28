@@ -62,20 +62,6 @@ angular.module('ulyssesApp')
       return conflicting;
     };
 
-    $scope.sortJobsByPref = function (jobArray, volunteer) {
-      for(var p = 0; p < volunteer.preferences.length; p++) {
-        var pref = volunteer.preferences[p];
-        for(var a = 0; a < jobArray.length; a++) {
-          var job = jobArray[a];
-          if(job.name === pref) {
-            console.log("getting here? " + pref + " " + job.name);
-            jobArray = jobArray.slice(0,jobArray.indexOf(job)).concat(jobArray.slice(jobArray.indexOf(job) + 1, jobArray.length + 1));
-            jobArray.unshift(job);
-            console.log(jobArray[0].name);
-          }
-        }
-      }
-    }
 
     $scope.auto = function () {
       //variables to hold arrays of jobs and volunteers separated by judging versus nonjudging
@@ -193,6 +179,7 @@ angular.module('ulyssesApp')
 
       //loop which assigns judges to judging jobs
       judgeVol.forEach(function(volunteer) {
+        //resorts jobs by number of volunteers needed
         judgeJobs.sort(function(a,b) {
           var slotsTotalA = 0;
           var slotsTotalB = 0;
@@ -207,6 +194,7 @@ angular.module('ulyssesApp')
           return slotsTotalB - slotsTotalA;
         });
         assignment = false;
+        //places jobs that match volunteer preferences first
         for(var p = 0; p < volunteer.preferences.length; p++) {
           var pref = volunteer.preferences[p];
           for(var a = 0; a < judgeJobs.length; a++) {
@@ -247,6 +235,7 @@ angular.module('ulyssesApp')
 
       //loop to assign all remaining judges and volunteers to jobs
       allVol.forEach(function(volunteer) {
+        //resorts jobs by number of volunteers needed
         nonJudgeJobs.sort(function(a,b) {
           var slotsTotalA = 0;
           var slotsTotalB = 0;
@@ -261,6 +250,7 @@ angular.module('ulyssesApp')
           return slotsTotalB - slotsTotalA;
         });
         assignment = false;
+        //places jobs that match volunteer preferences first
         for(var p = 0; p < volunteer.preferences.length; p++) {
           var pref = volunteer.preferences[p];
           for(var a = 0; a < nonJudgeJobs.length; a++) {
@@ -297,13 +287,7 @@ angular.module('ulyssesApp')
       });
     }
 
-    /*
-    $scope.movePrefsFirst = function(vol, array) {
-      array.sort(function(a,b) {
-        return (vol.preferences.indexOf(b.name) != -1 ? 1 : -1) - (vol.preferences.indexOf(a.name) != -1 ? 1 : -1)
-      });
-    }
-*/
+  
     //takes in date objects and returns the differences between two times
     $scope.duration = function(time1, time2){
       return time2.getHours()-time1.getHours() + Math.abs(time2.getMinutes()-time1.getMinutes())/60;
