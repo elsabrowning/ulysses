@@ -12,7 +12,7 @@
       <h4>{{ job.name }}</h4>
 
       <div class="list-group">
-        <a class="list-group-item" ng-class="{ 'list-group-item-danger': slot.assigned.length == 0, 'list-group-item-warning': slot.assigned.length != 0 && slot.assigned.length < slot.positions, 'list-group-item-success': slot.assigned.length >= slot.positions }" ng-repeat="slot in job.slots" ui-sref="schedule.edit.assign({ job: job._id, slot: slot._id })" ui-sref-active="active">
+        <a class="list-group-item" ng-class="{ 'list-group-item-danger': slot.assigned.length == 0, 'list-group-item-warning': slot.assigned.length != 0 && slot.assigned.length < slot.positions, 'list-group-item-success': slot.assigned.length >= slot.positions }" ng-repeat="slot in job.slots | orderBy: 'start'" ui-sref="schedule.edit.assign({ job: job._id, slot: slot._id })" ui-sref-active="active">
           {{ timeRange(slot) }}
           <span class="badge">
             {{ slot.assigned.length }} / {{ slot.positions }}
