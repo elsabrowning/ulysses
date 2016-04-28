@@ -140,6 +140,7 @@ angular.module('ulyssesApp')
       $scope.continue('schedule.utilities');
       $scope.nScheduleName = "";
       $anchorScroll();
+      window.location.reload();
     };
 
     $scope.duplicateSchedule = function() {
