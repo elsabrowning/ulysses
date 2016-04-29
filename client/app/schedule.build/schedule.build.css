@@ -5,3 +5,8 @@
 .form-inline .form-control-narrow {
   width: 60px;
 }
+
+.job-slot-divider {
+  border-bottom: 1px dashed lightgrey;
+  padding: 4px;
+}
