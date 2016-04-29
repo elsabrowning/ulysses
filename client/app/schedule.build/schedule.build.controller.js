@@ -125,13 +125,64 @@ angular.module('ulyssesApp')
       }
     };
 
+    $scope.unassign = function(volunteer, slot, job) {
+      var assigned = slot.assigned;
+
+      for(var i = 0; i < volunteer.constraints.length; i++) {
+        console.log("job name " + job.name);
+        if(volunteer.constraints[i].name === job.name) {
+            volunteer.constraints = volunteer.constraints.slice(0,i).concat(volunteer.constraints.slice(i + 1, volunteer.constraints.length + 1));
+        }
+
+      }
+      // PUSH IT REAL GOOD
+      $scope.schedule.unassigned.push(assigned.splice(assigned.indexOf(volunteer), 1)[0]);
+
+
+    };
+
     //removes a job from the schedule
     $scope.removeJob = function(index) {
+        var job = $scope.schedule.jobs[index];
+        for(var j = 0; j<job.slots.length; j++){
+          var slot = job.slots[j];
+          //console.log(slot.start);
+          for(var k = 0; k<slot.assigned.length; k++){
+            var vol = slot.assigned[k];
+            //console.log(vol.name);
+            for(var t = 0; t < vol.constraints.length; t++) {
+
+              if(vol.constraints[t].name === job.name) {
+
+                vol.constraints = vol.constraints.slice(0,t).concat(vol.constraints.slice(t + 1, vol.constraints.length + 1));
+              }
+
+            }
+            $scope.schedule.unassigned.push(vol);
+          }
+          slot.assigned = [];
+        }
       $scope.schedule.jobs.splice(index, 1);
     };
 
     //removes a slot from a its job
     $scope.removeSlot = function(job, index) {
+      var slot = job.slots[index];
+      //console.log(slot.start);
+      for(var k = 0; k<slot.assigned.length; k++){
+        var vol = slot.assigned[k];
+        //console.log(vol.name);
+        for(var t = 0; t < vol.constraints.length; t++) {
+
+          if(vol.constraints[t].name === job.name) {
+
+            vol.constraints = vol.constraints.slice(0,t).concat(vol.constraints.slice(t + 1, vol.constraints.length + 1));
+          }
+
+        }
+        $scope.schedule.unassigned.push(vol);
+      }
+      slot.assigned = [];
       job.slots.splice(index, 1);
     };
 
