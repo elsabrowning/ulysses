@@ -44,7 +44,6 @@ angular.module('ulyssesApp')
       $scope.judgeJobDetails = !$scope.judgeJobDetails;
     }
 
-
     //function that changes whether slotComments is true or false
     $scope.showSlotComments = function() {
       $scope.slotComments = !$scope.slotComments;
