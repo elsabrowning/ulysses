@@ -72,13 +72,13 @@ angular.module('ulyssesApp')
         subject: "Volunteer information for Odyssey of the Mind",
         message: "Dear Volunteer, %0D%0A%0D%0AThank you for your participation in this event!%0D%0A%0D%0A" +
         "You can log in to see the volunteer positions you have been scheduled for at http://localhost:9000/ using the email \"volunteer@example.com\" " +
-        "and the password \"volunteer\".%0D%0A%0D%0ASincerely,%0D%0A%0D%0AYour Odyssey of the Mind Organizer"
+        "and the password \"volunteer\". Please stop by the registration desk at the event if you have any questions about where to go to report for your volunteer time.%0D%0A%0D%0ASincerely,%0D%0A%0D%0AYour Odyssey of the Mind Organizer"
       });
       sendEmail({
         to: $scope.getUnassignedEmails(),
         subject: "Volunteer information for Odyssey of the Mind",
         message: "Dear Volunteer, %0D%0A%0D%0AThank you for your interest in participating in this event!%0D%0A%0D%0A" +
-        "Unfortunately, we were unable to assign you to any volunteer positions, but we hope you still enjoy coming to watch the performance. You can log in to see your team of interest's performance time at http://localhost:9000/ using the email \"volunteer@example.com\" " +
+        "Due to a variety of constraints, we were unable to assign you to any volunteer positions. We hope you still enjoy coming to watch the performance. You can log in to see your team of interest's performance time at http://localhost:9000/ using the email \"volunteer@example.com\" " +
         "and the password \"volunteer\".%0D%0A%0D%0ASincerely,%0D%0A%0D%0AYour Odyssey of the Mind Organizer"
       });
     };
@@ -120,7 +120,7 @@ angular.module('ulyssesApp')
 
         childTeamMessage = "Our records show you have the following team(s) of interest " + childTeam;
       }
-      var constraintMessage = "Unfortunately, we were unable to assign you to any volunteer positions, but we hope you still enjoy coming to watch the performance.";
+      var constraintMessage = "Due to a variety of constraints, we were unable to assign you to any volunteer positions. We hope you still enjoy coming to watch the performance.";
       if(volunteer.constraints.length > 0){
        constraintMessage = "You have been scheduled for the following: "
       }
@@ -130,7 +130,7 @@ angular.module('ulyssesApp')
         message: "Dear " + volunteer.name +",%0D%0A%0D%0AThank you for participating in this event! " + childTeamMessage +
         ".%0D%0A%0D%0A" + constraintMessage + "%0D%0A%0D%0A" + $scope.getConstraints(volunteer) +
         "%0D%0A%0D%0AYou can log in at http://localhost:9000/ using the email \"volunteer@example.com\" " +
-        "and the password \"volunteer\" to view your schedule for the event.%0D%0A%0D%0ASincerely,%0D%0A%0D%0AYour Odyssey of the Mind Organizer"
+        "and the password \"volunteer\" to view your schedule for the event. Please stop by the registration desk at the event if you have any questions.%0D%0A%0D%0ASincerely,%0D%0A%0D%0AYour Odyssey of the Mind Organizer"
       })
     };
 
