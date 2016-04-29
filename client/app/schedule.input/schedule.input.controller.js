@@ -55,6 +55,7 @@ angular.module('ulyssesApp')
       if(!stop)
       {
         unassigned.splice(unassigned.indexOf(volunteer), 1);
+        $scope.open(unassigned[0]);
       }
 
     };
