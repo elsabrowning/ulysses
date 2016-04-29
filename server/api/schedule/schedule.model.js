@@ -30,7 +30,8 @@ var SlotSchema = new mongoose.Schema({
   positions: Number,
   start: Date,
   end: Date,
-  slotComments: String
+  slotComments: String,
+  slotCommentsBoolean: Boolean
 });
 
 var JobSchema = new mongoose.Schema({

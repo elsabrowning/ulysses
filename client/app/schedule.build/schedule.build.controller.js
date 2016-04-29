@@ -31,7 +31,7 @@ angular.module('ulyssesApp')
     $scope.p5d1 = false;
     $scope.p5d2 = false;
     $scope.p5d3 = false;
-    $scope.p5d4 = false;
+    $scope.p5d4 = false; = !
     //arrays of whether or not problems have divisions
     $scope.p1BoolArray = [];
     $scope.p2BoolArray = [];
@@ -45,7 +45,7 @@ angular.module('ulyssesApp')
     }
 
     //function that changes whether slotComments is true or false
-    $scope.showSlotComments = function() {
+    $scope.showComments = function() {
       $scope.slotComments = !$scope.slotComments;
     }
 
