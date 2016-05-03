@@ -10,7 +10,7 @@
         <div class="panel-body">
 
           <form class="form-inline" role="form">
-            <input class="form-control" ng-model="nScheduleName" placeholder="Schedule Name">
+            <input class="form-control" ng-model="nScheduleName" placeholder="Schedule Name" required>
             <button type="submit" class="btn btn-warning" ng-click="changeScheduleName()">Rename</button>
           </form>
         </div>
@@ -22,7 +22,7 @@
         </div>
         <div class="panel-body">
           <div class = "form-group">
-            <p class="help-block">Volunteers were last emailed at: {{ schedule.emailAll }}</p>
+            <p class="help-block">Last email generated at: {{ schedule.emailAll }}</p>
          </div>
           <button type="button" class="btn btn-primary" ng-click="emailAllVolunteers()" ><span class="glyphicon glyphicon-envelope"></span> Email All Volunteers</button>
         </div>
@@ -115,7 +115,7 @@
       </div>
 
       <div class="form-group">
-        <label>Last emailed generated at:</label> {{ detail.lastEmail }}
+        <label>Last email generated at:</label> {{ detail.lastEmail }}
       </div>
 
 
