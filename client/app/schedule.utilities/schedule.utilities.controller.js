@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ulyssesApp')
-  .controller('ScheduleUtilitiesCtrl', function ($scope, $window, Schedule, $anchorScroll, $location) {
+  .controller('ScheduleUtilitiesCtrl', function ($scope, $window, Schedule, $anchorScroll, $location, moment) {
     $scope.nScheduleName = "";
     $scope.detail = null;
 
@@ -67,6 +67,7 @@ angular.module('ulyssesApp')
 
 
     $scope.emailAllVolunteers = function(){
+      $scope.schedule.emailAll = moment().format('MMMM Do YYYY, h:mm a');
       sendEmail({
         to: $scope.getAssignedEmails(),
         subject: "Volunteer information for Odyssey of the Mind",
@@ -81,6 +82,9 @@ angular.module('ulyssesApp')
         "Due to a variety of constraints, we were unable to assign you to any volunteer positions. We hope you still enjoy coming to watch the performance. You can log in to see your team of interest's performance time at http://localhost:9000/ using the email \"volunteer@example.com\" " +
         "and the password \"volunteer\".%0D%0A%0D%0ASincerely,%0D%0A%0D%0AYour Odyssey of the Mind Organizer"
       });
+
+      $scope.schedule.$save();
+
     };
 
     $scope.timeRange = function(constraint) {
@@ -131,7 +135,9 @@ angular.module('ulyssesApp')
         ".%0D%0A%0D%0A" + constraintMessage + "%0D%0A%0D%0A" + $scope.getConstraints(volunteer) +
         "%0D%0A%0D%0AYou can log in at http://localhost:9000/ using the email \"volunteer@example.com\" " +
         "and the password \"volunteer\" to view your schedule for the event. Please stop by the registration desk at the event if you have any questions.%0D%0A%0D%0ASincerely,%0D%0A%0D%0AYour Odyssey of the Mind Organizer"
-      })
+      });
+      volunteer.lastEmail = moment().format('MMMM Do YYYY, h:mm a');
+      $scope.schedule.$save();
     };
 
     //changes the name of the schedule
