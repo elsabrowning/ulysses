@@ -23,7 +23,7 @@ angular.module('ulyssesApp')
 
     $scope.duration = function(time1, time2){
       return time2.getHours()-time1.getHours() + Math.abs(time2.getMinutes()-time1.getMinutes())/60;
-    }relative
+    }
 
     $scope.borderColorCode = function(slot){
       if(slot.assigned.length == 0){
