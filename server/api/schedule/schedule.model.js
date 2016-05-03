@@ -13,7 +13,7 @@ var VolunteerSchema = new mongoose.Schema({
   name: String,
   email: String,
   phone: String,
-  lastEmail: Date,
+  lastEmail: String,
   username: String,
   password: String,
   childTeam: String,
@@ -58,7 +58,7 @@ var ScheduleSchema = new mongoose.Schema({
   name: String,
   date: Date,
   info: String,
-  emailAll: Date,
+  emailAll: String,
   jobs: [JobSchema],
   teams: [TeamSchema],
   unassigned: [VolunteerSchema]
