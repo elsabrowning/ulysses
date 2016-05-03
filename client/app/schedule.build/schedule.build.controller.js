@@ -68,8 +68,8 @@ angular.module('ulyssesApp')
         slots: [{
           assigned: [],
           positions: 0,
-          start: new Date(),
-          end: new Date(),
+          start: new Date('April 1, 2016, 07:00:00'),
+          end: new Date('April 1, 2016, 09:00:00'),
           slotComments: "",
           slotCommentsBoolean: false
         }],
@@ -126,16 +126,14 @@ angular.module('ulyssesApp')
 
     //adds a slot to a job of the duration of the previous job and beginning when the previous job ended
     $scope.addSlot = function(job) {
-      console.log("Length before the accident: " + job.slots.length);
       job.slots.unshift({
         assigned: [],
         positions: 0,
-        start: new Date(),
-        end: new Date(),
+        start: new Date('April 1, 2016, 07:00:00'),
+        end: new Date('April 1, 2016, 09:00:00'),
         slotComments: "",
         slotCommentsBoolean: false
       });
-      console.log("Length after the accident: " + job.slots.length);
       if(job.slots.length > 1) {
         var prevDurationHour = $scope.prevSlotDurationHour(job.slots[1]);
         var prevDurationMin = $scope.prevSlotDurationMin(job.slots[1]);

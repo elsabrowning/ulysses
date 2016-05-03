@@ -81,7 +81,7 @@
         </div>
 
         <div class="col-md-9">
-          <div class="row job-slot-divider" ng-repeat="slot in job.slots | orderBy: 'start'">
+          <div class="row job-slot-divider" ng-repeat="slot in job.slots">
             <div class="col-md-2">
               <label>Volunteers</label>
               <input type="number" min="0" class="form-control" ng-model="slot.positions"/> <br>
@@ -89,7 +89,7 @@
             </div>
             <div class="col-md-3">
               <label>Start</label>
-              <uib-timepicker ng-model="slot.start" hour-step="1" minute-step="1" max="slot.end"></uib-timepicker>
+              <uib-timepicker ng-model="slot.start" hour-step="1" minute-step="1"  max="slot.end"></uib-timepicker>
             </div>
             <div class="col-md-3">
               <label>End</label>
