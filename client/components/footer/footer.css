@@ -4,3 +4,15 @@ footer.footer {
   margin-top: 70px;
   border-top: 1px solid #E5E5E5;
 }
+
+.jump {
+  position: fixed;
+  bottom: 2em;
+  left: 2em;
+  font-size: 12px;
+  padding: 1em;
+}
+
+.glyphicon.glyphicon-circle-arrow-up {
+    font-size: 2em;
+}
