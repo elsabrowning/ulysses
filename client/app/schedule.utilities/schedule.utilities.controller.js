@@ -109,7 +109,7 @@ angular.module('ulyssesApp')
 
 
     $scope.emailOneVolunteer = function(volunteer){
-      console.log("Child team is: " + volunteer.childTeam)
+      console.log("Child team is: " + volunteer.childTeam);
       var childTeam = volunteer.childTeam;
       var childTeamMessage = "Our records show that you did not list a team of interest for the day";
       if (childTeam != "") {
