@@ -193,7 +193,7 @@ angular.module('ulyssesApp')
       return {
         name: fullName(row["First name"], row["Last name"]),
         email: row["E-mail"],
-        phone: row["phone"],
+        phone: parseInt(row["phone"].replace(/\D/g,'')),
         username: row["username"],
         password: row["password"],
         childTeam: row["child_team"],
