@@ -68,8 +68,8 @@ angular.module('ulyssesApp')
         slots: [{
           assigned: [],
           positions: 0,
-          start: new Date(),
-          end: new Date(),
+          start: new Date('April 1, 2016, 07:00:00'),
+          end: new Date('April 1, 2016, 09:00:00'),
           slotComments: "",
           slotCommentsBoolean: false
         }],
@@ -130,8 +130,8 @@ angular.module('ulyssesApp')
       job.slots.unshift({
         assigned: [],
         positions: 0,
-        start: new Date(),
-        end: new Date(),
+        start: new Date('April 1, 2016, 07:00:00'),
+        end: new Date('April 1, 2016, 09:00:00'),
         slotComments: "",
         slotCommentsBoolean: false
       });
