@@ -81,7 +81,7 @@
         </div>
 
         <div class="col-md-9">
-          <div class="row job-slot-divider" ng-repeat="slot in job.slots | orderBy: 'start'">
+          <div class="row job-slot-divider" ng-repeat="slot in job.slots">
             <div class="col-md-2">
               <label>Volunteers</label>
               <input type="number" min="0" class="form-control" ng-model="slot.positions"/> <br>
