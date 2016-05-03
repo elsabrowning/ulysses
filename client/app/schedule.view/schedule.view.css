@@ -1,20 +1,23 @@
 .job-col {
   border: 1px solid black;
-  display: table-cell;
-  height: 1200px;
-  width: 200px;
+  /*display: table-cell;*/
+  height: 200px;
+  width: 1850px;
   padding: 0 5px;
 }
 
 .slot-container {
   position: relative;
+  top: -200px;
 }
 
 .slot {
+  top: 4px;
   position: absolute;
   border-width: 1px;
   border-style: solid;
   width: 100%;
+  height: 190px;
 }
 
 .slot:hover {
@@ -22,7 +25,9 @@
 }
 
 .job-header {
-  border-bottom: 1px solid black;
+  width: 100px;
+  height: 200px;
+  border-right: 1px solid black;
 }
 
 .job-table {
@@ -31,12 +36,12 @@
 }
 
 .time-block {
-  height: 62px;
+  padding-right: 75px;
 }
 
 .crouching-tiger-hidden-label2{
     visibility: hidden;
-    padding-bottom: 20px;
+    padding-right: 70px;
 }
 
 .judgeJ{
