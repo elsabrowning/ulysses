@@ -136,12 +136,15 @@ angular.module('ulyssesApp')
 
     //changes the name of the schedule
     $scope.changeScheduleName = function() {
-      $scope.schedule.name = $scope.nScheduleName;
-      $scope.schedules = Schedule.query();
-      $scope.continue('schedule.utilities');
-      $scope.nScheduleName = "";
-      $anchorScroll();
-      window.location.reload();
+      if ($scope.nScheduleName != "") {
+        window.location.reload();
+        $scope.schedule.name = $scope.nScheduleName;
+        $scope.schedules = Schedule.query();
+        $scope.continue('schedule.utilities');
+        $scope.nScheduleName = "";
+        $anchorScroll();
+      }
+
     };
 
     //duplicates the schedule with only the name changed, " - Copy" is added at the end
