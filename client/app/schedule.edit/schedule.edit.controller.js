@@ -199,7 +199,7 @@ angular.module('ulyssesApp')
           var pref = volunteer.preferences[p];
           for(var a = 0; a < judgeJobs.length; a++) {
             var job1 = judgeJobs[a];
-            if(job1.name.indexOf(pref) >= 0) {
+            if(pref.indexOf(job1.name) >= 0) {
               judgeJobs = judgeJobs.slice(0,judgeJobs.indexOf(job1)).concat(judgeJobs.slice(judgeJobs.indexOf(job1) + 1, judgeJobs.length + 1));
               judgeJobs.unshift(job1);
             }
@@ -255,7 +255,7 @@ angular.module('ulyssesApp')
           var pref = volunteer.preferences[p];
           for(var a = 0; a < nonJudgeJobs.length; a++) {
             var job1 = nonJudgeJobs[a];
-            if(job1.name.indexOf(pref) >= 0) {
+            if(pref.indexOf(job1.name) >= 0) {
               nonJudgeJobs = nonJudgeJobs.slice(0,nonJudgeJobs.indexOf(job1)).concat(nonJudgeJobs.slice(nonJudgeJobs.indexOf(job1) + 1, nonJudgeJobs.length + 1));
               nonJudgeJobs.unshift(job1);
             }
@@ -287,7 +287,7 @@ angular.module('ulyssesApp')
       });
     }
 
-  
+
     //takes in date objects and returns the differences between two times
     $scope.duration = function(time1, time2){
       return time2.getHours()-time1.getHours() + Math.abs(time2.getMinutes()-time1.getMinutes())/60;

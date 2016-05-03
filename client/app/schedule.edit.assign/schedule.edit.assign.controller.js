@@ -174,7 +174,7 @@ angular.module('ulyssesApp')
       var prefer = false;
       if(volunteer.preferences.length > 0){
         for(var i=0; i<volunteer.preferences.length; i++){
-          if(volunteer.preferences[i] == job.name){
+          if(job.name.indexOf(volunteer.preferences[i]) >= 0){
             prefer = true;
           }
         }
