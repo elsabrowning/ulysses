@@ -38,6 +38,9 @@ angular.module('ulyssesApp')
     $scope.p3BoolArray = [];
     $scope.p4BoolArray = [];
     $scope.p5BoolArray = [];
+    //dates to use as restriction on time slots
+    $scope.sevenAM = new Date('April 1, 2016, 07:00:00');
+    $scope.sevenPM = new Date('April 1, 2016, 19:00:00');
 
     //function that changes whether judgeJobDetails is true or false
     $scope.showDetails = function() {
