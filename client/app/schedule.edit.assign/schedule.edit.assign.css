@@ -51,3 +51,8 @@ a.list-group-item {
   display: inline;
   clear:none;
 }
+
+#fixedScroll{
+  height: 600px;
+  overflow: scroll;
+}
