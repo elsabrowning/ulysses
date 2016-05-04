@@ -156,12 +156,25 @@ angular.module('ulyssesApp')
     //duplicates the schedule with only the name changed, " - Copy" is added at the end
     $scope.duplicateSchedule = function() {
       var clone = Object.create($scope.schedule);
-      clone.name = clone.name + " - Copy";
+
+      var copyNum = 1;
+      for(var i = 0; i < $scope.schedules.length; i++) {
+          if($scope.schedules[i].name.substring(0, $scope.schedules[i].name.length - 2) === ($scope.schedule.name + " - Copy")) {
+              var tempCopyNum = 1 + parseInt($scope.schedules[i].name.substring($scope.schedules[i].name.length - 1, $scope.schedules[i].name.length));
+              if(tempCopyNum > copyNum) {
+                copyNum = tempCopyNum;
+              }
+          }
+      }
+
+      clone.name = clone.name + " - Copy " + copyNum;
       clone.date = $scope.schedule.date;
       clone.info = $scope.schedule.info;
       clone.jobs = $scope.schedule.jobs;
       clone.teams = $scope.schedule.teams;
       clone.unassigned = $scope.schedule.unassigned;
+
+
       Schedule.save(clone).$promise.then(function(response) {
         console.log(response);
         $scope.schedules = Schedule.query();
