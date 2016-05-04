@@ -110,28 +110,26 @@ angular.module('ulyssesApp')
 
           },
           complete: function() {
+            //add team constraints to volunteers
+            for(var index in $scope.schedule.unassigned){
+              var volunteer = $scope.schedule.unassigned[index];
+              if (volunteer.childTeam) {
+                var teams = volunteer.childTeam.split(", ");
+                teams.forEach(function(team){
+                  if(team in $scope.conflicts) {
+                    volunteer.constraints.push($scope.conflicts[team]);
+                  }
+                  else {
+                    $scope.unresolvables++;
+                  }
+                });
+              }
+            }
             $scope.$apply();
           }
         });
       }
-    };
 
-    //adds team constraints to volunteers
-    $scope.addConstraints = function() {
-      for(var index in $scope.schedule.unassigned){
-        var volunteer = $scope.schedule.unassigned[index];
-        if (volunteer.childTeam) {
-          var teams = volunteer.childTeam.split(", ");
-          teams.forEach(function(team){
-            if(team in $scope.conflicts) {
-              volunteer.constraints.push($scope.conflicts[team]);
-            }
-            else {
-              $scope.unresolvables++;
-            }
-          });
-        }
-      }
     };
 
 

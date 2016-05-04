@@ -71,12 +71,6 @@
             <strong>{{ count(conflicts) }} </strong> teams found.
           </div>
 
-          <div class="form-group" ng-if="count(conflicts)">
-            <button type="button" ng-click="addConstraints()" class="btn btn-primary">
-              Add Team Performances
-            </button>
-          </div>
-
           <div class="alert alert-danger" ng-if="unresolvables">
             <strong>Note:</strong> {{ unresolvables }} child teams couldn't be
             found in the master schedule file.
