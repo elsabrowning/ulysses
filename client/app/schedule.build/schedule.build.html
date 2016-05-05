@@ -1,7 +1,7 @@
 <form ng-submit="$parent.continue('schedule.input')">
   <div class="form-group">
     <button type="submit" class="btn btn-success" ng-click="schedule.jobs.save({ slots: [] })"> Save and continue</button>
-      <button type="button" class="btn btn-default" ng-click="addJob()">Add another Job</button>
+      <button type="button" class="btn btn-default" ng-click="addJob()">Add a new Job</button>
       <button type="button" class="btn btn-default" ng-click="showDetails()">Automatic Judge Jobs</button>
   </div>
 
@@ -69,7 +69,7 @@
           </div>
 
           <div class="form-group">
-            <button type="button" class="btn btn-default" ng-click="addSlot(job)">Add another time slot</button>
+            <button type="button" class="btn btn-warning" ng-click="addSlot(job)">Add another time slot</button>
           </div>
 
           <div class="form-group">
