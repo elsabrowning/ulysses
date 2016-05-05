@@ -50,8 +50,6 @@ angular.module('ulyssesApp')
       var end = new Date(slot.end);
       var offset = $scope.duration($scope.earlyTime, start);
       var shiftLength = $scope.duration(start, end);
-
-      console.log($scope.hour * offset + 100);
       return {
         left: $scope.hour * offset + 100,
         width: $scope.hour * shiftLength - 6,

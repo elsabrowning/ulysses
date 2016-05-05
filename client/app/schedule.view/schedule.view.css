@@ -63,3 +63,9 @@
   white-space: nowrap;
   overflow-x: scroll;
 }
+
+#fixedScroll2{
+  white-space: nowrap;
+  height: 190px;
+  overflow-x: scroll;
+}
