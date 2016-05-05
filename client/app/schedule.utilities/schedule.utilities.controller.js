@@ -47,7 +47,6 @@ angular.module('ulyssesApp')
             var aVol = slot.assigned[k];
             console.log(aVol);
             if(aVol == volunteer){
-              //lol hi Dan, SCREW YOU, I'M DOING A WINDOW ALERT!
               window.alert(volunteer.name + " is assigned to " + job.name + ". Please unassign volunteer before deleting.");
             }
           }
@@ -100,7 +99,19 @@ angular.module('ulyssesApp')
     $scope.getConstraints = function(volunteer){
       var constraints = "";
       for(var i = 0; i < volunteer.constraints.length; i++){
-        constraints += volunteer.constraints[i].name + ", " + $scope.timeRange(volunteer.constraints[i]) + "%0D%0A" ;
+        var trainTime = 0;
+        for(var j = 0; j < $scope.schedule.jobs.length; j++) {
+          var job = $scope.schedule.jobs[j];
+          if(job.name === volunteer.constraints[i].name) {
+            trainTime = job.training;
+          }
+        }
+        var trainingString = "";
+        if(trainTime > 0) {
+          trainingString = " (Training Time is " + trainTime + " minutes)";
+        }
+
+        constraints += volunteer.constraints[i].name + ", " + $scope.timeRange(volunteer.constraints[i]) + trainingString + "%0D%0A" ;
       }
       return constraints;
     };
