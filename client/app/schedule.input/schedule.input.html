@@ -78,6 +78,29 @@
         </form>
       </div>
     </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Update Team Conflicts
+      </div>
+      <div class="panel-body">
+          <div class="form-group">
+            <button type="button" ng-click="addConstraints()" class="btn btn-primary">
+              Add Team Performances
+            </button>
+          </div>
+          <div class="alert alert-success" ng-if="count(conflicts)">
+            <strong>{{ count(conflicts) }} </strong> teams found.
+          </div>
+      </div>
+
+
+        <div class="alert alert-danger" ng-if="unresolvables">
+          <strong>Note:</strong> {{ unresolvables }} child teams couldn't be
+          found in the master schedule file.
+        </div>
+      </form>
+    </div>
   </div>
 
   <div class="col-md-4">

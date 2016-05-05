@@ -54,10 +54,18 @@ var TeamSchema = new mongoose.Schema({
   problems: [ProblemSchema]
 });
 
+var ConflictSchema = new mongoose.Schema({
+  desc: String,
+  start: Date,
+  end: Date,
+  name: String
+});
+
 var ScheduleSchema = new mongoose.Schema({
   name: String,
   date: Date,
   info: String,
+  constraintUpload: [ConflictSchema],
   emailAll: String,
   jobs: [JobSchema],
   teams: [TeamSchema],

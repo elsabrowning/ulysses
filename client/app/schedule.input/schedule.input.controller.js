@@ -7,8 +7,10 @@ angular.module('ulyssesApp')
     $scope.volunteerCSV = null;
     $scope.conflicts = {};
     $scope.unresolvables = 0;
+    $scope.unresolvablesStore = [];
     $scope.detail = null;
     $scope.allVolunteers = [];
+    $scope.saveTheRows = [];
 
     $scope.$parent.schedule.$promise.then(function(schedule) {
       $scope.schedule = schedule;
@@ -87,8 +89,6 @@ angular.module('ulyssesApp')
 
     //uploads teams
     $scope.processTeams = function(data) {
-      console.log("got to processTeams");
-
       var divisions = {
         Primary: 0, //primary listed as 1's in csv? Error?
         I: 1,
@@ -102,29 +102,107 @@ angular.module('ulyssesApp')
           header: true,
           step: function(result) {
             var row = result.data[0];
+
             $scope.conflicts['#' + row['Number'] + ' ' + row['Problem'] + '/' + divisions[row['Division']]] = {
               start: moment(row['Longt Time'], 'h:mm A').subtract(15, 'minutes'),
               end: moment(row['Longt Time'], 'h:mm A').add(45, 'minutes'),
               name: "Watching A Performance"
             };
-
+            $scope.schedule.constraintUpload.push({
+              desc: '#' + row['Number'] + ' ' + row['Problem'] + '/' + divisions[row['Division']],
+              start: moment(row['Longt Time'], 'h:mm A').subtract(15, 'minutes'),
+              end: moment(row['Longt Time'], 'h:mm A').add(45, 'minutes'),
+              name: "Watching A Performance"
+            });
           },
           complete: function() {
             //add team constraints to volunteers
-            for(var index in $scope.schedule.unassigned){
-              var volunteer = $scope.schedule.unassigned[index];
-              if (volunteer.childTeam) {
+            for(var v = 0; v < $scope.schedule.unassigned.length; v++) {
+              var alreadyIn = false;
+              var volunteer = $scope.schedule.unassigned[v];
+              if(volunteer.childTeam) {
                 var teams = volunteer.childTeam.split(", ");
+
                 teams.forEach(function(team){
-                  if(team in $scope.conflicts) {
-                    volunteer.constraints.push($scope.conflicts[team]);
-                  }
-                  else {
-                    $scope.unresolvables++;
+                  for(var c = 0; c < $scope.schedule.constraintUpload.length; c++) {
+                    var constraintUploaded = $scope.schedule.constraintUpload[c];
+                    if(team === constraintUploaded.desc) {
+                      for(var i = 0; i< volunteer.constraints.length; i++) {
+                        var volConstraint = volunteer.constraints[i];
+                        if(constraintUploaded.name === volConstraint.name && constraintUploaded.start === volConstraint.start && constraintUploaded.end === volConstraint.end) {
+                          alreadyIn = true;
+                        }
+                      }
+                      if(alreadyIn == false) {
+                        volunteer.constraints.push(constraintUploaded);
+                      }
+                    }else {
+                      var alreadyUnres = false;
+                      var teamSub = team.substring(1, team.length - 4);
+                      for(var u = 0; u < $scope.unresolvablesStore.length; u++) {
+                        var stored = $scope.unresolvablesStore[u];
+
+                        if(teamSub === stored) {
+                          alreadyUnres = true;
+                        }
+                      }
+                      if(alreadyUnres == false) {
+                        $scope.unresolvablesStore.push(teamSub);
+                        $scope.unresolvables++;
+                      }
+
+                    }
                   }
                 });
               }
             }
+
+
+            for(var j = 0; j < $scope.schedule.jobs.length; j++) {
+              var job = $scope.schedule.jobs[j];
+              for(var s = 0; s < job.slots.length; s++) {
+                var slot = job.slots[s];
+                for(var v = 0; v < slot.assigned.length; v++) {
+                  var alreadyIn = false;
+                  var volunteer = slot.assigned[v];
+                  if(volunteer.childTeam) {
+                    var teams = volunteer.childTeam.split(", ");
+                    teams.forEach(function(team){
+                      for(var c = 0; c < $scope.schedule.constraintUpload.length; c++) {
+                        var constraintUploaded = $scope.schedule.constraintUpload[c];
+                        if(team === constraintUploaded.desc) {
+                          for(var i = 0; i< volunteer.constraints.length; i++) {
+                            var volConstraint = volunteer.constraints[i];
+                            if(constraintUploaded.name === volConstraint.name && constraintUploaded.start === volConstraint.start && constraintUploaded.end === volConstraint.end) {
+                              alreadyIn = true;
+                            }
+                          }
+                          if(alreadyIn == false) {
+                            volunteer.constraints.push(constraintUploaded);
+                          }
+                        } else {
+                          var alreadyUnres = false;
+                          var teamSub = team.substring(1, team.length - 4);
+                          for(var u = 0; u < $scope.unresolvablesStore.length; u++) {
+                            var stored = $scope.unresolvablesStore[u];
+
+                            if(teamSub === stored) {
+                              alreadyUnres = true;
+                            }
+                          }
+                          if(alreadyUnres == false) {
+                            $scope.unresolvablesStore.push(teamSub);
+                            $scope.unresolvables++;
+                          }
+
+                        }
+                      }
+                    });
+                  }
+                }
+              }
+            }
+            console.log("store " + $scope.unresolvablesStore);
             $scope.$apply();
           }
         });
@@ -132,6 +210,68 @@ angular.module('ulyssesApp')
 
     };
 
+
+
+    //adds team constraints to volunteers
+    $scope.addConstraints = function() {
+      //add team constraints to volunteers
+      for(var v = 0; v < $scope.schedule.unassigned.length; v++) {
+        var alreadyIn = false;
+        var volunteer = $scope.schedule.unassigned[v];
+        if(volunteer.childTeam) {
+          var teams = volunteer.childTeam.split(", ");
+
+          teams.forEach(function(team){
+            for(var c = 0; c < $scope.schedule.constraintUpload.length; c++) {
+              var constraintUploaded = $scope.schedule.constraintUpload[c];
+              if(team === constraintUploaded.desc) {
+                for(var i = 0; i< volunteer.constraints.length; i++) {
+                  var volConstraint = volunteer.constraints[i];
+                  if(constraintUploaded.name === volConstraint.name && constraintUploaded.start === volConstraint.start && constraintUploaded.end === volConstraint.end) {
+                    alreadyIn = true;
+                  }
+                }
+                if(alreadyIn == false) {
+                  volunteer.constraints.push(constraintUploaded);
+                }
+              }
+            }
+          });
+        }
+      }
+
+
+      for(var j = 0; j < $scope.schedule.jobs.length; j++) {
+        var job = $scope.schedule.jobs[j];
+        for(var s = 0; s < job.slots.length; s++) {
+          var slot = job.slots[s];
+          for(var v = 0; v < slot.assigned.length; v++) {
+            var alreadyIn = false;
+            var volunteer = slot.assigned[v];
+            if(volunteer.childTeam) {
+              var teams = volunteer.childTeam.split(", ");
+              teams.forEach(function(team){
+                for(var c = 0; c < $scope.schedule.constraintUpload.length; c++) {
+                  var constraintUploaded = $scope.schedule.constraintUpload[c];
+                  if(team === constraintUploaded.desc) {
+                    for(var i = 0; i< volunteer.constraints.length; i++) {
+                      var volConstraint = volunteer.constraints[i];
+                      if(constraintUploaded.name === volConstraint.name && constraintUploaded.start === volConstraint.start && constraintUploaded.end === volConstraint.end) {
+                        alreadyIn = true;
+                      }
+                    }
+                    if(alreadyIn == false) {
+                      volunteer.constraints.push(constraintUploaded);
+                    }
+                  }
+                }
+              });
+            }
+          }
+        }
+      }
+
+    };
 
 
     //combines first and last name into one name
