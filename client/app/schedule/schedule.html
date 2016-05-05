@@ -3,8 +3,6 @@
 <div ng-if="nav.hasRole('organizer')">
 
   <!-- <div id = "fixedTabs">
-
-
     <div class="btn-group" >
       <a class="btn btn-default" id="buttonSize" ui-sref="schedule.build({ id: schedule._id })"     ui-sref-active="btn-primary">Manage Jobs</a>
       <br>
@@ -22,24 +20,13 @@
     <h2 >
       {{schedule.name}}
     </h2>
-
     <div class="btn-group"  >
-      <a class="btn btn-default" ui-sref="schedule.build({ id: schedule._id })"     ui-sref-active="btn-primary">Manage Jobs</a>
-
       <a class="btn btn-default" ui-sref="schedule.input({ id: schedule._id })"     ui-sref-active="btn-primary">Manage Volunteers</a>
-
+      <a class="btn btn-default" ui-sref="schedule.build({ id: schedule._id })"     ui-sref-active="btn-primary">Manage Jobs</a>
       <a class="btn btn-default" ui-sref="schedule.edit({ id: schedule._id })"      ui-sref-active="btn-primary">Assign Volunteers</a>
-
       <a class="btn btn-default" ui-sref="schedule.view({ id: schedule._id })"      ui-sref-active="btn-primary">View Schedule</a>
-
       <a class="btn btn-default" ui-sref="schedule.utilities({ id: schedule._id })" ui-sref-active="btn-primary">Utilities</a>
     </div>
-
-
-
     <div   ui-view class="schedule-sub"></div>
   </div>
-
-
-
 </div>
