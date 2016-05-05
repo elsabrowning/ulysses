@@ -4,7 +4,7 @@ class NavbarController {
   isCollapsed = true;
   scheduleDropdown = false;
 
-  constructor($scope, Auth, Schedule, $uibModal, $log) {
+  constructor($scope, Auth, Schedule, $uibModal, $log, $location) {
     this.isLoggedIn = Auth.isLoggedIn;
     this.isAdmin = Auth.isAdmin;
     this.hasRole = Auth.hasRole;
@@ -13,7 +13,11 @@ class NavbarController {
 
     $scope.addSchedule = function() {
       if($scope.scheduleName.length > 0) {
-        Schedule.save({name: $scope.scheduleName});
+        Schedule.save({name: $scope.scheduleName}).$promise.then(function(response) {
+          console.log(response);
+          $scope.schedules = Schedule.query();
+          $location.path('schedule/' + response._id + '/build');
+        });
         $scope.schedules = Schedule.query();
         $scope.scheduleName = "";
       }

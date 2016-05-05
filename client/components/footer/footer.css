@@ -13,6 +13,26 @@ footer.footer {
   padding: 1em;
 }
 
+.jump .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+}
+
+.reminder {
+  position: fixed;
+  bottom: 2em;
+  left: 6em;
+  font-size: 12px;
+  padding: 1em;
+}
+
 .glyphicon.glyphicon-circle-arrow-up {
-    font-size: 2em;
+    font-size: 1.8em;
 }

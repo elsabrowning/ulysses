@@ -1,9 +1,15 @@
 <form ng-submit="$parent.continue('schedule.view')">
   <div class="form-group">
     <button type="submit" class="btn btn-success">Save and continue</button>
-    <button type="button" class="btn btn-default" ng-click="auto()">Generate Schedule</button>
+    <button type="button" class="btn btn-warning" ng-click="auto()">Generate Schedule</button>
     <button type="button" class="btn btn-danger" ng-click="unLucky()">Unassign All</button>
   </div>
+
+  <div>
+    <label> Remember to save and continue after making changes </label>
+  </div>
+  <br>
+  
 </form>
 
 <div class="row">

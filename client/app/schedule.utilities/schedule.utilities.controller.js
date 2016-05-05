@@ -72,7 +72,7 @@ angular.module('ulyssesApp')
         subject: "Volunteer information for Odyssey of the Mind",
         message: "Dear Volunteer, %0D%0A%0D%0AThank you for your participation in this event!%0D%0A%0D%0A" +
         "You can log in to see the volunteer positions you have been scheduled for at http://localhost:9000/ using the email \"volunteer@example.com\" " +
-        "and the password \"volunteer\". Please stop by the registration desk at the event if you have any questions about where to go to report for your volunteer time.%0D%0A%0D%0ASincerely,%0D%0A%0D%0AYour Odyssey of the Mind Organizer"
+        "and the password \"volunteer\". Please stop by the registration desk at the event if you have any questions about where to go to report for your volunteer time and find out how early to report for shift training.%0D%0A%0D%0ASincerely,%0D%0A%0D%0AYour Odyssey of the Mind Organizer"
       });
       sendEmail({
         to: $scope.getUnassignedEmails(),
@@ -145,7 +145,7 @@ angular.module('ulyssesApp')
         message: "Dear " + volunteer.name +",%0D%0A%0D%0AThank you for participating in this event! " + childTeamMessage +
         ".%0D%0A%0D%0A" + constraintMessage + "%0D%0A%0D%0A" + $scope.getConstraints(volunteer) +
         "%0D%0A%0D%0AYou can log in at http://localhost:9000/ using the email \"volunteer@example.com\" " +
-        "and the password \"volunteer\" to view your schedule for the event. Please stop by the registration desk at the event if you have any questions.%0D%0A%0D%0ASincerely,%0D%0A%0D%0AYour Odyssey of the Mind Organizer"
+        "and the password \"volunteer\" to view your schedule for the event and find out how early to report for shift training. Please stop by the registration desk at the event if you have any questions.%0D%0A%0D%0ASincerely,%0D%0A%0D%0AYour Odyssey of the Mind Organizer"
       });
       volunteer.lastEmail = moment().format('MMMM Do YYYY, h:mm a');
       $scope.schedule.$save();

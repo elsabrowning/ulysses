@@ -17,6 +17,14 @@
   background-color: #D3D3D3;
 }
 
+#csvT {
+  text-wrap: normal;
+}
+
+.thing {
+  text-wrap: normal;
+}
+
 .Fixed2
 {
     position: fixed;
