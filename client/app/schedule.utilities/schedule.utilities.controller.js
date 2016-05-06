@@ -189,7 +189,7 @@ angular.module('ulyssesApp')
       Schedule.save(clone).$promise.then(function(response) {
         console.log(response);
         $scope.schedules = Schedule.query();
-        $location.path('schedule/' + response._id + '/build');
+        $location.path('schedule/' + response._id + '/input');
         window.location.reload();
       });
     };
@@ -201,7 +201,6 @@ angular.module('ulyssesApp')
         Schedule.remove({id: temp._id}).$promise.then(function() {
           //$scope.continue('main');
           $location.path('main');
-          window.location.reload();
         });
       }
 
