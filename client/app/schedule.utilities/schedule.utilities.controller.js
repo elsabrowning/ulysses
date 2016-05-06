@@ -194,20 +194,6 @@ angular.module('ulyssesApp')
       });
     };
 
-    //deletes the schedule and takes user to the main page
-    $scope.deleteSchedule = function() {
-      var temp = $scope.schedule;
-      if (confirm("Are you SURE you want to delete the schedule?")) {
-        Schedule.remove({id: temp._id}).$promise.then(function() {
-          //$scope.continue('main');
-          $location.path('main');
-        });
-      }
 
-
-
-
-
-    };
 
   });

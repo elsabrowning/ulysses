@@ -4,7 +4,7 @@ class NavbarController {
   isCollapsed = true;
   scheduleDropdown = false;
 
-  constructor($scope, Auth, Schedule, $uibModal, $log, $location) {
+  constructor($rootScope, $scope, Auth, Schedule, $uibModal, $log, $location) {
     this.isLoggedIn = Auth.isLoggedIn;
     this.isAdmin = Auth.isAdmin;
     this.hasRole = Auth.hasRole;
@@ -22,6 +22,16 @@ class NavbarController {
         $scope.scheduleName = "";
       }
     }
+
+    //deletes the schedule and takes user to the main page
+    $rootScope.deleteSchedule = function(schedule) {
+        if (confirm("Are you SURE you want to delete the schedule?")) {
+          Schedule.remove({id: schedule._id}).$promise.then(function() {
+            $scope.schedules = Schedule.query();
+            $location.path('main');
+          });
+        }
+      };
 
   }
 
