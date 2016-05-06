@@ -1,7 +1,7 @@
 .job-col {
   border: 1px solid black;
   /*display: table-cell;*/
-  height: 200px;
+  height: 230px;
   width: 1850px;
   padding: 0 5px;
 }
@@ -12,7 +12,7 @@
 }
 
 .slot {
-  top: 4px;
+  top: -25px;
   position: absolute;
   border-width: 1px;
   border-style: solid;
@@ -25,9 +25,11 @@
 }
 
 .job-header {
+  white-space: normal;
   width: 100px;
-  height: 200px;
+  height: 230px;
   border-right: 1px solid black;
+  z-index: 2000;
 }
 
 .job-table {
@@ -37,6 +39,14 @@
 
 .time-block {
   padding-right: 75px;
+}
+
+.time-row {
+  padding-left: 5px;
+  margin-left: 99px;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  z-index: 1001;
 }
 
 .crouching-tiger-hidden-label2{
@@ -62,6 +72,7 @@
 #scrollable{
   white-space: nowrap;
   overflow-x: scroll;
+  width: 1000px;
 }
 
 #fixedScroll2{
@@ -70,13 +81,18 @@
   overflow-x: scroll;
 }
 
+#fixedScroll3{
+  white-space: nowrap;
+  height: 600px;
+  width: 1000px;
+  overflow-x: scroll;
+}
+
 .fixedTimeBar {
   position: fixed;
-  top: 5;
-  left: 0;
-  height: 40px;
   z-index: 1000;
   background-color: white;
   border: 1px solid black;
+  white-space:normal;
 
 }

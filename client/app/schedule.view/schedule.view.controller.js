@@ -2,7 +2,7 @@
 
 angular.module('ulyssesApp')
   .controller('ScheduleViewCtrl', function ($scope) {
-    $scope.hour = 134;
+    $scope.hour = 135;
     $scope.schedule = null;
     $scope.timeArray = [];
     $scope.earlyTime = new Date('April 13, 2016, 07:00:00');
@@ -51,8 +51,8 @@ angular.module('ulyssesApp')
       var offset = $scope.duration($scope.earlyTime, start);
       var shiftLength = $scope.duration(start, end);
       return {
-        left: $scope.hour * offset + 100,
-        width: $scope.hour * shiftLength - 6,
+        left: $scope.hour * offset + 105,
+        width: $scope.hour * shiftLength - 5,
         backgroundColor: $scope.colorCode(slot),
         borderColor: $scope.borderColorCode(slot)
       };

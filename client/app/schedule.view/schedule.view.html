@@ -1,22 +1,24 @@
-<div class="job-table ">
-  <div class="time-col" id="scrollable">
-    <span class="crouching-tiger-hidden-label2">Time</span>
-    <span ng-repeat="time in timeArray" class="time-block ">
-      {{time}}
-    </span>
-  </div>
-  <div ng-repeat="job in schedule.jobs" class="job-col">
-    <div class="job-header">
-      <label>{{job.name}}  <span ng-if="job.isJudging" class="judgeJ">J</span></label>
-      <br>
-      <i>Arrive {{job.training}} minutes before shift for training</i>
-    </div>
-    <div class="slot-container">
-      <a  id="fixedScroll2" ng-repeat="slot in job.slots" class="slot" ng-style="calculateSlotPosition(slot)" ui-sref="schedule.edit.assign({ job: job._id, slot: slot._id })">
-        <div  ng-repeat="volunteer in slot.assigned">
-          {{volunteer.name}}  <span ng-if="volunteer.isJudge" class="judgeJ">J</span>
-        </div>
-      </a>
+<div class="job-table">
+  <div id="fixedScroll3">
+    <div ng-repeat="job in schedule.jobs" class="job-col">
+      <div class="time-row">
+        <!-- <span class="crouching-tiger-hidden-label2">Time</span> -->
+        <span ng-repeat="time in timeArray" class="time-block ">
+          <span ng-if="true">{{time}}</span>
+        </span>
+      </div>
+      <div class="job-header">
+        <label>{{job.name}}  <span ng-if="job.isJudging" class="judgeJ">J</span></label>
+        <br>
+        <i>Arrive {{job.training}} minutes before shift for training</i>
+      </div>
+      <div class="slot-container">
+        <a  id="fixedScroll2" ng-repeat="slot in job.slots" class="slot" ng-style="calculateSlotPosition(slot)" ui-sref="schedule.edit.assign({ job: job._id, slot: slot._id })">
+          <div  ng-repeat="volunteer in slot.assigned">
+            {{volunteer.name}}  <span ng-if="volunteer.isJudge" class="judgeJ">J</span>
+          </div>
+        </a>
+      </div>
     </div>
   </div>
 </div>
