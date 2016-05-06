@@ -16,7 +16,7 @@ class NavbarController {
         Schedule.save({name: $scope.scheduleName}).$promise.then(function(response) {
           console.log(response);
           $scope.schedules = Schedule.query();
-          $location.path('schedule/' + response._id + '/build');
+          $location.path('schedule/' + response._id + '/input');
         });
         $scope.schedules = Schedule.query();
         $scope.scheduleName = "";
